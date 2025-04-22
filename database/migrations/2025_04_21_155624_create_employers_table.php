@@ -17,18 +17,15 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('set null');
-            $table->string('employer_name');
-            $table->string('username')->unique();
-            $table->string('password');
+            $table->foreignId('industry_id')->nullable()->constrained('industries')->onDelete('set null');
+//            $table->string('employer_name'); => link bảng company qua
+//            $table->string('username')->unique();
+//            $table->string('password'); => link bảng user qua
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('logo')->nullable();
-            $table->string('website')->nullable();
-            $table->string('token')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->integer('industry')->nullable();
-            $table->string('founded')->nullable();
+//            $table->integer('industry')->nullable(); => link bảng industries qua
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('date_of_birth')->nullable();
             $table->text('about')->nullable();
@@ -42,9 +39,10 @@ return new class extends Migration
             $table->text('facebook')->nullable();
             $table->text('instagram')->nullable();
             $table->text('github')->nullable();
-            $table->timestamps();
+            $table->string('token')->nullable();
             $table->boolean('isverified')->default(false);
             $table->string('isSuspended', 100)->default('no');
+            $table->timestamps();
         });
     }
 
