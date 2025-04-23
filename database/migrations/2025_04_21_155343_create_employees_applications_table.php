@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->foreignId('hiring_id')->constrained('hirings')->onDelete('cascade'); // Thay job_id bằng hiring_id và tham chiếu đến bảng hirings
+            $table->foreignId('resume_id')->nullable()->constrained('resumes')->onDelete('set null');
             $table->text('cover_letter');
             $table->string('status');
             $table->timestamps();

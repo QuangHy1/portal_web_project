@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('editor_id')->constrained('editors')->onDelete('cascade'); // Người chỉnh sửa bài viết (đã đổi bảng)
             $table->text('title');
             $table->text('slug');
             $table->text('content');
@@ -21,7 +22,6 @@ return new class extends Migration
             $table->text('view_count');
             $table->text('category')->nullable();
             $table->text('tags')->nullable();
-            $table->foreignId('editor_id')->constrained('editors')->onDelete('cascade'); // Người chỉnh sửa bài viết (đã đổi bảng)
             $table->timestamps();
         });
     }

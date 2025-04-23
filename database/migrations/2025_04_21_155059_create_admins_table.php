@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('token');
             $table->text('otp')->nullable();
             $table->timestamps();
-
         });
     }
 

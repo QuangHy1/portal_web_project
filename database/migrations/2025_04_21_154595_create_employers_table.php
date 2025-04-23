@@ -18,14 +18,10 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('set null');
             $table->foreignId('industry_id')->nullable()->constrained('industries')->onDelete('set null');
-//            $table->string('employer_name'); => link bảng company qua
-//            $table->string('username')->unique();
-//            $table->string('password'); => link bảng user qua
             $table->string('firstname');
             $table->string('lastname');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-//            $table->integer('industry')->nullable(); => link bảng industries qua
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('date_of_birth')->nullable();
             $table->text('about')->nullable();
@@ -54,3 +50,7 @@ return new class extends Migration
         Schema::dropIfExists('employers');
     }
 };
+//            $table->string('employer_name'); => link bảng company qua
+//            $table->string('username')->unique();
+//            $table->string('password'); => link bảng user qua
+//            $table->integer('industry')->nullable(); => link bảng industries qua

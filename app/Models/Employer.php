@@ -9,6 +9,10 @@ class Employer extends Model
 {
     //
     use HasFactory;
+    public function hirings()
+    {
+        return $this->hasMany(Hiring::class);
+    }
     public function location()
     {
         return $this->belongsTo(Location::class);

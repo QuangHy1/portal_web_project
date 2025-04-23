@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade'); // Thêm khóa ngoại
             $table->string('designation');
             $table->string('company');
             $table->string('image')->nullable();

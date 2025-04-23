@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             AdminsSeeder::class,
             EditorsSeeder::class,
             EmployeesSeeder::class,
+            ResumesSeeder::class,
             EmployersSeeder::class,
             UserRolesSeeder::class,
             HiringsSeeder::class,

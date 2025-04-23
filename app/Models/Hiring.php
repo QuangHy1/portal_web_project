@@ -9,6 +9,10 @@ class Hiring extends Model
 {
     //
     use HasFactory;
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class);
+    }
     public function bookmarks()
     {
         return $this->hasMany(EmployeeBookmark::class, 'hiring_id');

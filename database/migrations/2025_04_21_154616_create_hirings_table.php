@@ -16,6 +16,8 @@ return new class extends Migration
             $table->text('title');
             $table->text('description');
             $table->foreignId('location_id')->constrained('locations')->onDelete('cascade');
+            $table->unsignedBigInteger('employer_id')->nullable();
+            $table->foreign('employer_id')->references('id')->on('employers')->onDelete('SET NULL');
             $table->foreignId('salary_range_id')->nullable()->constrained('salary_ranges')->onDelete('set null');
             $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
             $table->foreignId('vacancy_id')->nullable()->constrained('vacancies')->onDelete('set null');
