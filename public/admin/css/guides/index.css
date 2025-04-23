@@ -1,0 +1,68 @@
+/* index.css - dành cho trang danh sách người dùng */
+
+h2 {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#searchUser {
+    border: 2px solid #006048d6;
+    border-radius: 15px 0 0 15px !important; /* Bo tròn chỉ góc trái */
+    padding-left: 15px;
+    width: 65%;
+}
+.input-group-navbar .btn-search {
+    background-color: #dc3545;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    z-index: 10000;
+    border-radius: 0 7px 7px 0; /* Bo tròn góc phải */
+    width: 70px;
+}
+
+.btn-search:hover {
+    background-color: #b90013!important;
+    color: #ffffff!important;
+}
+.btn-success {
+    font-weight: bold;
+    padding: 8px 18px;
+    border-radius: 6px;
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #f4f6f9;
+    color: #34495e;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+.input-group.input-group-navbar.input-search-acc {
+    width: 65%;
+}
+
+input.form-control.form-control-search{
+    border: 2px solid #a7b1c2;
+}
+
+input.form-control.form-control-search:focus{
+    border: 3px solid #b90013;
+}

@@ -1,0 +1,8 @@
+.logo-img{
+    width: 180px;
+    height: 180px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 4px;
+}
