@@ -25,7 +25,7 @@
             </a>
                 <ul id="users" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link nav-link"> {{--  {{ route('admin.users.index') }} --}}
+                        <a href="{{ route('admin.users.index') }}" class="sidebar-link nav-link"> {{--  {{ route('admin.users.index') }} --}}
                             Tài khoản
                         </a>
                     </li>
@@ -194,9 +194,12 @@
     </ul>
     <!-- Footer của sidebar sẽ chứa logout -->
     <div class="sidebar-footer">
-            <a href="#" class="sidebar-link">
+        <form action="{{ route('admin.logout') }}" method="POST" id="logout-form-sidebar">
+            @csrf
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); document.getElementById('logout-form-sidebar').submit();">
                 <span>Đăng xuất</span>
                 <i class='bx bx-log-in'></i>
             </a>
+        </form>
     </div>
 </aside>

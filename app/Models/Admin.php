@@ -3,17 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class Admin extends Authenticatable
+class Admin extends Model
 {
     use HasFactory;
-    public function user()
+
+    protected $fillable = [
+        'user_id',
+        'location_id',
+        'firstname',
+        'lastname',
+        'date_of_birth',
+        'gender',
+        'avatar',
+        'phone',
+        'personal_email',
+        'address',
+    ];
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function location()
+
+    public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);
     }
