@@ -28,7 +28,7 @@
             </a>
 
             <!-- Nút duyệt tài khoản -->
-            <a href="#" class="btn btn-success btn-duyet">{{--Có thể là {{ route('admin.users.approve') }}--}}
+            <a href="{{ route('admin.users.approve.list') }}" class="btn btn-success btn-duyet">{{--Có thể là {{ route('admin.users.approve') }}--}}
                 + DUYỆT
             </a>
         </div>
