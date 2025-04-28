@@ -2,19 +2,55 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Employer extends Model
 {
-    //
-    use HasFactory;
-    public function hirings()
+    protected $table = 'employers';
+    protected $fillable = [
+        'user_id',
+        'company_id',
+        'location_id',
+        'industry_id',
+        'firstname',
+        'lastname',
+        'phone',
+        'address',
+        'gender',
+        'date_of_birth',
+        'about',
+        'hours_monday',
+        'hours_tuesday',
+        'hours_wednesday',
+        'hours_thursday',
+        'hours_friday',
+        'hours_saturday',
+        'hours_sunday',
+        'facebook',
+        'instagram',
+        'github',
+        'token',
+        'isverified',
+        'isSuspended'
+    ];
+
+    public function user()
     {
-        return $this->hasMany(Hiring::class);
+        return $this->belongsTo(User::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class);
     }
 }

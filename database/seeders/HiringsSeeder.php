@@ -158,7 +158,7 @@ class HiringsSeeder extends Seeder
             ],
             [
                 'title' => 'Tuyển dụng Trợ lý cho bác sĩ (Physician assistant)',
-                'description' => 'Manage office operations and provide administrative support.',
+                'description' => 'Quản lý hoạt động phòng khám và hỗ trợ hành chính cho bác sĩ chính.',
                 'location_id' => 57,
                 'employer_id' => 4,
                 'salary_range_id' => 5,
@@ -235,25 +235,7 @@ class HiringsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'title' => 'Tuyển dụng Trợ lý cho bác sĩ (Physician assistant)',
-                'description' => 'Manage office operations and provide administrative support.',
-                'location_id' => 57,
-                'employer_id' => 4,
-                'salary_range_id' => 5,
-                'company_id' => 7,
-                'vacancy_id' => 1,
-                'job_category_id' => 6,
-                'job_type_id' => 5,
-                'experience_id' => 4,
-                'tags' => 'Physician assistant, Doctor, Contract',
-                'deadline' => Carbon::now()->addMonths(1)->format('Y-m-d'),
-                'education' => 'Đại học',
-                'gender' => 'Không yêu cầu (All gender)',
-                'token' => Str::random(32),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+
         ];
 
         DB::table('hirings')->insert($hiringsData);

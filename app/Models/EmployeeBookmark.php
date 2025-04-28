@@ -9,6 +9,7 @@ class EmployeeBookmark extends Model
 {
     //
     use HasFactory;
+    protected $fillable = ['employee_id', 'hiring_id'];
     public function employee()
     {
         return $this->belongsTo(Employee::class);

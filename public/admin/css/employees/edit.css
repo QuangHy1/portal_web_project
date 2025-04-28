@@ -1,0 +1,29 @@
+input[disabled][readonly].form-control,
+select[disabled][readonly].form-select {
+    background-color: #e9ecef; /* Màu mặc định của Bootstrap, bạn có thể đổi */
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+form .row:last-of-type {
+    margin-top: 2rem; /* Tăng khoảng cách lên một chút */
+}
+
+h2.my-4.username {
+    color: #ffffff;
+    display: inline-block;
+    text-align: center;
+    border: 3px solid red;
+    border-radius: 25px;
+    background: salmon;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.avatar-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}

@@ -2,6 +2,10 @@
 
 @section('title', 'Dashboard - Trang chủ')
 
+@section('custom_css')
+    <link rel="stylesheet" href="{{ asset('admin/css/dashboard/index.css') }}">
+@endsection
+
 @section('content')
     <h3 class="fw-bold fs-4 mb-3">Thống kê</h3>
 

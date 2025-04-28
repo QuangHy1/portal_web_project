@@ -1,8 +1,8 @@
 /* index.css - dành cho trang danh sách người dùng */
 
 h2 {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: bold !important;
+    color: #2c3e50 !important;
 }
 
 #searchUser {
@@ -69,4 +69,56 @@ input.form-control.form-control-search:focus{
 .table-responsive {
     overflow-x: auto;
     width: 100%;
+}
+.card {
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    font-weight: bold;
+    color: #34495e;
+}
+
+.btn-sm {
+    margin: 2px;
+}
+
+.badge {
+    font-size: 0.8rem;
+}
+
+input.form-control-search {
+    border: 2px solid #a7b1c2;
+}
+
+input.form-control-search:focus {
+    border: 2px solid #b90013;
+    box-shadow: none;
+}
+
+.btn-search {
+    background-color: #dc3545;
+    color: #ffffff;
+    border-radius: 0 7px 7px 0;
+}
+
+.btn-search:hover {
+    background-color: #b90013;
+}
+
+@media (max-width: 768px) {
+    .card-title {
+        font-size: 1.1rem;
+    }
+    .card-body {
+        padding: 1rem;
+    }
 }

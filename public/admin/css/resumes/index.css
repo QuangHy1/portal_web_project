@@ -1,4 +1,3 @@
-/* index.css - dành cho trang danh sách người dùng */
 
 h2 {
     font-weight: bold;
@@ -71,12 +70,9 @@ input.form-control.form-control-search:focus{
     width: 100%;
 }
 
-.avatar-img{
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    padding: 3px;
-    border-radius: 4px;
+.btn-sm {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
 }
+

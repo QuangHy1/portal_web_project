@@ -30,13 +30,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.roles.index') }} --}}
+                        <a href="{{ route('admin.roles.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.roles.index') }} --}}
                             Vai trò
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.admins.index') }} --}}
-                          Quản trị viên
                         </a>
                     </li>
             </ul>
@@ -49,22 +44,22 @@
             </a>
             <ul id="employees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.employees.index') }} --}}
+                    <a href="{{ route('admin.employees.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.employees.index') }} --}}
                         Ứng viên
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.resumes.index') }} --}}
+                    <a href="{{ route('admin.resumes.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.resumes.index') }} --}}
                         Hồ sơ ứng viên (CVs)
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.employee_applications.index') }} --}}
+                    <a href="{{ route('admin.employee_applications.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.employee_applications.index') }} --}}
                         Đơn ứng tuyển
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.employee_bookmarks.index') }} --}}
+                    <a href="{{ route('admin.employee_bookmarks.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.employee_bookmarks.index') }} --}}
                         Tin đã lưu
                     </a>
                 </li>
@@ -78,17 +73,17 @@
             </a>
             <ul id="employers" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.employers.index') }} --}}
+                    <a href="{{ route('admin.employers.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.employers.index') }} --}}
                         Nhà tuyển dụng
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link">{{-- {{ route('admin.companies.index') }} --}}
+                    <a href="{{ route('admin.companies.index') }}" class="sidebar-link nav-link">{{-- {{ route('admin.companies.index') }} --}}
                         Công ty
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.industries.index') }} --}}
+                    <a href="{{ route('admin.industries.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.industries.index') }} --}}
                         Lĩnh vực nghề nghiệp
                     </a>
                 </li>
@@ -102,37 +97,37 @@
             </a>
             <ul id="hirings" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.hirings.index') }} --}}
+                    <a href="{{ route('admin.hirings.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.hirings.index') }} --}}
                         Tin tuyển dụng
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.job_categories.index') }} --}}
+                    <a href="{{ route('admin.job_categories.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.job_categories.index') }} --}}
                         Các ngành nghề
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.job_types.index') }} --}}
+                    <a href="{{ route('admin.job_types.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.job_types.index') }} --}}
                         Hình thức làm việc
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.experiences.index') }} --}}
+                    <a href="{{ route('admin.experiences.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.experiences.index') }} --}}
                         Kinh nghiệm
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.salary_ranges.index') }} --}}
+                    <a href="{{ route('admin.salary_ranges.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.salary_ranges.index') }} --}}
                         Mức lương
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.vacancies.index') }} --}}
+                    <a href="{{ route('admin.vacancies.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.vacancies.index') }} --}}
                         Vị trí trống
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.locations.index') }} --}}
+                    <a href="{{ route('admin.locations.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.locations.index') }} --}}
                         Địa điểm
                     </a>
                 </li>
@@ -146,27 +141,27 @@
             </a>
             <ul id="contents" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link"> {{-- {{ route('admin.editors.index') }} --}}
+                    <a href="{{ route('admin.editors.index') }}" class="sidebar-link"> {{-- {{ route('admin.editors.index') }} --}}
                         Người chỉnh sửa
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link"> {{-- {{ route('admin.posts.index') }} --}}
+                    <a href="{{ route('admin.posts.index') }}" class="sidebar-link"> {{-- {{ route('admin.posts.index') }} --}}
                         Bài viết
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link"> {{-- {{ route('admin.topbars.index') }} --}}
+                    <a href="{{ route('admin.top_bars.index') }}" class="sidebar-link"> {{-- {{ route('admin.top_bars.index') }} --}}
                         Top bar
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link"> {{-- {{ route('admin.page_home_items.index') }} --}}
+                    <a href="{{ route('admin.page_home_items.index') }}" class="sidebar-link"> {{-- {{ route('admin.page_home_items.index') }} --}}
                         Page Home Item
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link"> {{-- {{ route('admin.footers.index') }} --}}
+                    <a href="{{ route('admin.footer_contents.index') }}" class="sidebar-link"> {{-- {{ route('admin.footer_contents.index') }} --}}
                         Footer
                     </a>
                 </li>
@@ -180,7 +175,7 @@
             </a>
             <ul id="Others" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link nav-link"> {{-- {{ route('admin.user_testimonials.index') }} --}}
+                    <a href="{{ route('admin.user_testimonials.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.user_testimonials.index') }} --}}
                         Đánh giá người dùng
                     </a>
                 </li>
