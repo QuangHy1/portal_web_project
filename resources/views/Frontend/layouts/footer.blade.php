@@ -33,9 +33,11 @@
                         <ul class="footer-menu">
                             {{-- <li><a href="#">Explore Candidates</a></li> --}}
                             {{-- <li><a href="#">Job Pricing</a></li> --}}
-                            <li><a href="{{ route('employer.hiring.view') }}">Submit Job</a></li>
+{{--                            <li><a href="{{ route('employer.hiring.view') }}">Submit Job</a></li>--}}
+                            <li><a href="#">Submit Job</a></li>{{-- EmployerHiringController.php(trong Employer), resources/views/employer/addHiring.blade.php--}}
                             {{-- <li><a href="#">Shortlisted</a></li> --}}
-                            <li><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>
+{{--                            <li><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>--}}
+                            <li><a href="#">Dashboard</a></li> {{-- EmployerController.php(trong Employer), resources/views/employer/dashboard.blade.php --}}
                         </ul>
                     </div>
                 </div>
@@ -44,10 +46,14 @@
                     <div class="footer_widget">
                         <h4 class="widget_title">For Candidates</h4>
                         <ul class="footer-menu">
-                            <li><a href="{{ route('job.search') }}">Explore All Jobs</a></li>
-                            <li><a href="{{ route('category') }}">Browse Categories</a></li>
-                            <li><a href="{{ route('employer.browse') }}">Browse Companies</a></li>
-                            <li><a href="{{ route('employee.dashboard') }}">Dashboard</a></li>
+                            <li><a href="#">Explore All Jobs</a></li>{{-- JobSearchController(trong Frontend), resources/views/Frontend/jobSearch.blade.php --}}
+                            <li><a href="#">Browse Categories</a></li>{{-- JobCategoryController(trong Frontend), resources/views/Frontend/jobCategories.blade.php --}}
+                            <li><a href="#">Browse Companies</a></li>{{-- EmployerDetailsController.php(trong Frontend), resources/views/Frontend/employerlist.blade.php --}}
+                            <li><a href="#">Dashboard</a></li> {{-- EmployeeController(trong Employee), resources/views/employee/dashboard.blade.php --}}
+{{--                            <li><a href="{{ route('job.search') }}">Explore All Jobs</a></li>--}}
+{{--                            <li><a href="{{ route('category') }}">Browse Categories</a></li>--}}
+{{--                            <li><a href="{{ route('employer.browse') }}">Browse Companies</a></li>--}}
+{{--                            <li><a href="{{ route('employee.dashboard') }}">Dashboard</a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12 col-md-12 text-center">
-                    <p class="mb-0">{{ $footerDetails['copyright_text'] }} Developed By <a href="https://nujan.com.np">Nujan Sitaula</a>.</p>
+                    <p class="mb-0">{{ $footerDetails['copyright_text'] }} Developed By <a href="#">Le Quang Huy</a>.</p>
                 </div>
             </div>
         </div>
@@ -94,58 +100,58 @@
 </footer>
 <!-- ============================ Footer End ================================== -->
 
-<!-- Log In Modal -->
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
-    <div class="modal-dialog modal-xl login-pop-form" role="document">
-        <div class="modal-content" id="loginmodal">
-            <div class="modal-headers">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span class="ti-close"></span>
-                </button>
-            </div>
+{{--<!-- Log In Modal -->--}}
+{{--<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">--}}
+{{--    <div class="modal-dialog modal-xl login-pop-form" role="document">--}}
+{{--        <div class="modal-content" id="loginmodal">--}}
+{{--            <div class="modal-headers">--}}
+{{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                    <span class="ti-close"></span>--}}
+{{--                </button>--}}
+{{--            </div>--}}
 
-            <div class="modal-body p-5">
-                <div class="text-center mb-4">
-                    <h2 class="m-0 ft-regular">Employee Login</h2>
-                </div>
+{{--            <div class="modal-body p-5">--}}
+{{--                <div class="text-center mb-4">--}}
+{{--                    <h2 class="m-0 ft-regular">Employee Login</h2>--}}
+{{--                </div>--}}
 
-                <form method="POST" action="{{ route('employee.signin.submit') }}">
-                    @csrf
-                    <div class="form-group">
-                        <label>Username*</label>
-                        <input type="text" name="username" class="form-control" placeholder="Username*">
-                    </div>
+{{--                <form method="POST" action="{{ route('employee.signin.submit') }}">--}}
+{{--                    @csrf--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label>Username*</label>--}}
+{{--                        <input type="text" name="username" class="form-control" placeholder="Username*">--}}
+{{--                    </div>--}}
 
-                    <div class="form-group">
-                        <label>Password*</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password*">
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label>Password*</label>--}}
+{{--                        <input type="password" name="password" class="form-control" placeholder="Password*">--}}
+{{--                    </div>--}}
 
-                    <div class="form-group">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="flex-1">
-                                <input id="dd" class="checkbox-custom" name="dd" type="checkbox">
-                                <label for="dd" class="checkbox-custom-label">Remember Me</label>
-                            </div>
-                            <div class="eltio_k2">
-                                <a href="{{ route('employee.recover') }}" class="theme-cl">Lost Your Password?</a>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <div class="d-flex align-items-center justify-content-between">--}}
+{{--                            <div class="flex-1">--}}
+{{--                                <input id="dd" class="checkbox-custom" name="dd" type="checkbox">--}}
+{{--                                <label for="dd" class="checkbox-custom-label">Remember Me</label>--}}
+{{--                            </div>--}}
+{{--                            <div class="eltio_k2">--}}
+{{--                                <a href="{{ route('employee.recover') }}" class="theme-cl">Lost Your Password?</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Login</button>
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <button type="submit" class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Login</button>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group text-center mb-0">
-                        <p class="extra">Not a member?<a href="{{ route('employee.signup') }}" class="text-dark"> Register</a></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
+{{--                    <div class="form-group text-center mb-0">--}}
+{{--                        <p class="extra">Not a member?<a href="{{ route('employee.signup') }}" class="text-dark"> Register</a></p>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+{{--<!-- End Modal -->--}}
 
 <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
@@ -154,7 +160,6 @@
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->
-
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->

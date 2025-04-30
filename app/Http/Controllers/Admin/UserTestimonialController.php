@@ -26,7 +26,7 @@ class UserTestimonialController extends Controller
                     });
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('admin.user_testimonials.index', compact('userTestimonials', 'keyword'));
     }
@@ -45,7 +45,7 @@ class UserTestimonialController extends Controller
             'company' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'testimonial' => 'required|string',
-            'isFeatured' => 'required|in:0,1',
+            'isFeatured' => 'required|in:no,yes',
         ]);
 
         if ($validatedData->fails()) {
@@ -83,7 +83,7 @@ class UserTestimonialController extends Controller
             'company' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'testimonial' => 'required|string',
-            'isFeatured' => 'required|in:0,1',
+            'isFeatured' => 'required|in:no,yes',
         ]);
 
         if ($validatedData->fails()) {

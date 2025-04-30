@@ -53,4 +53,15 @@ class Employer extends Model
     {
         return $this->belongsTo(Industry::class);
     }
+    public function countEmployer()
+    {
+        return $this->hasMany(Hiring::class, 'employer_id', 'id');
+    }
+    public function getEmployerNameAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+    // get + TênThuộcTính + Attribute
+    // cơ chế "magic method" (phương thức kỳ diệu) của Laravel
+    // ko cân $employer_name vẫn tự động nhận biết đc nên có thể dùng "$employer->employer_name" bất đâu.
 }

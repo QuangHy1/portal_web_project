@@ -21,7 +21,7 @@ class PostsSeeder extends Seeder
                 'slug' => 'tuong-lai-cua-tri-tue-nhan-tao-trong-phat-trien-phan-mem',
                 'content' => 'Trí tuệ nhân tạo đang nhanh chóng thay đổi diện mạo của phát triển phần mềm. Bài viết này khám phá các xu hướng mới nhất và dự đoán tương lai...',
                 'status' => 'published',
-                'image' => 'path/to/ai_development.jpg',  // Thay thế bằng đường dẫn thực tế
+                'image' => 'X2B4oAgM5PfixWNCiB92WIGaV0nF8VxO8qd2lTVG.jpg',  // Thay thế bằng đường dẫn thực tế
                 'view_count' => '1250',
                 'category' => 'Công Nghệ Thông Tin',
                 'tags' => 'AI, Phát triển Phần mềm, Công nghệ, IT',
@@ -34,7 +34,7 @@ class PostsSeeder extends Seeder
                 'slug' => 'lam-chu-cac-phuong-phap-agile',
                 'content' => 'Các phương pháp Agile đã trở thành thiết yếu để quản lý các dự án phần mềm một cách hiệu quả. Hướng dẫn này cung cấp các mẹo và thực tiễn tốt nhất...',
                 'status' => 'published',
-                'image' => 'path/to/agile_project.jpg',  // Thay thế bằng đường dẫn thực tế
+                'image' => 'OPtPJcQmBjKW9rHrkkJvdY4EUsmJAIEpqxCG9JG8.jpg',  // Thay thế bằng đường dẫn thực tế
                 'view_count' => '890',
                 'category' => 'Công Nghệ Thông Tin',
                 'tags' => 'Agile, Quản lý Dự án, Phát triển Phần mềm',
@@ -47,7 +47,7 @@ class PostsSeeder extends Seeder
                 'slug' => 'xu-huong-thuong-mai-dien-tu-ban-le',
                 'content' => 'Ngành thương mại điện tử liên tục phát triển. Bài viết này xem xét các xu hướng chính đang thay đổi cách chúng ta mua sắm và kinh doanh...',
                 'status' => 'published',
-                'image' => 'path/to/e_commerce.jpg',  // Thay thế bằng đường dẫn thực tế
+                'image' => 'wJf6YtWsG96vJ3fKk2XG4cWiVgyLnv7ojjdk1pww.jpg',  // Thay thế bằng đường dẫn thực tế
                 'view_count' => '1500',
                 'category' => 'Kinh Doanh Thương Mại',
                 'tags' => 'Thương mại điện tử, Bán lẻ, Kinh doanh',
@@ -60,7 +60,7 @@ class PostsSeeder extends Seeder
                 'slug' => 'cong-nghe-y-te-nghe-nghiep-cham-soc-suc-khoe',
                 'content' => 'Công nghệ đang cách mạng hóa ngành chăm sóc sức khỏe. Bài đăng này khám phá những tiến bộ mới nhất và các cơ hội nghề nghiệp mới nổi cho các chuyên gia y tế...',
                 'status' => 'published',
-                'image' => 'path/to/medical_technology.jpg',  // Thay thế bằng đường dẫn thực tế
+                'image' => 'v1FrMSrDLCIAhsFRecDu3a5axyGauHH1E2i4enmQ.jpg',  // Thay thế bằng đường dẫn thực tế
                 'view_count' => '620',
                 'category' => 'Y Học',
                 'tags' => 'Chăm sóc Sức khỏe, Công nghệ Y tế, Nghề nghiệp',
@@ -73,7 +73,7 @@ class PostsSeeder extends Seeder
                 'slug' => 'dieu-huong-boi-canh-tai-chinh-ngan-hang',
                 'content' => 'Lĩnh vực tài chính và ngân hàng đang đối mặt với những thách thức và cơ hội chưa từng có. Bài viết này cung cấp thông tin chi tiết về các xu hướng hiện tại và con đường sự nghiệp...',
                 'status' => 'published',
-                'image' => 'path/to/finance_banking.jpg',  // Thay thế bằng đường dẫn thực tế
+                'image' => '69yerDACkc89LXZZQwjgtVYgH29qKi1wMd1qDanM.jpg',  // Thay thế bằng đường dẫn thực tế
                 'view_count' => '980',
                 'category' => 'Tài Chính/Ngân Hàng',
                 'tags' => 'Tài chính, Ngân hàng, Đầu tư',

@@ -14,8 +14,8 @@
         <h2 class="logo"><i class='bx bxl-xing'></i>PORTAL JOB</h2>
         <div class="text-item">
             <h2>Cổng thông tin tuyển dụng !<br><span>
-                ---
-                </span></h2>
+                 ---
+                 </span></h2>
             <p>Luôn mang đến việc làm cho bạn.</p>
             <div class="social-icon">
                 <a href="#"><i class='bx bxl-facebook'></i></a>
@@ -28,29 +28,28 @@
     </div>
     <div class="login-section">
         <div class="form-box login">
-            <form action="" class="login-form">
+            <form action="{{ route('employee.login.submit') }}" method="POST" class="login-form">
+                @csrf
                 <h2 class="login-label">Đăng nhập</h2>
                 <div class="input-box input-box-login">
                     <span class="icon"><i class='bx bxs-envelope'></i></span>
-                    <input type="text" required>
-                    <label >Tên đăng nhập/email</label>
+                    <input type="email" name="email" required>
+                    <label>Tên đăng nhập/email</label>
                 </div>
                 <div class="input-box input-box-login">
                     <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                    <input type="password" required>
+                    <input type="password" name="password" required>
                     <label>Mật khẩu</label>
                 </div>
                 <div class="remember-password">
-                    <label for=""><input type="checkbox">Ghi nhớ tài khoản</label>
+                    <label for="remember"><input type="checkbox" name="remember" id="remember">Ghi nhớ tài khoản</label>
                     <a href="#">Quên mật khẩu</a>
                 </div>
 
-                <!-- ✅ reCAPTCHA -->
                 <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
 
-                <button class="btn">Đăng nhập</button>
+                <button type="submit" class="btn">Đăng nhập</button>
 
-                <!-- Hoặc đăng nhập bằng -->
                 <div class="social-login">
                     <p>-- Hoặc đăng nhập bằng --</p>
                     <div class="social-buttons">
@@ -101,8 +100,6 @@
         </div>
     </div>
 </div>
-<!-- SIGN UP FORM CREATION -->
 <script src="{{ asset('login/js/login_user.js') }}"></script>
 </body>
-
 </html>

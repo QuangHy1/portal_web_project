@@ -61,11 +61,12 @@
                         </div>
 
                         <div class="mt-3">
+                            <a>Nổi bật: </a>
                             <span class="badge
                                 @if($testimonial->isFeatured) bg-success
                                 @else bg-secondary
                                 @endif">
-                                {{ $testimonial->isFeatured ? 'Nổi bật' : 'Bình thường' }}
+                                {{ $testimonial->isFeatured ? 'Có' : 'Không' }}
                             </span>
                             <small class="text-muted d-block mt-1">Ngày gửi: {{ $testimonial->created_at->format('d/m/Y') }}</small>
                         </div>

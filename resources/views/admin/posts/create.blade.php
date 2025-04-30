@@ -54,7 +54,11 @@
 
             <div class="mb-3">
                 <label for="status" class="form-label">Trạng thái</label>
-                <input type="text" class="form-control" id="status" name="status" value="{{ old('status') }}">
+                <select class="form-select" id="status" name="status">
+                    <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Đã xuất bản</option>
+                    <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Bản nháp</option>
+                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Chờ duyệt</option>
+                </select>
                 @error('status')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror

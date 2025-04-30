@@ -215,26 +215,7 @@ class HiringsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Các bài đăng công việc của Employer id 4 đã đăng
-            [
-                'title' => 'Tuyển dụng Điều dưỡng (Nursing)',
-                'description' => 'Cùng với chúng tôi chăm sóc bệnh nhân với tấm lòng nhiệt huyết với nghề',
-                'location_id' => 57,
-                'employer_id' => 4,
-                'salary_range_id' => 3,
-                'company_id' => 7,
-                'vacancy_id' => 4,
-                'job_category_id' => 6,
-                'job_type_id' => 5,
-                'experience_id' => 6,
-                'tags' => 'Nursing, Hospital, Contract',
-                'deadline' => Carbon::now()->addWeeks(7)->format('Y-m-d'),
-                'education' => 'Đại học',
-                'gender' => 'Không yêu cầu (All gender)',
-                'token' => Str::random(32),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+
 
         ];
 

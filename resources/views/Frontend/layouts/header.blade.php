@@ -13,13 +13,13 @@
     <meta name="revisit-after" content="2 days">
     <meta name="author" content="JobScout">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>@yield('page_title') - JobScout</title>
-
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Custom CSS -->
     <link href="{{ asset('frontEndAssets/css/styles.css') }}" rel="stylesheet">
-    @livewireScripts
-    @livewireStyles
+{{--    @livewireScripts @livewireStyles--}}
 </head>
 
 <body>
@@ -57,36 +57,60 @@
                     </div>
 
                     <!-- Right Menu -->
+{{--                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">--}}
+{{--                        <div class="currency-selector dropdown js-dropdown float-right mr-3">--}}
+{{--                            @if (Auth::guard('employee')->check())--}}
+{{--                                <a href="{{ route('employee.logout') }}" class="text-light medium">Log Out</a>--}}
+{{--                            @elseif(Auth::guard('employer')->check())--}}
+{{--                                <a href="{{ route('employer.logout') }}" class="text-light medium">Log Out</a>--}}
+{{--                            @else--}}
+
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                        <div class="currency-selector dropdown js-dropdown float-right mr-3">--}}
+{{--                            <a href="{{ route('employee.job.bookmarks') }}" class="text-light medium">Wishlist</a>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="currency-selector dropdown js-dropdown float-right mr-3">--}}
+{{--                            @if (Auth::guard('employee')->check())--}}
+{{--                                <a href="{{ route('employee.dashboard') }}"--}}
+{{--                                   class="text-light medium">{{ auth()->guard('employee')->user()->firstname .' ' .Auth::guard('employee')->user()->lastname }}</a>--}}
+{{--                            @elseif(Auth::guard('employer')->check())--}}
+{{--                                <a href="{{ route('employer.dashboard') }}"--}}
+{{--                                   class="text-light medium">{{ auth()->guard('employer')->user()->employer_name }}</a>--}}
+{{--                            @else--}}
+{{--                                <a href="{{ route('employee.dashboard') }}" data-toggle="modal" data-target="#login"--}}
+{{--                                   class="text-light medium">My Account</a>--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+                    <!-- Right Menu -->
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                            @if (Auth::guard('employee')->check())
+                            {{-- @if (Auth::guard('employee')->check())
                                 <a href="{{ route('employee.logout') }}" class="text-light medium">Log Out</a>
                             @elseif(Auth::guard('employer')->check())
                                 <a href="{{ route('employer.logout') }}" class="text-light medium">Log Out</a>
-                            @else
-
-                            @endif
-                        </div>
-                        <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                            <a href="{{ route('employee.job.bookmarks') }}" class="text-light medium">Wishlist</a>
+                            @else --}}
+{{--                            <a href="javascript:void(0);" class="text-light medium">Log Out</a> --}}{{-- TODO: mở lại khi Auth xong --}}
+                            {{-- @endif --}}
                         </div>
 
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                            @if (Auth::guard('employee')->check())
-                                <a href="{{ route('employee.dashboard') }}"
-                                   class="text-light medium">{{ auth()->guard('employee')->user()->firstname .' ' .Auth::guard('employee')->user()->lastname }}</a>
+                            <a href="javascript:void(0);" class="text-light medium">Danh sách ước</a> {{-- TODO: sau nối route --}}
+                        </div>
+
+                        <div class="currency-selector dropdown js-dropdown float-right mr-3">
+                            {{-- @if (Auth::guard('employee')->check())
+                                <a href="{{ route('employee.dashboard') }}" class="text-light medium">{{ auth()->guard('employee')->user()->firstname .' ' .Auth::guard('employee')->user()->lastname }}</a>
                             @elseif(Auth::guard('employer')->check())
-                                <a href="{{ route('employer.dashboard') }}"
-                                   class="text-light medium">{{ auth()->guard('employer')->user()->employer_name }}</a>
-                            @else
-                                <a href="{{ route('employee.dashboard') }}" data-toggle="modal" data-target="#login"
-                                   class="text-light medium">My Account</a>
-                            @endif
+                                <a href="{{ route('employer.dashboard') }}" class="text-light medium">{{ auth()->guard('employer')->user()->employer_name }}</a>
+                            @else --}}
+                            <a href="javascript:void(0);" class="text-light medium">Tài khoản</a> {{-- TODO: mở sau --}}
+                            {{-- @endif --}}
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -108,60 +132,77 @@
                                     <i class="lni lni-user"></i>
                                 </a>
                             </li>
-                            @if (Auth::guard('employee')->check())
-                                <li>
-                                    <a href="{{ route('job.search') }}"
-                                       class="crs_yuo12 w-auto text-white theme-bg">
-                                            <span class="embos_45"><i class="fas fa-plus-circle mr-1 mr-1"></i>Post
-                                                Job</span>
-                                    </a>
-                                </li>
-                            @else
-                                <li>
-                                    <a href="{{ route('employer.hiring.view') }}"
-                                       class="crs_yuo12 w-auto text-white theme-bg">
-                                            <span class="embos_45"><i
-                                                    class="fas fa-plus-circle mr-1 mr-1"></i>Apply</span>
-                                    </a>
-                                </li>
-                            @endif
+{{--                            @if (Auth::guard('employee')->check())--}}
+{{--                                <li>--}}
+{{--                                    <a href="{{ route('job.search') }}"--}}
+{{--                                       class="crs_yuo12 w-auto text-white theme-bg">--}}
+{{--                                            <span class="embos_45"><i class="fas fa-plus-circle mr-1 mr-1"></i>Post--}}
+{{--                                                Job</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            @else--}}
+{{--                                <li>--}}
+{{--                                    <a href="{{ route('employer.hiring.view') }}"--}}
+{{--                                       class="crs_yuo12 w-auto text-white theme-bg">--}}
+{{--                                            <span class="embos_45"><i--}}
+{{--                                                    class="fas fa-plus-circle mr-1 mr-1"></i>Apply</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
                         </ul>
                     </div>
                 </div>
                 <div class="nav-menus-wrapper" style="transition-property: none;">
                     @include('Frontend.layouts.nav')
+{{--                    <ul class="nav-menu nav-menu-social align-to-right">--}}
+{{--                        @if (Auth::guard('employer')->check())--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ route('employer.dashboard') }}" class="ft-medium">--}}
+{{--                                    <i class="lni lni-dashboard mr-2"></i>Dashboard--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @elseif(Auth::guard('employee')->check())--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ route('employee.dashboard') }}" class="ft-medium">--}}
+{{--                                    <i class="lni lni-dashboard mr-2"></i>Dashboard--}}
+{{--                                </a>--}}
+{{--                        @else--}}
+{{--                            <li>--}}
+{{--                                <a href="#" data-toggle="modal" data-target="#login" class="ft-medium">--}}
+{{--                                    <i class="lni lni-user mr-2"></i>Đăng nhập ngay--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endif--}}
+{{--                        @if (Auth::guard('employee')->check())--}}
+{{--                            <li class="add-listing theme-bg">--}}
+{{--                                <a href="{{ route('job.search') }}">--}}
+{{--                                    <i class="lni lni-circle-plus mr-1"></i> Apply For Job--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @else--}}
+{{--                            <li class="add-listing theme-bg">--}}
+{{--                                <a href="{{ route('employer.hiring.view') }}">--}}
+{{--                                    <i class="lni lni-circle-plus mr-1"></i> Đăng tin tuyển dụng--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endif--}}
+{{--                    </ul>--}}
                     <ul class="nav-menu nav-menu-social align-to-right">
-                        @if (Auth::guard('employer')->check())
-                            <li>
-                                <a href="{{ route('employer.dashboard') }}" class="ft-medium">
-                                    <i class="lni lni-dashboard mr-2"></i>Dashboard
-                                </a>
-                            </li>
-                        @elseif(Auth::guard('employee')->check())
-                            <li>
-                                <a href="{{ route('employee.dashboard') }}" class="ft-medium">
-                                    <i class="lni lni-dashboard mr-2"></i>Dashboard
-                                </a>
-                        @else
-                            <li>
-                                <a href="#" data-toggle="modal" data-target="#login" class="ft-medium">
-                                    <i class="lni lni-user mr-2"></i>Sign In
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::guard('employee')->check())
-                            <li class="add-listing theme-bg">
-                                <a href="{{ route('job.search') }}">
-                                    <i class="lni lni-circle-plus mr-1"></i> Apply For Job
-                                </a>
-                            </li>
-                        @else
-                            <li class="add-listing theme-bg">
-                                <a href="{{ route('employer.hiring.view') }}">
-                                    <i class="lni lni-circle-plus mr-1"></i> Post a Job
-                                </a>
-                            </li>
-                        @endif
+                        {{-- @if (Auth::guard('employer')->check()) --}}
+                        {{-- <li><a href="{{ route('employer.dashboard') }}" class="ft-medium"><i class="lni lni-dashboard mr-2"></i>Dashboard</a></li> --}}
+                        {{-- @elseif(Auth::guard('employee')->check()) --}}
+                        {{-- <li><a href="{{ route('employee.dashboard') }}" class="ft-medium"><i class="lni lni-dashboard mr-2"></i>Dashboard</a></li> --}}
+                        {{-- @else --}}
+                        <li><a href="javascript:void(0);" class="ft-medium"><i class="lni lni-user mr-2"></i>Đăng nhập</a></li> {{-- TODO: Mở modal login sau --}}
+                        {{-- @endif --}}
+
+                        {{-- @if (Auth::guard('employee')->check()) --}}
+                        {{-- <li class="add-listing theme-bg"><a href="{{ route('job.search') }}"><i class="lni lni-circle-plus mr-1"></i> Apply For Job</a></li> --}}
+                        {{-- @else --}}
+                        <li class="add-listing theme-bg">
+                            <a href="javascript:void(0);"><i class="lni lni-circle-plus mr-1"></i> Đăng tin</a> {{-- TODO: mở route sau --}}
+                        </li>
+                        {{-- @endif --}}
                     </ul>
                 </div>
             </nav>

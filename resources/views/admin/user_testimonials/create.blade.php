@@ -66,8 +66,8 @@
             <div class="mb-3">
                 <label for="isFeatured" class="form-label">Nổi bật</label>
                 <select class="form-select" id="isFeatured" name="isFeatured" required>
-                    <option value="0" {{ old('isFeatured') == '0' ? 'selected' : '' }}>Không</option>
-                    <option value="1" {{ old('isFeatured') == '1' ? 'selected' : '' }}>Có</option>
+                    <option value="no" {{ old('isFeatured') == 'no' ? 'selected' : '' }}>Không</option>
+                    <option value="yes" {{ old('isFeatured') == 'yes' ? 'selected' : '' }}>Có</option>
                 </select>
                 @error('isFeatured')
                 <div class="text-danger">{{ $message }}</div>

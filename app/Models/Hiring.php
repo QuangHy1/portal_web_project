@@ -67,6 +67,7 @@ class Hiring extends Model
         return $this->belongsTo(JobType::class);
     }
 
+
     public function experience()
     {
         return $this->belongsTo(Experience::class);

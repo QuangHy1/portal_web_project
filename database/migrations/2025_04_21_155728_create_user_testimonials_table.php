@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('company');
             $table->string('image')->nullable();
             $table->string('testimonial');
-            $table->string('isFeatured');
+            $table->string('isFeatured')->default('no');
             $table->timestamps();
         });
     }
