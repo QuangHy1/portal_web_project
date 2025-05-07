@@ -13,8 +13,8 @@
                         <h2 class="mb-0 ft-medium">{{ $blogPost->title }}</h2>
                             <nav class="transparent">
                                 <ol class="breadcrumb p-0">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+{{--                                    <li class="breadcrumb-item"><a href="#">Blog</a></li>--}}
                                     <li class="breadcrumb-item active theme-cl" aria-current="page">{{ $blogPost->title }}
                                     </li>
                                 </ol>
@@ -34,14 +34,14 @@
                         <div class="article_body_wrap">
 
                             <div class="article_featured_image">
-                                <img class="img-fluid" src="{{ asset('frontEndAssets/img/' . $blogPost->image) }}"
+                                <img class="img-fluid2" src="{{ asset('storage/uploads/posts/').'/'. $blogPost->image }}"
                                     alt="">
                             </div>
 
                             <div class="article_top_info">
                                 <ul class="article_middle_info">
                                     <li><a href="#"><span class="icons"><i
-                                                    class="ti-time"></i></span>{{ $blogPost->created_at->format('d F, Y') }}</a>
+                                                    class="ti-time"></i></span>{{ $blogPost->created_at->format('d:m:Y') }}</a>
                                     </li>
                                     <li><a href="#"><span class="icons"><i
                                                     class="ti-eye"></i></span>{{ $blogPost->view_count }} Views</a></li>
@@ -221,7 +221,7 @@
                             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                                 <div class="form-group mb-0 position-relative">
                                     <button class="btn full-width custom-height-lg theme-bg text-light fs-md"
-                                        type="button">Đăng Ký Nhận Thông Báo</button>
+                                        type="button">Click</button>
                                 </div>
                             </div>
                         </div>

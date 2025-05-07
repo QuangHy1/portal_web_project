@@ -9,8 +9,7 @@
                 <h1 class="ft-medium">Tổng hợp các Công Ty/Doanh Nghiệp</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Job</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                         <li class="breadcrumb-item active theme-cl" aria-current="page">Công Ty/Doanh Nghiệp</li>
                     </ol>
                 </nav>
@@ -75,7 +74,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                             <div class="form-group mb-0 position-relative">
-                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Click</button>
                             </div>
                         </div>
                     </div>

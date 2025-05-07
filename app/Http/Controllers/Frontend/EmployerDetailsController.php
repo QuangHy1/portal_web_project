@@ -30,8 +30,10 @@ class EmployerDetailsController extends Controller
 //    }
     public function employerDetails($id)
     {
-        $employer = Employer::find($id);
-        $hiring = Hiring::where('company_id', $id)->count();
+        $employer = Employer::with('company')->findOrFail($id); // dùng with() để eager load
+
+        $hiring = Hiring::where('company_id', $employer->company_id)->count(); // dùng company_id từ employer
+
         return view('Frontend.employerdetails', compact('employer', 'hiring'));
     }
 
@@ -51,14 +53,14 @@ class EmployerDetailsController extends Controller
     public function browseEmployer()
     {
         $employers = Employer::query()
-            ->select('employers.id', 'companies.name as company_name') // Đổi thành companies.name và giữ alias company_name (hoặc bạn có thể đổi alias nếu muốn)
+            ->select('employers.id', 'companies.name as company_name')
             ->leftJoin('companies', 'employers.company_id', '=', 'companies.id')
-            ->groupBy('employers.id', DB::raw("SUBSTRING(companies.name, 1, 1)")) // Đổi thành companies.name
-            ->orderBy(DB::raw("SUBSTRING(companies.name, 1, 1)")) // Đổi thành companies.name
+            ->groupBy('employers.id', 'companies.name') // ✅ thêm 'companies.name' vào groupBy
+            ->orderBy(DB::raw("SUBSTRING(companies.name, 1, 1)"))
             ->get();
 
         $groupedData = collect($employers)->groupBy(function ($item) {
-            return strtoupper(substr($item->company_name, 0, 1)); // Alias vẫn là company_name nên không cần đổi ở đây
+            return strtoupper(substr($item->company_name, 0, 1));
         });
 
         return view('Frontend.employerlist', compact('groupedData'));

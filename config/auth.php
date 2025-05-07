@@ -40,9 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'employee' => [ // Thêm guard cho 'employee'
+        'employer' => [
             'driver' => 'session',
-            'provider' => 'employees', // Sử dụng provider 'employees'
+            'provider' => 'users',
+        ],
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
     ],
 
@@ -72,11 +76,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Employee::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'employers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Employer::class, // Chỉ định model tương ứng với bảng employers
+        ],
     ],
 
     /*

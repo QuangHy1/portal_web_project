@@ -1,104 +1,104 @@
-<footer class="light-footer skin-light-footer style-2">
-    <div class="footer-middle">
-        <div class="container">
-            <div class="row">
-                @php
-                    $footerDetails = App\Models\FooterContent::first();
-                @endphp
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                    <div class="footer_widget">
-                        <img src="{{ asset('frontEndAssets/img/jobscout.png') }}" class="img-footer small mb-2" alt="" />
+{{--<footer class="light-footer skin-light-footer style-2">--}}
+{{--    <div class="footer-middle">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                @php--}}
+{{--                    $footerDetails = App\Models\FooterContent::first();--}}
+{{--                @endphp--}}
+{{--                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">--}}
+{{--                    <div class="footer_widget">--}}
+{{--                        <img src="{{ asset('frontEndAssets/img/jobscout.png') }}" class="img-footer small mb-2" alt="" />--}}
 
-                        <div class="address mt-2">
-                            {!! $footerDetails['address'] !!}
-                        </div>
-                        <div class="address mt-3">
-                            {{ $footerDetails['phone'] }}<br>{{ $footerDetails['email'] }}
-                        </div>
-                        <div class="address mt-2">
-                            <ul class="list-inline">
-                                <li class="list-inline-item"><a href="{{ $footerDetails['facebook'] }}" class="theme-cl"><i class="lni lni-facebook-filled"></i></a></li>
-                                <li class="list-inline-item"><a href="{{ $footerDetails['twitter'] }}" class="theme-cl"><i class="lni lni-twitter-filled"></i></a></li>
-                                <li class="list-inline-item"><a href="{{ $footerDetails['youtube'] }}" class="theme-cl"><i class="lni lni-youtube"></i></a></li>
-                                <li class="list-inline-item"><a href="{{ $footerDetails['instagram'] }}" class="theme-cl"><i class="lni lni-instagram-filled"></i></a></li>
-                                <li class="list-inline-item"><a href="{{ $footerDetails['linkedin'] }}" class="theme-cl"><i class="lni lni-linkedin-original"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+{{--                        <div class="address mt-2">--}}
+{{--                            {!! $footerDetails['address'] !!}--}}
+{{--                        </div>--}}
+{{--                        <div class="address mt-3">--}}
+{{--                            {{ $footerDetails['phone'] }}<br>{{ $footerDetails['email'] }}--}}
+{{--                        </div>--}}
+{{--                        <div class="address mt-2">--}}
+{{--                            <ul class="list-inline">--}}
+{{--                                <li class="list-inline-item"><a href="{{ $footerDetails['facebook'] }}" class="theme-cl"><i class="lni lni-facebook-filled"></i></a></li>--}}
+{{--                                <li class="list-inline-item"><a href="{{ $footerDetails['twitter'] }}" class="theme-cl"><i class="lni lni-twitter-filled"></i></a></li>--}}
+{{--                                <li class="list-inline-item"><a href="{{ $footerDetails['youtube'] }}" class="theme-cl"><i class="lni lni-youtube"></i></a></li>--}}
+{{--                                <li class="list-inline-item"><a href="{{ $footerDetails['instagram'] }}" class="theme-cl"><i class="lni lni-instagram-filled"></i></a></li>--}}
+{{--                                <li class="list-inline-item"><a href="{{ $footerDetails['linkedin'] }}" class="theme-cl"><i class="lni lni-linkedin-original"></i></a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <div class="footer_widget">
-                        <h4 class="widget_title">For Employers</h4>
-                        <ul class="footer-menu">
-                            {{-- <li><a href="#">Explore Candidates</a></li> --}}
-                            {{-- <li><a href="#">Job Pricing</a></li> --}}
+{{--                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">--}}
+{{--                    <div class="footer_widget">--}}
+{{--                        <h4 class="widget_title">For Employers</h4>--}}
+{{--                        <ul class="footer-menu">--}}
+{{--                            --}}{{-- <li><a href="#">Explore Candidates</a></li> --}}
+{{--                            --}}{{-- <li><a href="#">Job Pricing</a></li> --}}
 {{--                            <li><a href="{{ route('employer.hiring.view') }}">Submit Job</a></li>--}}
-                            <li><a href="#">Submit Job</a></li>{{-- EmployerHiringController.php(trong Employer), resources/views/employer/addHiring.blade.php--}}
-                            {{-- <li><a href="#">Shortlisted</a></li> --}}
+{{--                            <li><a href="#">Submit Job</a></li>--}}{{-- EmployerHiringController.php(trong Employer), resources/views/employer/addHiring.blade.php--}}
+{{--                            --}}{{-- <li><a href="#">Shortlisted</a></li> --}}
 {{--                            <li><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>--}}
-                            <li><a href="#">Dashboard</a></li> {{-- EmployerController.php(trong Employer), resources/views/employer/dashboard.blade.php --}}
-                        </ul>
-                    </div>
-                </div>
+{{--                            <li><a href="#">Dashboard</a></li> --}}{{-- EmployerController.php(trong Employer), resources/views/employer/dashboard.blade.php --}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <div class="footer_widget">
-                        <h4 class="widget_title">For Candidates</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#">Explore All Jobs</a></li>{{-- JobSearchController(trong Frontend), resources/views/Frontend/jobSearch.blade.php --}}
-                            <li><a href="#">Browse Categories</a></li>{{-- JobCategoryController(trong Frontend), resources/views/Frontend/jobCategories.blade.php --}}
-                            <li><a href="#">Browse Companies</a></li>{{-- EmployerDetailsController.php(trong Frontend), resources/views/Frontend/employerlist.blade.php --}}
-                            <li><a href="#">Dashboard</a></li> {{-- EmployeeController(trong Employee), resources/views/employee/dashboard.blade.php --}}
+{{--                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">--}}
+{{--                    <div class="footer_widget">--}}
+{{--                        <h4 class="widget_title">For Candidates</h4>--}}
+{{--                        <ul class="footer-menu">--}}
+{{--                            <li><a href="#">Explore All Jobs</a></li>--}}{{-- JobSearchController(trong Frontend), resources/views/Frontend/jobSearch.blade.php --}}
+{{--                            <li><a href="#">Browse Categories</a></li>--}}{{-- JobCategoryController(trong Frontend), resources/views/Frontend/jobCategories.blade.php --}}
+{{--                            <li><a href="#">Browse Companies</a></li>--}}{{-- EmployerDetailsController.php(trong Frontend), resources/views/Frontend/employerlist.blade.php --}}
+{{--                            <li><a href="#">Dashboard</a></li> --}}{{-- EmployeeController(trong Employee), resources/views/employee/dashboard.blade.php --}}
 {{--                            <li><a href="{{ route('job.search') }}">Explore All Jobs</a></li>--}}
 {{--                            <li><a href="{{ route('category') }}">Browse Categories</a></li>--}}
 {{--                            <li><a href="{{ route('employer.browse') }}">Browse Companies</a></li>--}}
 {{--                            <li><a href="{{ route('employee.dashboard') }}">Dashboard</a></li> --}}
-                        </ul>
-                    </div>
-                </div>
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <div class="footer_widget">
-                        <h4 class="widget_title">About Company</h4>
-                        <ul class="footer-menu">
-                            {{-- <li><a href="#">Who We'r?</a></li>
-                            <li><a href="#">Our Mission</a></li>
-                            <li><a href="#">Our team</a></li>
-                            <li><a href="#">Packages</a></li>
-                            <li><a href="#">Dashboard</a></li> --}}
-                        </ul>
-                    </div>
-                </div>
+{{--                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">--}}
+{{--                    <div class="footer_widget">--}}
+{{--                        <h4 class="widget_title">About Company</h4>--}}
+{{--                        <ul class="footer-menu">--}}
+{{--                            --}}{{-- <li><a href="#">Who We'r?</a></li>--}}
+{{--                            <li><a href="#">Our Mission</a></li>--}}
+{{--                            <li><a href="#">Our team</a></li>--}}
+{{--                            <li><a href="#">Packages</a></li>--}}
+{{--                            <li><a href="#">Dashboard</a></li> --}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <div class="footer_widget">
-                        <h4 class="widget_title">Helpful Topics</h4>
-                        <ul class="footer-menu">
-                            {{-- <li><a href="#">Site Map</a></li>
-                            <li><a href="#">Security</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">FAQ's Page</a></li>
-                            <li><a href="#">Privacy</a></li> --}}
-                        </ul>
-                    </div>
-                </div>
+{{--                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">--}}
+{{--                    <div class="footer_widget">--}}
+{{--                        <h4 class="widget_title">Helpful Topics</h4>--}}
+{{--                        <ul class="footer-menu">--}}
+{{--                            --}}{{-- <li><a href="#">Site Map</a></li>--}}
+{{--                            <li><a href="#">Security</a></li>--}}
+{{--                            <li><a href="#">Contact</a></li>--}}
+{{--                            <li><a href="#">FAQ's Page</a></li>--}}
+{{--                            <li><a href="#">Privacy</a></li> --}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-            </div>
-        </div>
-    </div>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
-    <div class="footer-bottom br-top">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12 col-md-12 text-center">
-                    <p class="mb-0">{{ $footerDetails['copyright_text'] }} Developed By <a href="#">Le Quang Huy</a>.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- ============================ Footer End ================================== -->
+{{--    <div class="footer-bottom br-top">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row align-items-center">--}}
+{{--                <div class="col-lg-12 col-md-12 text-center">--}}
+{{--                    <p class="mb-0">{{ $footerDetails['copyright_text'] }} Developed By <a href="#">Le Quang Huy</a>.</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</footer>--}}
+{{--<!-- ============================ Footer End ================================== -->--}}
 
 {{--<!-- Log In Modal -->--}}
 {{--<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">--}}
@@ -153,16 +153,127 @@
 {{--</div>--}}
 {{--<!-- End Modal -->--}}
 
+{{--<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>--}}
+
+
+{{--</div>--}}
+{{--<!-- ============================================================== -->--}}
+{{--<!-- End Wrapper -->--}}
+{{--<!-- ============================================================== -->--}}
+{{--<!-- ============================================================== -->--}}
+{{--<!-- All Jquery -->--}}
+{{--<!-- ============================================================== -->--}}
+{{--<script src="{{ asset('frontEndAssets/js/jquery.min.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/popper.min.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/bootstrap.min.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/slick.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/slider-bg.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/smoothproducts.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/snackbar.min.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/jQuery.style.switcher.js') }}"></script>--}}
+{{--<script src="{{ asset('frontEndAssets/js/custom.js') }}"></script>--}}
+{{--<!-- ============================================================== -->--}}
+{{--<!-- This page plugins -->--}}
+{{--<!-- ============================================================== -->--}}
+@php
+    use App\Models\FooterContent;
+    $footerDetails = FooterContent::first();
+@endphp
+
+<footer class="light-footer skin-light-footer style-2">
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+                {{-- Thông tin chung --}}
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="footer_widget">
+                        <img src="{{ asset('frontEndAssets/img/jobscout.png') }}" class="img-footer small mb-2" alt="JobScout" />
+
+                        <div class="address mt-2">
+                            {!! optional($footerDetails)->address !!}
+                        </div>
+                        <div class="address mt-3">
+                            {{ optional($footerDetails)->phone }}<br>
+                            {{ optional($footerDetails)->email }}
+                        </div>
+                        <div class="address mt-2">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="{{ optional($footerDetails)->facebook }}" class="theme-cl"><i class="lni lni-facebook-filled"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ optional($footerDetails)->twitter }}" class="theme-cl"><i class="lni lni-twitter-filled"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ optional($footerDetails)->youtube }}" class="theme-cl"><i class="lni lni-youtube"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ optional($footerDetails)->instagram }}" class="theme-cl"><i class="lni lni-instagram-filled"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ optional($footerDetails)->linkedin }}" class="theme-cl"><i class="lni lni-linkedin-original"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Employer --}}
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">Dành cho Nhà Tuyển Dụng</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#">Đăng Tin</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                {{-- Candidate --}}
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">Dành cho Ứng Viên</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#">Khám phá tất cả công việc</a></li>
+                            <li><a href="#">Danh mục việc làm</a></li>
+                            <li><a href="#">Các doanh nghiệp</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                {{-- Company Info --}}
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">Về Website</h4>
+                        <ul class="footer-menu">
+                            {{-- Bổ sung nội dung nếu cần --}}
+                            <li><a href="{{ route('terms') }}">Chính sách & Bảo mật</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                {{-- Topics --}}
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class="footer_widget">
+                        <h4 class="widget_title">Helpful Topics</h4>
+                        <ul class="footer-menu">
+                            {{-- Bổ sung nội dung nếu cần --}}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom br-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 text-center">
+                    <p class="mb-0">
+                        {{ optional($footerDetails)->copyright_text }}
+                        Developed By <a href="#">Le Quang Huy</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
 <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
-
-</div>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- All Jquery -->
-<!-- ============================================================== -->
+{{-- JS Scripts --}}
 <script src="{{ asset('frontEndAssets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('frontEndAssets/js/popper.min.js') }}"></script>
 <script src="{{ asset('frontEndAssets/js/bootstrap.min.js') }}"></script>
@@ -172,9 +283,5 @@
 <script src="{{ asset('frontEndAssets/js/snackbar.min.js') }}"></script>
 <script src="{{ asset('frontEndAssets/js/jQuery.style.switcher.js') }}"></script>
 <script src="{{ asset('frontEndAssets/js/custom.js') }}"></script>
-<!-- ============================================================== -->
-<!-- This page plugins -->
-<!-- ============================================================== -->
-
 </body>
 </html>

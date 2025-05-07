@@ -285,3 +285,19 @@ h2.register-label {
 .social-btn:hover {
     opacity: 0.9;
 }
+.home-icon-link {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5em;
+    text-decoration: none;
+    z-index: 10; /* Đảm bảo icon nằm trên các phần tử khác */
+}
+
+.home-icon {
+    color: white; /* Đặt màu trắng cho biểu tượng */
+}
+
+.home-icon:hover {
+    color: lightgray; /* Đổi màu khi hover (tùy chọn) */
+}

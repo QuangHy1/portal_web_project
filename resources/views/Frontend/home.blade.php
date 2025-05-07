@@ -152,7 +152,7 @@
 								@endif
 								<div class="position-absolute ab-right">@if($hiring->isBoosted == 'yes')<span class="medium color-gray theme-bg-light px-2 py-1 rounded"> AD @else <span class="medium theme-cl theme-bg-light px-2 py-1 rounded"> {{ $hiring->jobType->name }}</span>@endif</div>
 								<div class="job_grid_thumb mb-3 pt-5 px-3">
-									<a href="{{ route('jobs', $hiring->id) }}" class="d-block text-center m-auto"><img src="{{ asset('frontEndAssets/img').'/'. $hiring->company->logo }}" class="img-fluid" width="70" alt="" /></a>
+									<a href="{{ route('jobs', $hiring->id) }}" class="d-block text-center m-auto"><img src="{{ asset('uploads/companies').'/'. $hiring->company->logo }}" class="img-fluid" width="70" alt="" /></a>
 								</div>
 								<div class="job_grid_caption text-center pb-3 px-3">
 									<h4 class="mb-0 ft-medium medium"><a href="{{ route('jobs', $hiring->id) }}" class="text-dark fs-md">{{ $hiring->title }}</a></h4>
@@ -390,7 +390,7 @@
 											<div class="foot_list_info">
 												<ul>
 													<li><div class="elsio_ic"><i class="fa fa-eye text-success"></i></div><div class="elsio_tx">{{ $item->view_count }} Lượt Xem</div></li>
-													<li><div class="elsio_ic"><i class="fa fa-clock text-warning"></i></div><div class="elsio_tx">{{ $item->created_at->format('d M Y') }}</div></li>
+													<li><div class="elsio_ic"><i class="fa fa-clock text-warning"></i></div><div class="elsio_tx">{{ $item->created_at->format('d-m-Y') }}</div></li>
 												</ul>
 											</div>
 										</div>
@@ -431,7 +431,7 @@
 									</div>
 									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
 										<div class="form-group mb-0 position-relative">
-											<button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+											<button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Click</button>
 										</div>
 									</div>
 								</div>

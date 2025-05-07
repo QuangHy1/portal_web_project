@@ -12,6 +12,9 @@
 <div class="container">
     <div class="item">
         <h2 class="logo"><i class='bx bxl-xing'></i>PORTAL JOB</h2>
+        <a href="{{ route('home') }}" class="home-icon-link">
+            <i class='bx bxs-home home-icon'></i>
+        </a>
         <div class="text-item">
             <h2>Trang đăng nhập nhà tuyển dụng ! <br><span>
                     ---
@@ -28,16 +31,22 @@
     </div>
     <div class="login-section">
         <div class="form-box login">
-            <form action="" class="login-form">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+                <form action="{{ route('employer.signin.submit') }}" method="POST" class="login-form">
+                    @csrf
                 <h2 class="login-label">Đăng nhập</h2>
                 <div class="input-box input-box-login">
                     <span class="icon"><i class='bx bxs-envelope'></i></span>
-                    <input type="text" required>
+                    <input type="text" name="username" value="{{ old('username') }}" required>
                     <label >Tên đăng nhập/email</label>
                 </div>
                 <div class="input-box input-box-login">
                     <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                    <input type="password" required>
+                    <input type="password" name="password" required>
                     <label>Mật khẩu</label>
                 </div>
                 <div class="remember-password">
@@ -48,7 +57,7 @@
                 <!-- ✅ reCAPTCHA -->
                 <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
 
-                <button class="btn">Đănh nhập</button>
+                <button type="submit" class="btn">Đăng nhập</button>
 
                 <!-- Hoặc đăng nhập bằng -->
                 <div class="social-login">

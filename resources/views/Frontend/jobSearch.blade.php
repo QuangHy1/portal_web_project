@@ -84,16 +84,17 @@
                     <div class="sidebar_header d-flex align-items-center justify-content-between px-4 py-3 br-bottom">
                         <h4 class="ft-medium fs-lg mb-0">Bộ Lọc</h4>
                         <div class="ssh-header">
-                            <a href="javascript:void(0);" class="clear_all ft-medium text-muted">Xóa tất cả</a>
-                            <a href="#search_open" data-toggle="collapse" aria-expanded="false" role="button" class="collapsed _filter-ico ml-2"><i class="lni lni-text-align-right"></i></a>
+                            <a href="javascript:void(0);" id="clear-filters" class="ft-medium text-danger">Xóa tất cả</a>
+                            <a href="#search_open" data-toggle="collapse" aria-expanded="false" role="button" class="collapsed _filter-ico ml-2">
+                                <i class="lni lni-text-align-right"></i>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Find New Property -->
                     <div class="sidebar-widgets collapse miz_show" id="search_open" data-parent="#search_open">
-
                         <div class="search-inner">
-                            <form method="GET" action="{{ url('jobs') }}">
+                            <form method="GET" action="{{ url('jobs') }}" class="filter-form">
 
                                 <div class="filter-search-box px-4 pt-3 pb-0">
                                     <div class="form-group">
@@ -102,76 +103,37 @@
                                     <select name="location" class="custom-select mb-3">
                                         <option value="">Vị Trí</option>
                                         @foreach($locations as $item)
-                                        <option @if($hiringLocation == $item->id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                            <option @if($hiringLocation == $item->id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
-                                 </select>
+                                    </select>
                                 </div>
 
                                 <div class="filter_wraps">
-                                     {{-- Job categories Search  --}}
-                                     <div class="single_search_boxed px-4 pt-0 br-bottom">
+
+                                    {{-- Job categories --}}
+                                    <div class="single_search_boxed px-4 pt-0 br-bottom">
                                         <div class="widget-boxed-header">
                                             <h4>
                                                 <a href="#category" data-toggle="collapse" aria-expanded="false" role="button" class="ft-medium fs-md pb-0  @if($hiringJobCategory == null) collapsed @endif" @if($hiringJobCategory != null) expanded="true" @endif>Ngành Nghề</a>
                                             </h4>
-
                                         </div>
-                                        <div class="widget-boxed-body collapse  @if($hiringJobCategory != null) show @endif" id="category" data-parent="#category">
+                                        <div class="widget-boxed-body collapse @if($hiringJobCategory != null) show @endif" id="category" data-parent="#category">
                                             <div class="side-list no-border">
-                                                <!-- Single Filter Card -->
                                                 <div class="single_filter_card">
                                                     <div class="card-body p-0">
                                                         <div class="inner_widget_link">
                                                             <ul class="no-ul-list filter-list">
                                                                 <li>
-                                                                    @php
-                                                                        $count = 1;
-                                                                    @endphp
-                                                                    @foreach($categories as $item)
-
-                                                                    <input id="e{{ $count }}" @if($hiringJobCategory == $item->id) checked @endif  class="radio-custom" value="{{ $item->id }}" name="category" type="radio">
-                                                                    <label for="e{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
-                                                                    @php
-                                                                       $count ++;
-                                                                    @endphp
-                                                                    @endforeach
+                                                                    <input id="e0" class="radio-custom" value="" name="category" type="radio" {{ is_null($hiringJobCategory) ? 'checked' : '' }}>
+                                                                    <label for="e0" class="radio-custom-label">Tất cả</label>
                                                                 </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                    {{-- Job Skills Search  --}}
-                                    <div class="single_search_boxed px-4 pt-0 br-bottom">
-                                        <div class="widget-boxed-header">
-                                            <h4>
-                                                <a href="#jobtype" data-toggle="collapse" aria-expanded="false" role="button" class="ft-medium fs-md pb-0 collapsed  @if($hiringJobType == null) collapsed @endif" @if($hiringJobType != null) expanded="true" @endif>Hình Thức Làm Việc</a>
-                                            </h4>
-
-                                        </div>
-                                        <div class="widget-boxed-body collapse @if($hiringJobType != null) show @endif" id="jobtype" data-parent="#jobtype">
-                                            <div class="side-list no-border">
-                                                <!-- Single Filter Card -->
-                                                <div class="single_filter_card">
-                                                    <div class="card-body p-0">
-                                                        <div class="inner_widget_link">
-                                                            <ul class="no-ul-list filter-list">
-                                                                @php
-                                                                    $count = 1;
-                                                                @endphp
-                                                                @foreach($jobtype as $item)
-                                                                <li>
-                                                                    <input id="ea{{ $count }}" @if($hiringJobType == $item->id) checked @endif class="radio-custom" value="{{ $item->id }}" name="jobtype" type="radio">
-                                                                    <label for="ea{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
-                                                                </li>
-                                                                @php
-                                                                    $count ++;
-                                                                @endphp
+                                                                @php $count = 1; @endphp
+                                                                @foreach($categories as $item)
+                                                                    <li>
+                                                                        <input id="e{{ $count }}" class="radio-custom" value="{{ $item->id }}" name="category" type="radio" {{ $hiringJobCategory == $item->id ? 'checked' : '' }}>
+                                                                        <label for="e{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
+                                                                    </li>
+                                                                    @php $count++; @endphp
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -181,33 +143,63 @@
                                         </div>
                                     </div>
 
+                                    {{-- Job types --}}
+                                    <div class="single_search_boxed px-4 pt-0 br-bottom">
+                                        <div class="widget-boxed-header">
+                                            <h4>
+                                                <a href="#jobtype" data-toggle="collapse" aria-expanded="false" role="button" class="ft-medium fs-md pb-0 collapsed @if($hiringJobType == null) collapsed @endif" @if($hiringJobType != null) expanded="true" @endif>Hình Thức Làm Việc</a>
+                                            </h4>
+                                        </div>
+                                        <div class="widget-boxed-body collapse @if($hiringJobType != null) show @endif" id="jobtype" data-parent="#jobtype">
+                                            <div class="side-list no-border">
+                                                <div class="single_filter_card">
+                                                    <div class="card-body p-0">
+                                                        <div class="inner_widget_link">
+                                                            <ul class="no-ul-list filter-list">
+                                                                <li>
+                                                                    <input id="ea0" class="radio-custom" value="" name="jobtype" type="radio" {{ is_null($hiringJobType) ? 'checked' : '' }}>
+                                                                    <label for="ea0" class="radio-custom-label">Tất cả</label>
+                                                                </li>
+                                                                @php $count = 1; @endphp
+                                                                @foreach($jobtype as $item)
+                                                                    <li>
+                                                                        <input id="ea{{ $count }}" class="radio-custom" value="{{ $item->id }}" name="jobtype" type="radio" @if($hiringJobType == $item->id) checked @endif>
+                                                                        <label for="ea{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
+                                                                    </li>
+                                                                    @php $count++; @endphp
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    {{-- Experience Search --}}
+                                    {{-- Salary range --}}
                                     <div class="single_search_boxed px-4 pt-0 br-bottom">
                                         <div class="widget-boxed-header">
                                             <h4>
                                                 <a href="#salary" data-toggle="collapse" aria-expanded="false" role="button" class="ft-medium fs-md pb-0 collapsed @if($hiringSalaryRange == null) collapsed @endif" @if($hiringSalaryRange != null) expanded="true" @endif>Mức Lương</a>
                                             </h4>
-
                                         </div>
-                                        <div class="widget-boxed-body collapse  @if($hiringSalaryRange != null) show @endif" id="salary" data-parent="#salary">
+                                        <div class="widget-boxed-body collapse @if($hiringSalaryRange != null) show @endif" id="salary" data-parent="#salary">
                                             <div class="side-list no-border">
-                                                <!-- Single Filter Card -->
                                                 <div class="single_filter_card">
                                                     <div class="card-body p-0">
                                                         <div class="inner_widget_link">
                                                             <ul class="no-ul-list filter-list">
-                                                                @php
-                                                                    $count = 1;
-                                                                @endphp
-                                                                @foreach($salaryrange as $item)
                                                                 <li>
-                                                                    <input id="eb{{ $count }}" @if($hiringSalaryRange == $item->id) checked @endif class="radio-custom" value="{{ $item->id }}" name="salaryrange" type="radio">
-                                                                    <label for="eb{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
+                                                                    <input id="eb0" class="radio-custom" value="" name="salaryrange" type="radio" {{ is_null($hiringSalaryRange) ? 'checked' : '' }}>
+                                                                    <label for="eb0" class="radio-custom-label">Tất cả</label>
                                                                 </li>
-                                                                @php
-                                                                    $count ++;
-                                                                @endphp
+                                                                @php $count = 1; @endphp
+                                                                @foreach($salaryrange as $item)
+                                                                    <li>
+                                                                        <input id="eb{{ $count }}" class="radio-custom" value="{{ $item->id }}" name="salaryrange" type="radio" @if($hiringSalaryRange == $item->id) checked @endif>
+                                                                        <label for="eb{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
+                                                                    </li>
+                                                                    @php $count++; @endphp
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -217,32 +209,30 @@
                                         </div>
                                     </div>
 
-                                    <!-- Job types Search -->
+                                    {{-- Experience --}}
                                     <div class="single_search_boxed px-4 pt-0 br-bottom">
                                         <div class="widget-boxed-header">
                                             <h4>
                                                 <a href="#experience" data-toggle="collapse" aria-expanded="false" role="button" class="ft-medium fs-md pb-0 collapsed @if($hiringExperience == null) collapsed @endif" @if($hiringExperience != null) expanded="true" @endif>Kinh Nghiệm</a>
                                             </h4>
-
                                         </div>
-                                        <div class="widget-boxed-body collapse  @if($hiringExperience != null) show @endif" id="experience" data-parent="#experience">
+                                        <div class="widget-boxed-body collapse @if($hiringExperience != null) show @endif" id="experience" data-parent="#experience">
                                             <div class="side-list no-border">
-                                                <!-- Single Filter Card -->
                                                 <div class="single_filter_card">
                                                     <div class="card-body p-0">
                                                         <div class="inner_widget_link">
                                                             <ul class="no-ul-list filter-list">
-                                                                @php
-                                                                    $count = 1;
-                                                                @endphp
-                                                                @foreach($experience as $item)
                                                                 <li>
-                                                                    <input id="ec{{ $count }}" @if($hiringExperience == $item->id) checked @endif value="{{ $item->id }}" class="radio-custom" name="experience" type="radio">
-                                                                    <label for="ec{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
+                                                                    <input id="ec0" class="radio-custom" value="" name="experience" type="radio" {{ is_null($hiringExperience) ? 'checked' : '' }}>
+                                                                    <label for="ec0" class="radio-custom-label">Tất cả</label>
                                                                 </li>
-                                                                @php
-                                                                    $count ++;
-                                                                @endphp
+                                                                @php $count = 1; @endphp
+                                                                @foreach($experience as $item)
+                                                                    <li>
+                                                                        <input id="ec{{ $count }}" class="radio-custom" value="{{ $item->id }}" name="experience" type="radio" @if($hiringExperience == $item->id) checked @endif>
+                                                                        <label for="ec{{ $count }}" class="radio-custom-label">{{ $item->name }}</label>
+                                                                    </li>
+                                                                    @php $count++; @endphp
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -251,16 +241,16 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div class="form-group filter_button pt-2 pb-4 px-4">
-                                    <button type="submit" class="btn btn-md theme-bg text-light rounded full-width">Filter Results</button>
+                                    <button type="submit" class="btn btn-md theme-bg text-light rounded full-width">Lọc</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <!-- Sidebar End -->
             </div>
 
             <!-- Item Wrap Start -->
@@ -286,7 +276,7 @@
                         <div class="jbr-wrap text-left border rounded">
                             <div class="cats-box mlb-res rounded bg-white d-flex align-items-center justify-content-between px-3 py-3">
                                 <div class="cats-box rounded bg-white d-flex align-items-center">
-                                    <div class="text-center"><img src="{{ asset('frontEndAssets/img').'/'. $hiring->company->logo }}" class="img-fluid" width="55" alt=""></div>
+                                    <div class="text-center"><img src="{{ asset('uploads/companies').'/'. $hiring->company->logo }}" class="img-fluid" width="55" alt=""></div>
                                     <div class="cats-box-caption px-2">
                                         <h4 class="fs-md mb-0 ft-medium">{{ $hiring->title }}</h4>
                                         <div class="d-block mb-2 position-relative">
@@ -396,6 +386,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('clear-filters').addEventListener('click', function () {
+            const form = document.querySelector('.filter-form');
+
+            // Reset text input
+            form.querySelector('input[name="jobs"]').value = '';
+
+            // Reset select dropdown
+            form.querySelector('select[name="location"]').selectedIndex = 0;
+
+            // Reset all radio groups
+            const radioNames = ['category', 'jobtype', 'salaryrange', 'experience'];
+            radioNames.forEach(name => {
+                const radios = form.querySelectorAll(`input[name="${name}"]`);
+                radios.forEach(radio => {
+                    if (radio.value === "") {
+                        radio.checked = true;
+                    } else {
+                        radio.checked = false;
+                    }
+                });
+            });
+
+            // // Optional: submit form to apply cleared filters immediately
+            // form.submit();
+        });
+    </script>
 </section>
 <!-- ============================ Main Section End ================================== -->
 
@@ -424,14 +442,13 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                             <div class="form-group mb-0 position-relative">
-                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button"> Click </button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
 </section>
 @endsection

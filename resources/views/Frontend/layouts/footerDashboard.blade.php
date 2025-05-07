@@ -1,18 +1,18 @@
-	
+
 					<!-- footer -->
 					<div class="row">
 						<div class="col-md-12">
-							<div class="py-3"><p class="mb-0">© 2023 JobScout. Developed By <a href="https://nujan.com.np">Nujan Sitaula</a>.</p></div>
+							<div class="py-3"><p class="mb-0">© 2025 JobPortal. Developed By <a href="#">Le Quang Huy</a>.</p></div>
 						</div>
 					</div>
-		
+
 				</div>
-				
+
 			</div>
 			<!-- ======================= dashboard Detail End ======================== -->
-			
+
 			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
-			
+
 
 		</div>
 		<!-- ============================================================== -->
@@ -55,9 +55,9 @@
 		</script>
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
-		<!-- ============================================================== -->	
+		<!-- ============================================================== -->
 		@php
-		$data = App\Models\EmployeeApplication::with('jobdetails', 'employee')->whereHas('jobdetails', function($query){ $query->where('company_id', auth()->id());})->get();
+		$data = App\Models\EmployeeApplication::with('hiring', 'employee')->whereHas('hiring', function($query){ $query->where('company_id', auth()->id());})->get();
 		$count = 1;
 		@endphp
 		@foreach($data as $datas)
@@ -69,40 +69,40 @@
 						  <span class="ti-close"></span>
 						</button>
 					  </div>
-				
+
 					<div class="modal-body p-5">
-						
+
 						<table class="table">
 							<tbody>
 							  <tr>
-								<th>Full Name</th>
+								<th>Họ và tên</th>
 								<td>{{ $datas->employee->firstname }} {{ $datas->employee->lastname }}</td>
-								
+
 							  </tr>
 							  <tr>
 								<th>Email</th>
-								<td>{{ $datas->employee->email }}</td>
-								
+								<td>{{ $datas->employee->user->email }}</td>
+
 							  </tr>
 							  <tr>
-								<th>Designation</th>
+								<th>Vị trí chỉ định</th>
 								<td>{{ $datas->employee->designation }}</td>
-								
+
 							  </tr>
 							  <tr>
-								<th>Phone</th>
+								<th>Số điện thoại</th>
 								<td>{{ $datas->employee->phone }}</td>
-								
+
 							  </tr>
 							  <tr>
-								<th>DOB</th>
-								<td>{{ $datas->employee->dateOfBirth }}</td>
-								
+								<th>Ngày sinh</th>
+								<td>{{ $datas->employee->date_of_birth }}</td>
+
 							  </tr>
 							  <tr>
-								<th>About</th>
+								<th>Mô tả</th>
 								<td>{{ $datas->employee->bio }}</td>
-								
+
 							  </tr>
 							</tbody>
 						  </table>
@@ -118,7 +118,7 @@
 						  <span class="ti-close"></span>
 						</button>
 					  </div>
-				
+
 					<div class="modal-body p-5">
 						{{ $datas->cover_letter }}
 					</div>
@@ -132,15 +132,15 @@
 		<script>
 			// Get the current hour of the day
 			const currentTime = new Date().getHours();
-	  
+
 			// Define the greeting based on the current time
 			let greeting;
 			if (currentTime < 12) {
-			  greeting = "Good Morning";
+			  greeting = "Buổi Sáng tốt lành ^^";
 			} else if (currentTime < 18) {
-			  greeting = "Good Afternoon";
+			  greeting = "Buổi Chiều tốt lành ^^";
 			} else {
-			  greeting = "Good Evening";
+			  greeting = "Buổi Tối tốt lành ^^";
 			}
 
 			document.getElementById("greeting").innerHTML = greeting;

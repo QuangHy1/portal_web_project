@@ -22,40 +22,56 @@ class JobSearchController extends Controller
         $hiringSalaryRange = $request->salaryrange;
         $hiringExperience = $request->experience;
 
-        $hirings = Hiring::where('status', 'active')->orderBy('id', 'desc');
+        // Dữ liệu để load các bộ lọc
         $categories = JobCategory::orderBy('name', 'asc')->get();
         $locations = Location::orderBy('name', 'asc')->get();
         $jobtype = JobType::orderBy('name', 'asc')->get();
         $salaryrange = SalaryRange::orderBy('name', 'asc')->get();
         $experience = Experience::orderBy('name', 'asc')->get();
 
-        if($hiringQuery != null){
-            $hirings = $hirings->where('title', 'like', '%'.$hiringQuery.'%');
+        // Query chính
+        $hirings = Hiring::where('status', 'active')->orderBy('id', 'desc');
+
+        if (!empty($hiringQuery)) {
+            $hirings->where('title', 'like', '%' . $hiringQuery . '%');
         }
 
-        if($hiringLocation != null){
-            $hirings = $hirings->where('location_id', 'like', '%'.$hiringLocation.'%');
+        if (!empty($hiringLocation)) {
+            $hirings->where('location_id', $hiringLocation);
         }
 
-        if($hiringJobCategory != null){
-            $hirings = $hirings->where('job_category_id', 'like', '%'.$hiringJobCategory.'%');
+        if (!empty($hiringJobCategory)) {
+            $hirings->where('job_category_id', $hiringJobCategory);
         }
 
-        if($hiringJobType != null){
-            $hirings = $hirings->where('job_type_id', 'like', '%'.$hiringJobType.'%');
+        if (!empty($hiringJobType)) {
+            $hirings->where('job_type_id', $hiringJobType);
         }
 
-        if($hiringSalaryRange != null){
-            $hirings = $hirings->where('salary_range_id', 'like', '%'.$hiringSalaryRange.'%');
+        if (!empty($hiringSalaryRange)) {
+            $hirings->where('salary_range_id', $hiringSalaryRange);
         }
 
-        if($hiringExperience != null){
-            $hirings = $hirings->where('experiance', 'like', '%'.$hiringExperience.'%');
+        if (!empty($hiringExperience)) {
+            $hirings->where('experience_id', $hiringExperience);
         }
 
-        $hirings = $hirings->paginate(6);
-        $hirings = $hirings->appends($request->all());
+        // Phân trang
+        $hirings = $hirings->paginate(6)->appends($request->all());
 
-        return view('frontend.jobSearch', compact('hirings', 'categories', 'locations', 'jobtype', 'salaryrange', 'experience', 'hiringQuery', 'hiringLocation', 'hiringJobCategory', 'hiringJobType', 'hiringSalaryRange', 'hiringExperience'));
+        return view('frontend.jobSearch', compact(
+            'hirings',
+            'categories',
+            'locations',
+            'jobtype',
+            'salaryrange',
+            'experience',
+            'hiringQuery',
+            'hiringLocation',
+            'hiringJobCategory',
+            'hiringJobType',
+            'hiringSalaryRange',
+            'hiringExperience'
+        ));
     }
 }

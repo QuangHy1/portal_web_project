@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+//    public string $password;
     protected $fillable = [
         'username',
         'email',
@@ -71,4 +71,22 @@ class User extends Authenticatable
     {
         return $this->role_id === 1;
     } // gán role_id === 1 cho phương thức isAdmin()
+
+//    public function employer()
+//    {
+//        return $this->hasOne(Employer::class);
+//    }
+    public function employer()
+    {
+        return $this->hasOne(Employer::class, 'user_id');
+    }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
 }

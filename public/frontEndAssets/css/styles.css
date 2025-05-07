@@ -250,6 +250,9 @@ html body .db {
 .theme-bg{
 	background:#28b661 !important;
 }
+.theme-bg1{
+    background: #6f2f9f !important;
+}
 .dark-theme-bg{
 	background:#005536;
 }
@@ -270,6 +273,9 @@ html body .db {
 }
 .theme-cl{
 	color:#28b661 !important;
+}
+form.bg-white.rounded.p-1 {
+    border: 4px solid #32d711;
 }
 .dark_bg{
 	background:#202838;
@@ -5678,8 +5684,17 @@ img.img-fluid1{
     min-height: 280px;
     max-height: 280px;
 }
+img.img-fluid2 {
+    width: 100%;
+    min-height: 430px;
+    max-height: 430px;
+}
 a.cats-box.d-block.rounded.bg-white.shadow.px-2.py-4 {
     max-width: 100%;
     min-height: 182px;
     max-height: 182px;
+}
+.job_grid.border.rounded {
+    min-height: 350px !important;
+    max-height: 350px !important;
 }

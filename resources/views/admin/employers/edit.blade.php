@@ -111,9 +111,9 @@
                 <label for="gender" class="form-label">Giới tính</label>
                 <select class="form-select" id="gender" name="gender">
                     <option value="">Chọn giới tính</option>
-                    <option value="male" {{ old('gender', $employer->gender) == 'male' ? 'selected' : '' }}>Nam</option>
-                    <option value="female" {{ old('gender', $employer->gender) == 'female' ? 'selected' : '' }}>Nữ</option>
-                    <option value="other" {{ old('gender', $employer->gender) == 'other' ? 'selected' : '' }}>Khác</option>
+                    <option value="Nam" {{ old('gender', $employer->gender) == 'Nam' ? 'selected' : '' }}>Nam</option>
+                    <option value="Nữ" {{ old('gender', $employer->gender) == 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                    <option value="Khác" {{ old('gender', $employer->gender) == 'Khác' ? 'selected' : '' }}>Khác</option>
                 </select>
                 @error('gender')
                 <div class="text-danger">{{ $message }}</div>

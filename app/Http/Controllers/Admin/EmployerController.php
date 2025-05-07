@@ -24,7 +24,7 @@ class EmployerController extends Controller
                 $query->where('firstname', 'like', '%' . $keyword . '%')
                     ->orWhere('lastname', 'like', '%' . $keyword . '%');
             })
-            ->paginate(4);
+            ->paginate(3);
 
         return view('admin.employers.index', compact('employers', 'keyword'));
     }
@@ -49,7 +49,7 @@ class EmployerController extends Controller
             'lastname' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
-            'gender' => 'nullable|in:male,female,other',
+            'gender' => 'nullable|in:Nam,Nữ,Khác',
             'date_of_birth' => 'nullable|date',
             'about' => 'nullable|string',
             'hours_monday' => 'nullable|string|max:255',
@@ -106,7 +106,7 @@ class EmployerController extends Controller
             'lastname' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
-            'gender' => 'nullable|in:male,female,other',
+            'gender' => 'nullable|in:Nam,Nữ,Khác',
             'date_of_birth' => 'nullable|date',
             'about' => 'nullable|string',
             'hours_monday' => 'nullable|string|max:255',

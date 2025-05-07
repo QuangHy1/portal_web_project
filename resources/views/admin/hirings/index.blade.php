@@ -82,9 +82,9 @@
                         </div>
                         <div class="hiring-info">
                             <strong>Giới tính:</strong>
-                            @if ($hiring->gender == 'male')
+                            @if ($hiring->gender == 'Nam')
                                 Nam
-                            @elseif ($hiring->gender == 'female')
+                            @elseif ($hiring->gender == 'Nữ')
                                 Nữ
                             @else
                                 Không yêu cầu (All gender)

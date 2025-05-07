@@ -39,8 +39,8 @@
                         <div class="d-block full-width px-4 py-4 bg-white rounded mb-3">
                             <div class="d-block full-width mb-1"><i class="{{ $item->icon }} fs-lg theme-cl"></i></div>
                             <h4 class="ft-medium mb-0 fs-md">{{ $item->name }}</h4>
-                            <p class="mb-3 p-0 lh-1">632 Jobs</p>
-                            <a href="{{ route('job.search','category'.'='. $item->id) }}" class="theme-cl ft-medium">Khám phá thêm<i class="lni lni-arrow-right-circle ml-1"></i></a>
+                            <p class="mb-3 p-0 lh-1">{{ $item->jobcatcount_count }} Tin tuyển dụng</p>
+                            <a href="{{ route('job.search','category'.'='. $item->id) }}" class="theme-cl ft-medium">Xem ngay<i class="lni lni-arrow-right-circle ml-1"></i></a>
                         </div>
                     </div>
                     @endforeach
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                             <div class="form-group mb-0 position-relative">
-                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Click</button>
                             </div>
                         </div>
                     </div>

@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             EmployeeBookmarksSeeder::class,
             PostsSeeder::class,
             UserTestimonialsSeeder::class,
+            PackageSeeder::class,
         ]);
     }
 }

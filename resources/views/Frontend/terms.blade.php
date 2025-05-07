@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                             <div class="form-group mb-0 position-relative">
-                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Click</button>
                             </div>
                         </div>
                     </div>

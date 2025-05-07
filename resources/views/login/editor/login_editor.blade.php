@@ -12,6 +12,9 @@
 <div class="container">
     <div class="item">
         <h2 class="logo"><i class='bx bxl-xing'></i>PORTAL JOB</h2>
+        <a href="{{ route('home') }}" class="home-icon-link">
+            <i class='bx bxs-home home-icon'></i>
+        </a>
         <div class="text-item">
             <h2>Trang đăng nhập EDITOR<br><span>
                     ---

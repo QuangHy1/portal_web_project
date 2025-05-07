@@ -1,0 +1,162 @@
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+class SigninController extends Controller
+{
+    // ====== Views ======
+    public function index()
+    {
+        return view('login.employer.login_employer');
+    }
+
+    public function employee()
+    {
+        return view('login.employee.login_employee');
+    }
+
+    // ====== Đăng nhập EMPLOYER ======
+    public function signinSubmit(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = User::where(function ($query) use ($request) {
+            $query->where('username', $request->username)
+                ->orWhere('email', $request->username);
+        })
+            ->where('role_id', 3) // Employer
+            ->first();
+
+        if (!$user) {
+            return redirect()->route('employer.signin')->with('error', 'Không tìm thấy tài khoản của bạn.');
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return redirect()->route('employer.signin')->with('error', 'Mật khẩu không chính xác.');
+        }
+
+        $employer = $user->employer;
+
+        if (!$employer || !$employer->isverified) {
+            return redirect()->route('employer.signin')->with('error', 'Email chưa được xác minh.');
+        }
+
+        if ($employer->isSuspended === 'yes') {
+            return redirect()->route('employer.signin')->with('error', 'Tài khoản bị đình chỉ hoạt động.');
+        }
+
+        Auth::guard('employer')->login($user);
+        return redirect()->route('employer.dashboard');
+    }
+
+    // ====== Đăng nhập EMPLOYEE ======
+    public function signinSubmitEmployee(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = User::where(function ($query) use ($request) {
+            $query->where('username', $request->username)
+                ->orWhere('email', $request->username);
+        })
+            ->where('role_id', 4) // Employee
+            ->first();
+
+        if (!$user) {
+            return redirect()->route('employee.signin')->with('error', 'Không tìm thấy tài khoản của bạn.');
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return redirect()->route('employee.signin')->with('error', 'Mật khẩu không chính xác.');
+        }
+
+        $employee = $user->employee;
+
+        if (!$employee || !$employee->isverified) {
+            return redirect()->route('employee.signin')->with('error', 'Email chưa được xác minh.');
+        }
+
+        if ($employee->isDeleted) {
+            return redirect()->route('employee.signin')->with('error', 'Tài khoản đã bị xóa tại ' . $employee->updated_at->diffForHumans());
+        }
+
+        Auth::guard('employee')->login($user);
+        return redirect()->route('employee.dashboard');
+    }
+
+    // ====== Đăng xuất ======
+    public function employerLogout()
+    {
+        Auth::guard('employer')->logout();
+        return redirect()->route('employer.signin');
+    }
+
+    public function employeeLogout()
+    {
+        Auth::guard('employee')->logout();
+        return redirect()->route('employee.signin');
+    }
+
+    // ====== Đổi mật khẩu EMPLOYER ======
+    public function changePasswordEmployer()
+    {
+        return view('employer.changepassword');
+    }
+
+    public function changePasswordEmployerConfirm(Request $request)
+    {
+        $request->validate([
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min:6',
+            'confirmpassword' => 'required|min:6|same:newpassword',
+        ]);
+
+        $user = Auth::guard('employer')->user();
+
+        if (!$user || !Hash::check($request->oldpassword, $user->getAuthPassword())) {
+            return back()->with('error', 'Incorrect old password');
+        }
+
+        $user->password = Hash::make($request->newpassword);
+        $user->save();
+
+        return redirect()->route('employer.dashboard')->with('success', 'Thay đổi mật khẩu thành công !');
+    }
+
+    // ====== Đổi mật khẩu EMPLOYEE ======
+    public function changePasswordEmployee()
+    {
+        return view('employee.changepassword');
+    }
+
+    public function changePasswordEmployeeConfirm(Request $request)
+    {
+        $request->validate([
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min:6',
+            'confirmpassword' => 'required|min:6|same:newpassword',
+        ]);
+
+        $user = Auth::guard('employee')->user();
+
+        if (!Hash::check($request->oldpassword, $user->getAuthPassword())) {
+            return back()->with('error', 'Incorrect old password');
+        }
+
+        $user->password = Hash::make($request->newpassword);
+        $user->save();
+
+        return redirect()->route('employee.dashboard')->with('success', 'Password changed successfully');
+    }
+}

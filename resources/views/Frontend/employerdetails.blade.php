@@ -6,11 +6,11 @@
     <div class="container">
         <div class="row">
             <div class="colxl-12 col-lg-12 col-md-12">
-                <h1 class="ft-medium">Thông Tin Nhà Tuyển Dụng (Employer)</h1>
+                <h1 class="ft-medium">Thông Tin Công Ty</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Nhà Tuyển Dụng</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+{{--                        <li class="breadcrumb-item"><a href="#">Nhà Tuyển Dụng</a></li>--}}
                         <li class="breadcrumb-item active theme-cl" aria-current="page">Chi Tiết</li>
                     </ol>
                 </nav>
@@ -30,7 +30,11 @@
                 <div class="d-block border rounded mfliud-bot mb-4">
                     <div class="cdt_author px-2 pt-5 pb-4">
                         <div class="dash_auth_thumb rounded p-1 border d-inline-flex mx-auto mb-3">
-                            <img src="{{ asset('frontEndAssets/img').'/'. $employer->company->logo }}" class="img-fluid" width="100" alt="" />
+                            @if ($employer->company && $employer->company->logo)
+                                <img src="{{ asset('uploads/companies/' . $employer->company->logo) }}" class="img-fluid" width="100" alt="Logo công ty" />
+                            @else
+                                <img src="{{ asset('images/default-logo.png') }}" class="img-fluid" width="100" alt="Không có logo" />
+                            @endif
                         </div>
                         <div class="dash_caption mb-4">
                             <h4 class="fs-lg ft-medium mb-0 lh-1">{{ $employer->company->name }}</h4>
@@ -47,12 +51,12 @@
 
                     <div class="cdt_caps">
                         <div class="job_grid_footer pb-3 px-3 d-flex align-items-center justify-content-between">
-                            <div class="df-1 text-muted"><i class="lni lni-briefcase mr-1"></i>{{ $hiring }} Khái Quát</div>
+                            <div class="df-1 text-muted"><i class="lni lni-briefcase mr-1"></i>{{ $hiring }} Công Việc</div>
                             <div class="df-1 text-muted"><i class="lni lni-laptop-phone mr-1"></i>{{ $employer->industry->name }}</div>
                         </div>
                         <div class="job_grid_footer px-3 d-flex align-items-center justify-content-between">
                             <div class="df-1 text-muted"><i class="lni lni-envelope mr-1"></i>{{ $employer->user->email }}</div>
-                            <div class="df-1 text-muted"><i class="lni lni-calendar mr-1"></i>{{ $employer->phone }}</div>
+                            <div class="df-1 text-muted"><i class="bx bx-phone mr-1"></i>{{ $employer->phone }}</div>
                         </div>
                     </div>
 
@@ -70,7 +74,7 @@
 
                     <!-- Mô tả -->
                     <div class="abt-cdt d-block full-width mb-4">
-                        <h4 class="ft-medium mb-1 fs-md">Về {{ $employer->company->description }}</h4>
+                        <h4 class="ft-medium mb-1 fs-md">{{ $employer->company->description }}</h4>
                         @if($employer->company->description == null)
                         <p>Chưa có thông tin Mô Tả về họ.</p>
                         @else
@@ -197,7 +201,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                             <div class="form-group mb-0 position-relative">
-                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Click</button>
                             </div>
                         </div>
                     </div>

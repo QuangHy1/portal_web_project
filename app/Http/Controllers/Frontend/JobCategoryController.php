@@ -10,7 +10,7 @@ class JobCategoryController extends Controller
 {
     public function categories()
     {
-        $jobCategories = JobCategory::get();
+        $jobCategories = JobCategory::withCount('jobcatcount')->get();
         return view('frontend.jobCategories', compact('jobCategories'));
     }
 }

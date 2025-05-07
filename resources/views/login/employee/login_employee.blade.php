@@ -12,6 +12,9 @@
 <div class="container">
     <div class="item">
         <h2 class="logo"><i class='bx bxl-xing'></i>PORTAL JOB</h2>
+        <a href="{{ route('home') }}" class="home-icon-link">
+            <i class='bx bxs-home home-icon'></i>
+        </a>
         <div class="text-item">
             <h2>Cổng thông tin tuyển dụng !<br><span>
                  ---
@@ -28,12 +31,12 @@
     </div>
     <div class="login-section">
         <div class="form-box login">
-            <form action="{{ route('employee.login.submit') }}" method="POST" class="login-form">
+            <form action="{{ route('employee.signin.submit') }}" method="POST" class="login-form">
                 @csrf
                 <h2 class="login-label">Đăng nhập</h2>
                 <div class="input-box input-box-login">
                     <span class="icon"><i class='bx bxs-envelope'></i></span>
-                    <input type="email" name="email" required>
+                    <input type="text" name="username" required>
                     <label>Tên đăng nhập/email</label>
                 </div>
                 <div class="input-box input-box-login">
@@ -63,6 +66,7 @@
                     <p>Bạn chưa có tài khoản? <a href="#" class="register-link">Đăng kí ngay</a></p>
                 </div>
             </form>
+
         </div>
         <div class="form-box register">
             <form action="" class="register-form">

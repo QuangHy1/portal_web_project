@@ -179,9 +179,9 @@
                 <label for="gender" class="form-label">Yêu cầu giới tính</label>
                 <select class="form-select" id="gender" name="gender" required>
                     <option value="">Chọn </option>
-                    <option value="male" {{ old('gender', $hiring->gender) == 'male' ? 'selected' : '' }}>Nam</option>
-                    <option value="female" {{ old('gender', $hiring->gender) == 'female' ? 'selected' : '' }}>Nữ</option>
-                    <option value="other" {{ old('gender', $hiring->gender) == 'other' ? 'selected' : '' }}>Không yêu cầu (All gender)</option>
+                    <option value="Nam" {{ old('gender', $hiring->gender) == 'Nam' ? 'selected' : '' }}>Nam</option>
+                    <option value="Nữ" {{ old('gender', $hiring->gender) == 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                    <option value="Không yêu cầu (All gender)" {{ old('gender', $hiring->gender) == 'Không yêu cầu (All gender)' ? 'selected' : '' }}>Không yêu cầu (All gender)</option>
                 </select>
                 @error('gender')
                 <div class="text-danger">{{ $message }}</div>

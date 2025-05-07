@@ -15,4 +15,5 @@ class JobCategory extends Model
     {
         return $this->hasMany(Hiring::class, 'job_category_id', 'id')->where('status', '=', 'active');
     }
+
 }

@@ -60,7 +60,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="designation" class="form-label">Chức vụ</label>
+                <label for="designation" class="form-label">Vị trí mong muốn</label>
                 <input type="text" class="form-control" id="designation" name="designation" value="{{ old('designation') }}">
                 @error('designation')
                 <div class="text-danger">{{ $message }}</div>

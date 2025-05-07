@@ -9,7 +9,7 @@
                 <div class="jbd-01 d-flex align-items-center justify-content-between">
                     <div class="jbd-flex d-flex align-items-center justify-content-start">
                         <div class="jbd-01-thumb">
-                            <img src="{{ asset('frontEndAssets/img').'/'. $jobPost->company->logo }}" class="img-fluid" width="100" alt="" />
+                            <img src="{{ asset('uploads/companies').'/'. $jobPost->company->logo }}" class="img-fluid" width="100" alt="" />
                         </div>
                         <div class="jbd-01-caption pl-3">
                             <div class="tbd-title"><h4 class="mb-0 ft-medium fs-md">{{ $jobPost->title }}<img src="assets/img/verify.svg" class="ml-1" width="12" alt=""></h4></div>
@@ -27,8 +27,17 @@
                     </div>
                     @if(!Auth::guard('employer')->check())
                     <div class="jbd-01-right text-right">
-                        <div class="jbl_button mb-2"><a href="{{ route('employee.apply', $jobPost->id) }}" class="btn btn-md rounded theme-bg-light theme-cl fs-sm ft-medium">Apply</a></div>
-                        <div class="jbl_button"><a href="{{ route('employer.details', $jobPost->company->id) }}" class="btn btn-md rounded bg-white border fs-sm ft-medium">Xem Công ty</a></div>
+                        <div class="jbl_button mb-2">@auth('employee')
+                                <a href="{{ route('employee.apply', $jobPost->id) }}" class="btn btn-md rounded theme-bg-light theme-cl fs-sm ft-medium">Apply</a>
+                            @else
+                                <a href="{{ route('employee.signin') }}" class="btn btn-md rounded theme-bg-light theme-cl fs-sm ft-medium"
+                                   onclick="return confirm('Bạn cần đăng nhập bằng tài khoản ứng viên để ứng tuyển. Bạn có muốn đăng nhập không?')">
+                                    Apply
+                                </a>
+                            @endauth</div>
+                        <div class="jbl_button">
+                            <a href="{{ route('employer.details', $jobPost->employer->id) }}" class="btn btn-md rounded bg-white border fs-sm ft-medium">Xem Công ty</a>
+                        </div>
                     </div>
                     @endif
                 </div>
@@ -72,11 +81,12 @@
                         <div class="jbd-details mb-4">
                             <h5 class="ft-medium fs-md">Thông Tin Thêm</h5>
                             <div class="other-details">
-                                <div class="details ft-medium"><label class="text-muted">Vị Trí Công Việc</label><span class="text-dark">{{ $jobPost->title }}</span></div>
-                                <div class="details ft-medium"><label class="text-muted">Lĩnh Vực</label><span class="text-dark">{{ $jobPost->jobCategory->name }}</span></div>
-                                <div class="details ft-medium"><label class="text-muted">Kinh Nghiệm</label><span class="text-dark">{{ $jobPost->experience->name }}</span></div>
-                                <div class="details ft-medium"><label class="text-muted">Hình Thức Làm Việc</label><span class="text-dark">{{ $jobPost->jobType->name }}, Permanent</span></div>
-                                <div class="details ft-medium"><label class="text-muted">Apply Trước Đó</label><span class="text-dark">{{ date('d M Y', strtotime($jobPost->deadline)) }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Vị Trí Công Việc:</label><span class="text-dark">{{ $jobPost->title }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Lĩnh Vực:</label><span class="text-dark">{{ $jobPost->jobCategory->name }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Kinh Nghiệm:</label><span class="text-dark">{{ $jobPost->experience->name }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Hình Thức Làm Việc:</label><span class="text-dark">{{ $jobPost->jobType->name }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Trình độ/Học vấn:</label><span class="text-dark">{{ $jobPost->education }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Thời Hạn Apply:</label><span class="text-dark">{{ date('d - m - Y', strtotime($jobPost->deadline)) }}</span></div>
                             </div>
                         </div>
 
@@ -97,12 +107,26 @@
 
                     <div class="jbd-02 pt-4 pr-3">
                         <div class="jbd-02-flex d-flex align-items-center justify-content-between">
-                            @if(!Auth::guard('employer')->check())
-                            <div class="jbl_button mb-2">
-                                <a href="{{ route('employee.job.bookmark', $jobPost['id']) }}" class="btn btn-md rounded gray fs-sm ft-medium mr-2">Lưu lại</a>
-
-                                <a href="{{ route('employee.apply', $jobPost->id) }}" class="btn btn-md rounded theme-bg text-light fs-sm ft-medium">Apply</a>
-                            </div>
+                            @if(Auth::guard('employer')->check())
+                                {{-- Không hiển thị nút Apply hay Bookmark nếu là nhà tuyển dụng --}}
+                            @elseif(Auth::guard('employee')->check())
+                                {{-- Nếu là ứng viên đã đăng nhập --}}
+                                <div class="jbl_button mb-2">
+                                    <a href="{{ route('employee.job.bookmark', $jobPost->id) }}" class="btn btn-md rounded gray fs-sm ft-medium mr-2">Lưu lại</a>
+                                    <a href="{{ route('employee.apply', $jobPost->id) }}" class="btn btn-md rounded theme-bg text-light fs-sm ft-medium">Apply</a>
+                                </div>
+                            @else
+                                {{-- Nếu là khách (chưa đăng nhập) --}}
+                                <div class="jbl_button mb-2">
+                                    <a href="{{ route('employee.signin') }}" class="btn btn-md rounded gray fs-sm ft-medium mr-2"
+                                       onclick="return confirm('Bạn cần đăng nhập bằng tài khoản ứng viên để lưu công việc. Bạn có muốn đăng nhập không?')">
+                                        Lưu lại
+                                    </a>
+                                    <a href="{{ route('employee.signin') }}" class="btn btn-md rounded theme-bg text-light fs-sm ft-medium"
+                                       onclick="return confirm('Bạn cần đăng nhập bằng tài khoản ứng viên để ứng tuyển. Bạn có muốn đăng nhập không?')">
+                                        Apply
+                                    </a>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -183,7 +207,7 @@
                     <div class="position-absolute ab-left"><button type="button" class="p-3 border circle d-flex align-items-center justify-content-center bg-white text-gray"><i class="lni lni-heart-filled position-absolute snackbar-wishlist"></i></button></div>
                     <div class="position-absolute ab-right"><span class="medium theme-cl theme-bg-light px-2 py-1 rounded">{{ $relatedJob->jobType->name }}</span></div>
                     <div class="job_grid_thumb mb-3 pt-5 px-3">
-                        <a href="{{ route('jobs', $relatedJob->id) }}" class="d-block text-center m-auto"><img src="{{ asset('frontEndAssets/img').'/'. $relatedJob->company->logo }}" class="img-fluid" width="70" alt="" /></a>
+                        <a href="{{ route('jobs', $relatedJob->id) }}" class="d-block text-center m-auto"><img src="{{ asset('uploads/companies').'/'. $relatedJob->company->logo }}" class="img-fluid" width="70" alt="" /></a>
                     </div>
                     <div class="job_grid_caption text-center pb-5 px-3">
                         <h6 class="mb-0 lh-1 ft-medium medium"><a href="{{ route('employer.details', $relatedJob->employer->id) }}" class="text-muted medium">{{ $relatedJob->company->name }}</a></h6>
@@ -229,7 +253,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                             <div class="form-group mb-0 position-relative">
-                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Đăng Ký Nhận Thông Báo</button>
+                                <button class="btn full-width custom-height-lg theme-bg text-light fs-md" type="button">Click</button>
                             </div>
                         </div>
                     </div>
