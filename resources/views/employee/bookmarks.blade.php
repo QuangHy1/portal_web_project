@@ -1,4 +1,4 @@
-@extends('Frontend.layouts.masterDashboard')            
+@extends('Frontend.layouts.masterDashboard')
 @section('page_title')#1 Job Portal Company @endsection
 @section('header_shadow')head-shadow @endsection
 @section('body_content')
@@ -7,52 +7,51 @@
     <div class="dashboard-tlbar d-block mb-5">
         <div class="row">
             <div class="colxl-12 col-lg-12 col-md-12">
-                <h1 class="ft-medium">Saved Jobs</h1>
+                <h1 class="ft-medium">Tin Đã Lưu</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item text-muted"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="theme-cl">Saved Jobs</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ route('employee.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="theme-cl">Tin Đã Lưu</a></li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
-    
+
     <div class="dashboard-widg-bar d-block">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-sm-12">
                 <div class="cl-justify">
-                    
+
                     <div class="cl-justify-first">
-                        <p class="m-0 p-0 ft-sm">You have saved <span class="text-dark ft-medium">{{ $bookmarks->count() }}</span> jobs</p>
+                        <p class="m-0 p-0 ft-sm">Bạn đã lưu <span class="text-dark ft-medium">{{ $bookmarks->count() }}</span> công việc.</p>
                     </div>
-                    
+
                     <div class="cl-justify-last">
                         <div class="d-flex align-items-center justify-content-left">
                             <div class="dlc-list">
-                                <select class="form-control sm rounded">
-                                    <option>All Jobs</option>
-                                    <option>Full Time</option>
-                                    <option>Part Time</option>
-                                    <option>Freelancing</option>
-                                    <option>Internship</option>
-                                    <option>Contract</option>
-                                </select>
-                            </div>
-                            <div class="dlc-list ml-2">
-                                <select class="form-control sm rounded">
-                                    <option>Show 20</option>
-                                    <option>Show 30</option>
-                                    <option>Show 40</option>
-                                    <option>Show 50</option>
-                                    <option>Show 100</option>
-                                    <option>Show 250</option>
-                                </select>
+                                <form method="GET" id="filterForm">
+                                    <select name="job_type" class="form-control sm rounded" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="">Tất cả loại công việc</option>
+                                        @foreach($jobTypes as $type)
+                                            <option value="{{ $type }}" {{ request('job_type') == $type ? 'selected' : '' }}>
+                                                {{ $type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <select name="per_page" class="form-control sm rounded mt-2" onchange="document.getElementById('filterForm').submit();">
+                                        @foreach($perPageOptions as $option)
+                                            <option value="{{ $option }}" {{ request('per_page', 20) == $option ? 'selected' : '' }}>
+                                                Hiển thị {{ $option }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12">
@@ -61,10 +60,10 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                  <th scope="col">Job Title</th>
+                                  <th scope="col">Tiêu Đề</th>
                                   <th scope="col">Status</th>
-                                  <th scope="col">Apply Before</th>
-                                  <th scope="col">Action</th>
+                                    <th scope="col">Hạn Apply</th>
+                                  <th scope="col">Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,22 +71,50 @@
                                 <tr>
                                     <td>
                                         <div class="cats-box rounded bg-white d-flex align-items-center">
-                                            <div class="text-center"><img src="{{ asset('frontEndAssets/img/'.$bookmark->jobdetails->jobemployers->logo) }}" class="img-fluid" width="55" alt=""></div>
+                                            <div class="text-center">
+                                                @if($bookmark->hiring && $bookmark->hiring->company)
+                                                    <img src="{{ asset('uploads/companies/' . $bookmark->hiring->company->logo) }}" class="img-fluid" width="55" alt="">
+                                                @else
+                                                    <img src="{{ asset('uploads/companies/default.png') }}" class="img-fluid" width="55" alt="No logo">
+                                                @endif
+                                            </div>
                                             <div class="cats-box-caption px-2">
-                                                <h4 class="fs-md mb-0 ft-medium">{{ $bookmark->jobdetails->title }}</h4>
+                                                <h4 class="fs-md mb-0 ft-medium">{{ optional($bookmark->hiring)->title }}</h4>
                                                 <div class="d-block mb-2 position-relative">
-                                                    <span class="text-muted medium"><i class="lni lni-map-marker mr-1"></i>{{ $bookmark->jobdetails->joblocation->name }}</span>
-                                                    <span class="muted medium ml-2 theme-cl"><i class="lni lni-briefcase mr-1"></i>{{ $bookmark->jobdetails->jobtype->name }}</span>
+                                                    <span class="text-muted medium">
+                                                        <i class="lni lni-map-marker mr-1"></i>{{ optional(optional($bookmark->hiring)->location)->name }}
+                                                    </span>
+                                                    <span class="muted medium ml-2 theme-cl">
+                                                        <i class="lni lni-briefcase mr-1"></i>{{ optional(optional($bookmark->hiring)->jobType)->name }}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span class="text-info">{{ $bookmark->jobdetails->status }}</span></td>
-                                    <td>{{ $bookmark->jobdetails->deadline }}</td>
+                                    <td>
+                                        <span class="text-info">
+                                            @php
+                                                $status = optional($bookmark->hiring)->status;
+                                            @endphp
+
+                                            @if ($status === 'active')
+                                                Còn tuyển
+                                            @elseif ($status === 'inactive')
+                                                Hết tuyển
+                                            @else
+                                                Không rõ
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td>{{ optional($bookmark->hiring)->deadline }}</td>
                                     <td>
                                         <div class="dash-action">
-                                            <a href="{{ route('jobs', $bookmark->jobdetails->id) }}" class="p-2 circle text-info bg-light-info d-inline-flex align-items-center justify-content-center mr-1"><i class="lni lni-eye"></i></a>
-                                            <a href="{{ route('bookmark.delete', $bookmark->id) }}" class="p-2 circle text-danger bg-light-danger d-inline-flex align-items-center justify-content-center ml-1"><i class="lni lni-trash-can"></i></a>
+                                            <a href="{{ route('jobs', optional($bookmark->hiring)->id) }}" class="p-2 circle text-info bg-light-info d-inline-flex align-items-center justify-content-center mr-1"><i class="lni lni-eye"></i></a>
+                                            <a href="{{ route('bookmark.delete', $bookmark->id) }}"
+                                               onclick="return confirm('Bạn có chắc muốn xóa tin đã lưu này không?')"
+                                               class="p-2 circle text-danger bg-light-danger d-inline-flex align-items-center justify-content-center ml-1">
+                                                <i class="lni lni-trash-can"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -98,30 +125,9 @@
                 </div>
             </div>
         </div>
-        
-        {{-- <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span class="fas fa-arrow-circle-right"></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#">18</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span class="fas fa-arrow-circle-right"></span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
-            
+        <div class="mt-4">
+            {{ $bookmarks->appends(request()->all())->links('pagination::bootstrap-4') }}
+        </div>
+
     </div>
     @endsection

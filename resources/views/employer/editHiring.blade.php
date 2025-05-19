@@ -166,7 +166,22 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-12 col-lg-12 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="text-dark ft-medium">Số Lượng Cần Tuyển*</label>
+                                                    <select name="vacancy_id" class="form-control rounded" required>
+                                                        <option value="">-- Chọn số lượng --</option>
+                                                        @foreach($vacancies as $vacancy)
+                                                            <option value="{{ $vacancy->id }}" {{ (old('vacancy_id', $hiring->vacancy_id) == $vacancy->id) ? 'selected' : '' }}>
+                                                                {{ $vacancy->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <label class="text-dark ft-medium">Thời Hạn Ứng Tuyển*</label>
                                                 <input type="date" name="deadline" class="form-control rounded" value="{{ $hiring->deadline }}">

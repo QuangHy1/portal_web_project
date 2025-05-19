@@ -44,6 +44,14 @@
                             <i class="bx bx-envelope"></i> {{ $employee->user->email ?? 'N/A' }}
                         </div>
                         <div class="employee-info">
+                            <i class="bx bx-envelope"></i> Trạng thái mail:
+                            @if ($employee->isverified === 1)
+                                <span class="text-success">Đã duyệt</span>
+                            @else
+                                <span class="text-danger">Chưa duyệt</span>
+                            @endif
+                        </div>
+                        <div class="employee-info">
                             <i class="bx bx-map"></i> {{ $employee->location->name ?? 'N/A' }}
                         </div>
                         <div class="employee-info">

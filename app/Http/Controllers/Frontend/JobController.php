@@ -24,15 +24,39 @@ class JobController extends Controller
         return view('frontend.singlehiring', compact('jobPost', 'relatedJobs'));
     }
 
-    public function getApplied()
+    public function getApplied(Request $request)
     {
-        $jobPost =  EmployeeApplication::where('employee_id', auth()->user()->id()->get());
+        $employeeUser = auth('employee')->user();
 
-        // $jobPost->view_count = $blogPost->view_count + 1;
-        // $jobPost->update();
+        // Kiểm tra xem user đã đăng nhập và có liên kết với employee hay chưa
+        if (!$employeeUser || !$employeeUser->employee) {
+            return redirect()->route('employee.signin')->with('error', 'Bạn cần đăng nhập bằng tài khoản người dùng.');
+        }
 
+        $employeeId = $employeeUser->employee->id;
 
-        return view('employee.listapplied', compact('jobPost'));
+        $perPage = $request->input('per_page', 20);
+        $jobTypeFilter = $request->input('job_type');
+
+        $applicationsQuery = EmployeeApplication::with(['hiring.jobType'])
+            ->where('employee_id', $employeeId);
+
+        if ($jobTypeFilter) {
+            $applicationsQuery->whereHas('hiring.jobType', function ($q) use ($jobTypeFilter) {
+                $q->where('name', $jobTypeFilter);
+            });
+        }
+
+        $applications = $applicationsQuery->paginate($perPage);
+
+        // Lấy danh sách jobType duy nhất từ các bản ghi đã lọc
+        $jobTypes = $applications->pluck('hiring.jobType.name')->unique()->filter();
+        $perPageOptions = [20, 30, 40, 50, 100, 250];
+
+        return view('employee.listapplied', compact('applications', 'jobTypes', 'perPageOptions'));
     }
+
+
+
 
 }

@@ -1,6 +1,11 @@
 @extends('Frontend.layouts.master')
 @section('page_title')Search Jobs @endsection
 @section('body_content')
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 <div class="py-5 theme-bg" data-overlay="0">
     <div class="container">
         <div class="row justify-content-center">

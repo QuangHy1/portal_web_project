@@ -32,6 +32,7 @@
                             <thead class="thead-dark">
                                 <tr>
                                   <th scope="col">Tiêu Đề</th>
+                                    <th scope="col">Trạng Thái</th>
                                   <th scope="col">Trạng Thái Boost</th> {{-- Filled --}}
                                   <th scope="col">Ngày Đăng</th>
                                   <th scope="col">Thời Hạn</th>
@@ -45,60 +46,74 @@
                                 $count = 0;
                                 @endphp
                                 @foreach ($hiring as $item)
-                                @php
-                                    $userID = Auth::guard('employer')->user()->id;
-                                @endphp
-                                <tr>
-                                    <td>
-                                        <div class="dash-title">
-                                            <h4 class="mb-0 ft-medium fs-sm">
-                                                {{ $item->title }}
-                                                <span class="medium theme-cl rounded @if($item->status == 'active') text-success bg-light-success @elseif($item->status == 'Draft') text-info bg-light-info @else text-danger bg-light-danger @endif ml-1 py-1 px-2">{{ $item->status }}</span>
-                                            </h4>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="dash-filled">
-                                            @if($item->isBoosted == 'yes')
-                                                <span class="p-2 bg-info text-white d-inline-flex align-items-center justify-content-center">
-                                                Boost được áp dụng
-                                            </span>
-                                            @else
-                                                <span class="p-2 bg-warning text-white d-inline-flex align-items-center justify-content-center">
-                                                Sắn sàng để Boost !
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>{{ date('d - m - Y', strtotime($item->created_at)) }}</td>
-                                    <td>{{ date('d - m - Y', strtotime($item->deadline)) }}</td>
-                                    <td>
-                                        <a href="{{ route('employer.hiring.applicants', $item->id) }}" class="gray rounded px-3 py-2 ft-medium">
-                                            @php
-                                                $applications = App\Models\EmployeeApplication::where('hiring_id', $item->id)->count();
-                                                echo $applications;
-                                            @endphp
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <div class="dash-action">
-                                            <a href="{{ route('jobs', $item->id) }}" class="p-2 circle text-info bg-light-info d-inline-flex align-items-center justify-content-center mr-1">
-                                                <i class="lni lni-eye"></i>
+                                    @php
+                                        $userID = Auth::guard('employer')->user()->id;
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <div class="dash-title">
+                                                <h4 class="mb-0 ft-medium fs-sm">
+                                                    {{ $item->title }}
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-title">
+                                                <span class="medium theme-cl rounded @if($item->status == 'active') text-success bg-light-success @elseif($item->status == 'Draft') text-info bg-light-info @else text-danger bg-light-danger @endif ml-1 py-1 px-2">
+                                                    @if($item->status == 'active') Hoạt động @elseif($item->status == 'Draft') Bản nháp @else Không hoạt động @endif
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-filled">
+                                                @if($item->status == 'inactive')
+                                                    <span class="p-2 bg-secondary text-white d-inline-flex align-items-center justify-content-center">
+                                                        Tin đã quá hạn
+                                                    </span>
+                                                @elseif($item->isBoosted == 'yes')
+                                                    <span class="p-2 bg-info text-white d-inline-flex align-items-center justify-content-center">
+                                                        Boost được áp dụng
+                                                    </span>
+                                                @else
+                                                    <span class="p-2 bg-warning text-white d-inline-flex align-items-center justify-content-center">
+                                                        Sẵn sàng để Boost!
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>{{ date('d - m - Y', strtotime($item->created_at)) }}</td>
+                                        <td>{{ date('d - m - Y', strtotime($item->deadline)) }}</td>
+                                        <td>
+                                            <a href="{{ route('employer.hiring.applicants', $item->id) }}" class="gray rounded px-3 py-2 ft-medium">
+                                                @php
+                                                    $applications = App\Models\EmployeeApplication::where('hiring_id', $item->id)->count();
+                                                    echo $applications;
+                                                @endphp
                                             </a>
-                                            <a href="{{ route('employer.hiring.edit', $item->id) }}" class="p-2 circle text-success bg-light-success d-inline-flex align-items-center justify-content-center">
-                                                <i class="lni lni-pencil"></i>
-                                            </a>
-                                            <a href="javascript:void(0);" class="p-2 circle text-danger bg-light-danger d-inline-flex align-items-center justify-content-center ml-1">
-                                                <i class="lni lni-trash-can"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                 @php
-                                    $JOBid = $item->id;
-                                     //$JOBid;
-                                 @endphp
-                            @endforeach
+                                        </td>
+                                        <td>
+                                            <div class="dash-action">
+                                                <a href="{{ route('jobs', $item->id) }}" class="p-2 circle text-info bg-light-info d-inline-flex align-items-center justify-content-center mr-1">
+                                                    <i class="lni lni-eye"></i>
+                                                </a>
+                                                <a href="{{ route('employer.hiring.edit', $item->id) }}" class="p-2 circle text-success bg-light-success d-inline-flex align-items-center justify-content-center">
+                                                    <i class="lni lni-pencil"></i>
+                                                </a>
+                                                <form action="{{ route('employer.hiring.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tin này?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="p-2 circle text-danger bg-light-danger d-inline-flex align-items-center justify-content-center ml-1" style="border: none; background: none;">
+                                                        <i class="lni lni-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                     @php
+                                        $JOBid = $item->id;
+                                         //$JOBid;
+                                     @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

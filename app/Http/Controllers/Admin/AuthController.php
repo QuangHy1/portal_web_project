@@ -22,7 +22,17 @@ class AuthController extends Controller
         $request->validate([
             'login' => 'required|string',
             'password' => 'required|string',
+            'g-recaptcha-response' => 'required',
+
         ]);
+
+        // Xác thực reCAPTCHA
+        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . env('GOOGLE_RECAPTCHA_SECRET_KEY') . '&response=' . $request->input('g-recaptcha-response'));
+        $responseKeys = json_decode($response, true);
+
+        if (!$responseKeys["success"]) {
+            return back()->with('error', 'Vui lòng xác minh bạn không phải là robot.');
+        }
 
         $credentials = [
             $loginField => $request->input('login'),

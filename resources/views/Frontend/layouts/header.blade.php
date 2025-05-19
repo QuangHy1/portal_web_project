@@ -228,7 +228,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>@yield('page_title') - JobScout</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -266,9 +266,7 @@
 {{--                        <div class="currency-selector dropdown float-right mr-3">--}}
 {{--                            <a href="javascript:void(0);" class="text-light medium">Danh sách ước</a>--}}
 {{--                        </div>--}}
-{{--                        <div class="currency-selector dropdown js-dropdown float-right mr-3">--}}
-{{--                            <a href="{{ route('employee.job.bookmarks') }}" class="text-light medium">Wishlist</a>--}}
-{{--                        </div>--}}
+
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
                             @if (Auth::guard('employee')->check())
                                 <a href="{{ route('employee.logout') }}" class="text-light medium">Đăng Xuất</a>
@@ -277,10 +275,15 @@
                             @else
                             @endif
                         </div>
+                        @auth('employee')
+                            <div class="currency-selector dropdown js-dropdown float-right mr-3">
+                                <a href="{{ route('employee.job.bookmarks') }}" class="text-light medium">Danh Sách Ước</a>
+                            </div>
+                        @endauth
                         <div class="currency-selector dropdown float-right mr-3">
                             @auth('employee')
                                 <a href="{{ route('employee.dashboard') }}" class="text-light medium">
-                                    {{ auth('employee')->user()->firstname . ' ' . auth('employee')->user()->lastname }}
+                                    {{ auth('employee')->user()->employee->firstname . ' ' . auth('employee')->user()->employee->lastname }}
                                 </a>
                             @elseauth('employer')
                                 <a href="{{ route('employer.profile') }}" class="text-light medium">
@@ -327,12 +330,12 @@
                                     <i class="lni lni-dashboard mr-2"></i>Dashboard
                                 </a>
                             </li>
-{{--                        @elseif(auth('employee')->check())--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ route('employee.dashboard') }}" class="ft-medium">--}}
-{{--                                    <i class="lni lni-dashboard mr-2"></i>Dashboard--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                        @elseif(auth('employee')->check())
+                            <li>
+                                <a href="{{ route('employee.dashboard') }}" class="ft-medium">
+                                    <i class="lni lni-dashboard mr-2"></i>Dashboard
+                                </a>
+                            </li>
                         @else
                             <li class="add-listing theme-bg1">
                                 <a href="{{ route('employee.signin') }}">

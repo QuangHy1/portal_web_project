@@ -89,7 +89,12 @@
                 </li>
                 <li class="sidebar-item">
                     <a href="{{ route('admin.boost_orders.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.boost_orders.index') }} --}}
-                        Thông tin Gói Boost
+                        Giao dịch Boost
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.packages.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.packages.index') }} --}}
+                        <span>Gói Boost</span>
                     </a>
                 </li>
             </ul>
@@ -182,11 +187,6 @@
                 <li class="sidebar-item">
                     <a href="{{ route('admin.user_testimonials.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.user_testimonials.index') }} --}}
                         Đánh giá người dùng
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.packages.index') }}" class="sidebar-link nav-link"> {{-- {{ route('admin.packages.index') }} --}}
-                        <span>Gói Boost</span>
                     </a>
                 </li>
                 <li>

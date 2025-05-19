@@ -52,7 +52,7 @@
                 </div>
 
                 <!-- ✅ reCAPTCHA -->
-                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+                <div class="g-recaptcha" data-sitekey="6LcozD8rAAAAAL1lqZUpdiYBjbzLXcLf0SQl5VWe"></div>
 
                 <button class="btn btn-login-admin">Đăng nhập</button>
 

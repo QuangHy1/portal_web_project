@@ -213,20 +213,27 @@
             </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Trạng thái</label>
-                <select class="form-select" id="status" name="status" required>
-                    <option value="">Chọn trạng thái</option>
-                    <option value="active" {{ old('status', $hiring->status) == 'active' ? 'selected' : '' }}>Hoạt động</option>
-                    <option value="inactive" {{ old('status', $hiring->status) == 'inactive' ? 'selected' : '' }}>Không hoạt động</option>
-                </select>
-                @error('status')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
+{{--                <label for="status" class="form-label">Trạng thái</label>--}}
+{{--                <select class="form-select" id="status" name="status" required>--}}
+{{--                    <option value="">Chọn trạng thái</option>--}}
+{{--                    <option value="active" {{ old('status', $hiring->status) == 'active' ? 'selected' : '' }}>Hoạt động</option>--}}
+{{--                    <option value="inactive" {{ old('status', $hiring->status) == 'inactive' ? 'selected' : '' }}>Không hoạt động</option>--}}
+{{--                </select>--}}
+{{--                @error('status')--}}
+{{--                <div class="text-danger">{{ $message }}</div>--}}
+{{--                @enderror--}}
+                <div class="mb-3">
+                    <label for="status" class="form-label">Trạng thái</label>
+                    <select class="form-select" id="status" name="status_display" disabled>
+                        <option value="active" {{ $hiring->status == 'active' ? 'selected' : '' }}>Hoạt động</option>
+                        <option value="inactive" {{ $hiring->status == 'inactive' ? 'selected' : '' }}>Không hoạt động</option>
+                    </select>
+                </div>
             </div>
 
             <div class="mb-3">
                 <label for="token" class="form-label">Mã Token</label>
-                <input type="text" class="form-control" id="token" name="token" value="{{ old('token', $hiring->token) }}" >
+                <input type="text" class="form-control" id="token" name="token" value="{{ old('token', $hiring->token) }}" disabled>
                 @error('token')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror

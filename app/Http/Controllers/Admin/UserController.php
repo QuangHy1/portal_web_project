@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -36,32 +37,53 @@ class UserController extends Controller
 
     public function showApprovalList(): View
     {
-        $usersToApprove = User::where('status', 'inactive')
-            ->orWhereHas('role', function ($query) {
-                $query->where('id', 3); // Employer role_id is 3
+        $usersToApprove = User::where(function ($query) {
+            $query->where('status', 'inactive')
+                ->orWhereHas('employer', function ($q) {
+                    $q->where('isverified', 0);
+                });
+        })
+            ->whereHas('role', function ($query) {
+                $query->where('id', 3); // Chỉ lấy role là nhà tuyển dụng
             })
-            ->where('status', '!=', 'active') // Exclude already active users
-            ->with('role')
+            ->with(['role', 'employer']) // cần để view dùng $user->employer
             ->get();
 
-//        dd($usersToApprove); // Thêm dòng này
         return view('admin.users.approve', compact('usersToApprove'));
     }
-    public function approve(User $user): RedirectResponse
+    public function approve(User $user)
     {
-        $user->status = 'active';
-        $user->save();
+        if ($user->role_id == 3 && $user->employer) {
+            $user->status = 'active';
+            $user->employer->isverified = 1;
 
-        return redirect()->route('admin.users.approve.list')
-            ->with('success', 'Tài khoản người dùng ' . $user->username . ' đã được duyệt thành công.');
+            $user->save();
+            $user->employer->save();
+
+            return back()->with('success', 'Đã duyệt tài khoản nhà tuyển dụng.');
+        }
+
+        return back()->with('error', 'Không tìm thấy nhà tuyển dụng phù hợp.');
     }
 
-    public function reject(User $user): RedirectResponse
+    public function reject(User $user)
     {
-        $user->delete();
+        if ($user->role_id == 3 && $user->employer) {
+            $user->status = 'inactive';
+            $user->employer->isverified = 0;
 
-        return redirect()->route('admin.users.approve.list')
-            ->with('success', 'Tài khoản người dùng ' . $user->username . ' đã bị từ chối và xóa.');
+            $user->save();
+            $user->employer->save();
+
+            return back()->with('success', 'Đã từ chối tài khoản.');
+        }
+
+        return back()->with('error', 'Không tìm thấy nhà tuyển dụng phù hợp.');
+    }
+    public function updating(Employer $employer)
+    {
+        $employer->user->status = $employer->isverified ? 'active' : 'inactive';
+        $employer->user->save();
     }
 
     protected function autoActivateUser(User $user, Request $request): void

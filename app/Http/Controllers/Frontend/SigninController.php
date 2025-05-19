@@ -27,7 +27,16 @@ class SigninController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:6',
+            'g-recaptcha-response' => 'required',
         ]);
+
+        // Xác thực reCAPTCHA
+        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . env('GOOGLE_RECAPTCHA_SECRET_KEY') . '&response=' . $request->input('g-recaptcha-response'));
+        $responseKeys = json_decode($response, true);
+
+        if (!$responseKeys["success"]) {
+            return back()->with('error', 'Vui lòng xác minh bạn không phải là robot.');
+        }
 
         $user = User::where(function ($query) use ($request) {
             $query->where('username', $request->username)
@@ -64,7 +73,17 @@ class SigninController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:6',
+            'g-recaptcha-response' => 'required',
+
         ]);
+
+        // Xác thực reCAPTCHA
+        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . env('GOOGLE_RECAPTCHA_SECRET_KEY') . '&response=' . $request->input('g-recaptcha-response'));
+        $responseKeys = json_decode($response, true);
+
+        if (!$responseKeys["success"]) {
+            return back()->with('error', 'Vui lòng xác minh bạn không phải là robot.');
+        }
 
         $user = User::where(function ($query) use ($request) {
             $query->where('username', $request->username)
@@ -117,23 +136,26 @@ class SigninController extends Controller
     public function changePasswordEmployerConfirm(Request $request)
     {
         $request->validate([
-            'oldpassword' => 'required',
-            'newpassword' => 'required|min:6',
-            'confirmpassword' => 'required|min:6|same:newpassword',
+            'oldpassword'      => 'required',
+            'newpassword'      => 'required|min:6',
+            'confirmpassword'  => 'required|same:newpassword',
         ]);
 
         $user = Auth::guard('employer')->user();
 
-        if (!$user || !Hash::check($request->oldpassword, $user->getAuthPassword())) {
-            return back()->with('error', 'Incorrect old password');
+        if (!Hash::check($request->oldpassword, $user->password)) {
+            return back()->with('error', 'Mật khẩu hiện tại không đúng.');
         }
 
         $user->password = Hash::make($request->newpassword);
         $user->save();
 
-        return redirect()->route('employer.dashboard')->with('success', 'Thay đổi mật khẩu thành công !');
-    }
+        // Đăng xuất sau khi đổi mật khẩu
+        Auth::guard('employer')->logout();
 
+        // Chuyển về trang đăng nhập
+        return redirect()->route('employer.signin')->with('success', 'Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại.');
+    }
     // ====== Đổi mật khẩu EMPLOYEE ======
     public function changePasswordEmployee()
     {
@@ -145,18 +167,22 @@ class SigninController extends Controller
         $request->validate([
             'oldpassword' => 'required',
             'newpassword' => 'required|min:6',
-            'confirmpassword' => 'required|min:6|same:newpassword',
+            'confirmpassword' => 'required|same:newpassword',
         ]);
 
         $user = Auth::guard('employee')->user();
 
-        if (!Hash::check($request->oldpassword, $user->getAuthPassword())) {
-            return back()->with('error', 'Incorrect old password');
+        if (!Hash::check($request->oldpassword, $user->password)) {
+            return back()->with('error', 'Mật khẩu hiện tại không đúng.');
         }
 
         $user->password = Hash::make($request->newpassword);
         $user->save();
 
-        return redirect()->route('employee.dashboard')->with('success', 'Password changed successfully');
+        // Đăng xuất sau khi đổi mật khẩu
+        Auth::guard('employee')->logout();
+
+        // Chuyển về trang đăng nhập
+        return redirect()->route('employee.signin')->with('success', 'Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại.');
     }
 }

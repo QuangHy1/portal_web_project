@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserTestimonialController;
 use App\Http\Controllers\Admin\VacancyController;
 //use App\Http\Controllers\Auth\EmployeeAuthController; // Đặt ở đây cho rõ ràng
+use App\Http\Controllers\Employee\EmployeeResumeController;
 use App\Http\Controllers\Employer\EmployerHiringController;
 use App\Http\Controllers\Employer\EmployerProfileController;
 use App\Http\Controllers\Frontend\EmployerDetailsController;
@@ -39,6 +40,7 @@ use App\Http\Controllers\Frontend\JobCategoryController as FrontendJobCategoryCo
 use App\Http\Controllers\Frontend\SigninController;
 use App\Http\Controllers\Frontend\TermsController;
 use App\Http\Controllers\Employer\EmployerController as EmployerEmployerController;
+use App\Http\Controllers\Employee\EmployeeController as EmployeeEmployeeController;
 use App\Http\Livewire\Chat\CreateChat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -78,7 +80,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/users/approve', [UserController::class, 'showApprovalList'])->name('admin.users.approve.list');
         Route::patch('/users/{user}/approve', [UserController::class, 'approve'])->name('admin.users.approve');
         Route::delete('/users/{user}/reject', [UserController::class, 'reject'])->name('admin.users.reject');
-
+        Route::get('/admin/employers/verify-list', [AdminEmployerController::class, 'showVerificationList'])->name('admin.employers.verify_list');
+        Route::patch('/admin/employers/{employer}/verify', [AdminEmployerController::class, 'verifyEmail'])->name('admin.employers.verify');
         // Route resource cho users (định nghĩa SAU các route tùy chỉnh)
         Route::resource('users', UserController::class, ['names' => 'admin.users']);
         Route::resource('roles', RoleController::class, ['names' => 'admin.roles']);
@@ -136,6 +139,8 @@ Route::prefix('employer')->middleware(['employer'])->group(function () {
     Route::get('/employer/hirings/', [EmployerHiringController::class, 'viewData'])->name('employer.hiring.list');
     Route::get('/employer/hiring/edit/{id}', [EmployerHiringController::class, 'editData'])->name('employer.hiring.edit');
     Route::post('/employer/hiring/update/{id}', [EmployerHiringController::class, 'updateData'])->name('employer.hiring.update');
+    Route::delete('/employer/hiring/{id}', [EmployerHiringController::class, 'destroy'])->name('employer.hiring.destroy');
+
 
     Route::get('/employer/hiring/applications', [EmployerEmployerController::class, 'viewApplications'])->name('employer.hiring.applications');
     Route::get('/employer/applicants/job/{id}', [EmployerEmployerController::class, 'viewApplicants'])->name('employer.hiring.applicants');
@@ -146,7 +151,10 @@ Route::prefix('employer')->middleware(['employer'])->group(function () {
     Route::get('/employer/hiring/reject/{id}', [EmployerHiringController::class, 'RejectJob'])->name('employer.hiring.applicant.reject');
 
     Route::get('/employer/boost', [EmployerHiringController::class, 'viewDatas'])->name('employer.employee.boost');
+    Route::get('/employer/boost/purchase', [EmployerHiringController::class, 'boostPurchase'])->name('employer.boost.purchase');
     Route::get('/employer/boost/{id}', [EmployerHiringController::class, 'boostData'])->name('employer.employee.boost.submit');
+    Route::post('/employer/boost-now/{id}', [EmployerHiringController::class, 'boostNow'])->name('employer.employee.boost.now');
+    Route::post('employer/hiring/boost/revert/{id}', [EmployerHiringController::class, 'revertBoost'])->name('employer.hiring.boost.revert');
 
     Route::get('/employer/password/change', [SigninController::class, 'changePasswordEmployer'])->name('employer.password.change');
     Route::post('/employer/password/change/confirm', [SigninController::class, 'changePasswordEmployerConfirm'])->name('employer.password.change.confirm');
@@ -159,7 +167,32 @@ Route::post('/employee/signin-submit', [SigninController::class, 'signinSubmitEm
 Route::get('/employee/logout', [SigninController::class, 'employeeLogout'])->name('employee.logout');
 
 Route::prefix('employee')->middleware(['employee'])->group(function () {
-    Route::get('/dashboard', [EmployeeDController::class, 'index'])->name('employee.dashboard');
-    Route::get('/change-password', [SigninController::class, 'changePasswordEmployee'])->name('employee.change_password');
-    Route::post('/change-password', [SigninController::class, 'changePasswordEmployeeConfirm'])->name('employee.change_password.confirm');
+    Route::get('/dashboard', [EmployeeEmployeeController::class, 'index'])->name('employee.dashboard');
+    Route::get('/employee/job/applied', [JobController::class, 'getApplied'])->name('employee.job.applied');
+
+    // Trang quản lý và upload CV
+    Route::get('/resumes', [EmployeeResumeController::class, 'create'])->name('employee.resumes.create');
+    Route::post('/resumes', [EmployeeResumeController::class, 'store'])->name('employee.resumes.store');
+    Route::delete('/resumes/{id}', [EmployeeResumeController::class, 'destroy'])->name('employee.resumes.destroy');
+    Route::get('/resumes/download/{id}', [EmployeeResumeController::class, 'download'])->name('employee.resumes.download');
+
+
+    Route::get('/employee/profile', [EmployeeEmployeeController::class, 'updateProfile'])->name('employee.profile');
+    Route::post('/employee/profile/edit', [EmployeeEmployeeController::class, 'updateProfileConfirm'])->name('employee.profile.edit');
+    Route::post('/employee/profile/social/edit', [EmployeeEmployeeController::class, 'updateProfileSocial'])->name('employee.profile.social.edit');
+
+    Route::get('/employee/password/change', [SigninController::class, 'changePasswordEmployee'])->name('employee.password.change');
+    Route::post('/employee/password/change/confirm', [SigninController::class, 'changePasswordEmployeeConfirm'])->name('employee.password.change.confirm');
+
+    Route::get('/employee/apply/{id}', [EmployeeEmployeeController::class, 'apply'])->name('employee.apply');
+    Route::post('/employee/apply/confirm/{id}', [EmployeeEmployeeController::class, 'applyConfirm'])->name('employee.apply.confirm');
+
+    Route::get('/employee/job/bookmark/{id}', [EmployeeEmployeeController::class, 'addBookmark'])->name('employee.job.bookmark');
+    Route::get('/employee/job/bookmarks', [EmployeeEmployeeController::class, 'checkBookmark'])->name('employee.job.bookmarks');
+    Route::get('/employee/job/bookmark/delete/{id}', [EmployeeEmployeeController::class, 'deleteBookmark'])->name('bookmark.delete');
+    Route::get('/employee/delete', function () {return view('employee.deleteaccount');})->name('employee.delete');
+
+    //    Route::get('/admin/employee/delete/{id}', [EmployeeEmployeeController::class, 'terminateEmployee'])->name('admin.employee.delete');
+    Route::post('/admin/employee/delete/{id}', [EmployeeEmployeeController::class, 'terminateEmployee'])->name('admin.employee.delete');
+
 });

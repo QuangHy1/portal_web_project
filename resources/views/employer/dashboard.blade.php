@@ -30,6 +30,13 @@
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="dash-widgets py-5 px-4 bg-purple rounded">
+                            <h2 class="ft-medium mb-1 fs-xl text-light">{{ $totalActiveJob }}</h2>
+                            <p class="p-0 m-0 text-light fs-md">Tin Đang Được Đăng</p>
+                            <i class="lni lni-users"></i>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                         <div class="dash-widgets py-5 px-4 bg-danger rounded">
                             <h2 class="ft-medium mb-1 fs-xl text-light">{{ $totalExpiredJob }}</h2>
                             <p class="p-0 m-0 text-light fs-md">Tin Đã Quá Hạn</p>
@@ -37,17 +44,9 @@
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                        <div class="dash-widgets py-5 px-4 bg-purple rounded">
-                            <h2 class="ft-medium mb-1 fs-xl text-light">{{ $totalActiveJob }}</h2>
-                            <p class="p-0 m-0 text-light fs-md">Tin Đang Được Đăng</p>
-                            <i class="lni lni-users"></i>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                         <div class="dash-widgets py-5 px-4 bg-blue rounded">
                             <h2 class="ft-medium mb-1 fs-xl text-light">{{ $totalBoostedJob }}</h2>
-                            <p class="p-0 m-0 text-light fs-md">Boosted AD</p>
+                            <p class="p-0 m-0 text-light fs-md">Tin được BOOST</p>
                             <i class="lni lni-heart"></i>
                         </div>
                     </div>
@@ -99,23 +98,26 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="dashboard-gravity-list invoices with-icons">
                             <h4 class="mb-0 ft-medium">Lịch Sử Giao Dịch</h4>
-                            <ul>
+                            <ul class="payment-list">
                                 @foreach($payments as $payment)
-                                <li><i class="dash-icon-box ti-files text-warning bg-light-warning"></i>
-                                    <strong class="ft-medium text-dark">{{ $payment['payment_method'] }}</strong>
-                                    <ul>
-                                        <li class="paid">Paid</li>
-                                        <li>Mã giao dịch (ID): #{{ $payment['tnxID'] }}</li>
-                                        <li>Thời Gian: {{ $payment['date_purchased'] }}</li>
-                                    </ul>
-                                    <div class="buttons-to-right">
-                                        <p class="button text-light bg-success">Giá gói: {{ $payment->package_price }}</p>
-                                    </div>
-                                </li>
-                                @endforeach
+                                    <li class="payment-item d-flex mb-4 p-3 shadow-sm rounded border">
 
+                                        <!-- Nội dung -->
+                                        <div class="payment-content">
+                                            <strong class="ft-medium text-dark d-block mb-2">{{ $payment['payment_method'] }}</strong>
+                                            <ul class="payment-info list-unstyled mb-0">
+                                                <li class="text-success font-weight-bold">Đã thanh toán</li><br>
+                                                <li>Mã giao dịch (ID): #{{ $payment['tnxID'] }}</li><br>
+                                                <li>Thời Gian: {{ $payment['date_purchased'] }}</li><br>
+                                                <li>Giá gói: {{ $payment->package_price }}</li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+
 @endsection

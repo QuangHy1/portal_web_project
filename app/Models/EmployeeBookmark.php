@@ -18,4 +18,9 @@ class EmployeeBookmark extends Model
     {
         return $this->belongsTo(Hiring::class);
     }
+    public function jobType()
+    {
+        return $this->belongsTo(JobType::class, 'job_type_id');
+    }
+
 }

@@ -21,18 +21,39 @@ class EmployerController extends Controller
     public function index()
     {
         /** @var \App\Models\Employer $employer */
-        $employer = Auth::guard('employer')->user();
-        $companyId = $employer->company->id ?? null;
+        $employer = Auth::guard('employer')->user()->employer;
 
-        $totalJobPosted = Hiring::where('company_id', $companyId)->count();
-        $totalExpiredJob = Hiring::where('company_id', $companyId)->where('status', 'inactive')->count();
-        $totalActiveJob = Hiring::where('company_id', $companyId)->where('status', 'active')->count();
-        $totalBoostedJob = Hiring::where('company_id', $companyId)->where('isBoosted', 'yes')->count();
+        // Tổng số tin tuyển dụng đã đăng
+        $totalJobPosted = Hiring::where('employer_id', $employer->id)->count();
 
+        // Tổng số tin hết hạn (inactive)
+        $totalExpiredJob = Hiring::where('employer_id', $employer->id)
+            ->where('status', 'inactive')
+            ->count();
+
+        // Tổng số tin đang hoạt động (active)
+        $totalActiveJob = Hiring::where('employer_id', $employer->id)
+            ->where('status', 'active')
+            ->count();
+
+        // Tổng số tin đã được boost (isBoosted = yes)
+        $totalBoostedJob = Hiring::where('employer_id', $employer->id)
+            ->where('isBoosted', 'yes')
+            ->count();
+
+        // Nếu có yêu cầu thay đổi từ boost orders, tính toán lại hoặc lấy tổng từ bảng BoostOrder
         $payments = BoostOrder::where('employer_id', $employer->id)->get();
 
-        return view('employer.dashboard', compact('totalJobPosted', 'totalExpiredJob', 'totalActiveJob', 'totalBoostedJob', 'payments'));
+        return view('employer.dashboard', compact(
+            'totalJobPosted',
+            'totalExpiredJob',
+            'totalActiveJob',
+            'totalBoostedJob',
+            'payments'
+        ));
     }
+
+
 
     public function payment()
     {
@@ -110,7 +131,4 @@ class EmployerController extends Controller
 
         return response()->download($filePath, $resume->file_name);
     }
-
-
-
 }

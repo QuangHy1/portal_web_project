@@ -57,6 +57,7 @@ class EmployeeController extends Controller
             'facebook' => 'nullable|string|max:255',
             'instagram' => 'nullable|string|max:255',
             'github' => 'nullable|string|max:255',
+            'isverified' => 'required|in:0,1',
         ]);
 
         if ($validator->fails()) {
@@ -114,6 +115,7 @@ class EmployeeController extends Controller
             'facebook' => 'nullable|string|max:255', //
             'instagram' => 'nullable|string|max:255', //
             'github' => 'nullable|string|max:255', //
+            'isverified' => 'required|in:0,1',
         ]);
 
         if ($validator->fails()) {

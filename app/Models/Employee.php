@@ -30,6 +30,7 @@ class Employee extends Authenticatable
         'instagram',
         'github',
         'isDeleted',
+        'isverified',
     ];
 
     public function user(): BelongsTo

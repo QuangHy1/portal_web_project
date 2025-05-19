@@ -136,11 +136,11 @@
 			// Define the greeting based on the current time
 			let greeting;
 			if (currentTime < 12) {
-			  greeting = "Buổi Sáng tốt lành ^^";
+			  greeting = "Buổi sáng tốt lành nhé ^^";
 			} else if (currentTime < 18) {
-			  greeting = "Buổi Chiều tốt lành ^^";
+			  greeting = "Buổi chiều tốt lành nhé ^^";
 			} else {
-			  greeting = "Buổi Tối tốt lành ^^";
+			  greeting = "Buổi tối tốt lành nhé ^^";
 			}
 
 			document.getElementById("greeting").innerHTML = greeting;

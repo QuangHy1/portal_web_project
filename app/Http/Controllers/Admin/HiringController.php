@@ -49,6 +49,10 @@ class HiringController extends Controller
 
     public function store(Request $request)
     {
+        // Gán token vào $request để validator thấy được
+        $request->merge([
+            'token' => Str::random(32),
+        ]);
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -74,8 +78,14 @@ class HiringController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $data = $request->all();
-        $data['token'] = Str::random(32); // Generate a unique token
+        $data = $request->except(['status']); // bỏ status người dùng gửi
+        $data['token'] = Str::random(32);
+
+        // Xác định trạng thái dựa trên deadline
+        $deadline = new \Carbon\Carbon($data['deadline']);
+        $now = now();
+
+        $data['status'] = $deadline->lt($now) ? 'inactive' : 'active';
 
         Hiring::create($data);
 
@@ -128,10 +138,8 @@ class HiringController extends Controller
             'gender' => 'required|in:Nam,Nữ,Không yêu cầu (All gender)',
             'isfeatured' => 'required|in:yes,no',
             'isBoosted' => 'required|in:yes,no',
-            'status' => 'required|in:active,inactive',
         ];
 
-        // Thêm quy tắc 'token' một cách có điều kiện
         if ($request->filled('token')) {
             $rules['token'] = 'required|max:255|unique:hirings,token,' . $hiring->id;
         }
@@ -142,15 +150,22 @@ class HiringController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $hiring->update($request->except('token')); // Cập nhật tất cả trừ token (nếu không thay đổi)
+        $data = $request->except(['token', 'status']); // Không nhận status từ form
+
+        // Tự động cập nhật status theo deadline
+        $deadline = new \Carbon\Carbon($data['deadline']);
+        $data['status'] = $deadline->lt(now()) ? 'inactive' : 'active';
+
+        $hiring->update($data);
 
         if ($request->filled('token')) {
-            $hiring->token = $request->input('token'); // Cập nhật token nếu có giá trị mới
+            $hiring->token = $request->input('token');
             $hiring->save();
         }
 
         return redirect()->route('admin.hirings.index')->with('success', 'Cập nhật thành công!');
     }
+
 
     public function destroy(Hiring $hiring)
     {

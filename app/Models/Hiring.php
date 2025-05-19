@@ -82,4 +82,8 @@ class Hiring extends Model
     {
         return $this->hasMany(EmployeeApplication::class, 'hiring_id');
     }
+    public function boostedJob()
+    {
+        return $this->hasOne(BoostedJob::class)->latest();
+    }
 }

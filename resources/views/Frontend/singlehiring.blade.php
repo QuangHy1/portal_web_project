@@ -1,5 +1,5 @@
+@php \Carbon\Carbon::setLocale('vi'); @endphp
 @extends('Frontend.layouts.master')
-
 @section('page_title'){{ $jobPost->title }} @endsection
 @section('body_content')
 <div class="bg-light rounded py-5">
@@ -86,6 +86,7 @@
                                 <div class="details ft-medium"><label class="text-muted">Kinh Nghiệm:</label><span class="text-dark">{{ $jobPost->experience->name }}</span></div>
                                 <div class="details ft-medium"><label class="text-muted">Hình Thức Làm Việc:</label><span class="text-dark">{{ $jobPost->jobType->name }}</span></div>
                                 <div class="details ft-medium"><label class="text-muted">Trình độ/Học vấn:</label><span class="text-dark">{{ $jobPost->education }}</span></div>
+                                <div class="details ft-medium"><label class="text-muted">Slot: </label><span class="text-dark">Còn {{ $jobPost->vacancy->name }}</span></div>
                                 <div class="details ft-medium"><label class="text-muted">Thời Hạn Apply:</label><span class="text-dark">{{ date('d - m - Y', strtotime($jobPost->deadline)) }}</span></div>
                             </div>
                         </div>
@@ -200,28 +201,35 @@
 
         <!-- row -->
         <div class="row align-items-center">
-        @foreach($relatedJobs as $relatedJob)
-            <!-- Single -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="job_grid border rounded ">
-                    <div class="position-absolute ab-left"><button type="button" class="p-3 border circle d-flex align-items-center justify-content-center bg-white text-gray"><i class="lni lni-heart-filled position-absolute snackbar-wishlist"></i></button></div>
-                    <div class="position-absolute ab-right"><span class="medium theme-cl theme-bg-light px-2 py-1 rounded">{{ $relatedJob->jobType->name }}</span></div>
-                    <div class="job_grid_thumb mb-3 pt-5 px-3">
-                        <a href="{{ route('jobs', $relatedJob->id) }}" class="d-block text-center m-auto"><img src="{{ asset('uploads/companies').'/'. $relatedJob->company->logo }}" class="img-fluid" width="70" alt="" /></a>
-                    </div>
-                    <div class="job_grid_caption text-center pb-5 px-3">
-                        <h6 class="mb-0 lh-1 ft-medium medium"><a href="{{ route('employer.details', $relatedJob->employer->id) }}" class="text-muted medium">{{ $relatedJob->company->name }}</a></h6>
-                        <h4 class="mb-0 ft-medium medium"><a href="{{ route('jobs', $relatedJob->id) }}" class="text-dark fs-md">{{ $relatedJob->title }}</a></h4>
-                        <div class="jbl_location"><i class="lni lni-map-marker mr-1"></i><span>{{$relatedJob->location->name }}</span></div>
-                    </div>
-                    <div class="job_grid_footer pb-4 px-3 d-flex align-items-center justify-content-between">
-                        <div class="df-1 text-muted"><i class="lni lni-wallet mr-1"></i>{{ $relatedJob->salaryRange->name }} PA.</div>
-                        <div class="df-1 text-muted"><i class="lni lni-timer mr-1"></i>{{ $relatedJob->created_at->diffForHumans() }}</div>
-                    </div>
+            @foreach($relatedJobs as $relatedJob)
+                <!-- Job Card -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <a href="{{ route('jobs', $relatedJob->id) }}" class="job_card d-block border1 rounded1 p-3 text-center text-dark text-decoration-none position-relative transition-all">
+                        <div class="position-absolute ab-left">
+                            <button type="button" class="p-3 border circle d-flex align-items-center justify-content-center bg-white text-gray">
+                                <i class="lni lni-heart-filled position-absolute snackbar-wishlist"></i>
+                            </button>
+                        </div>
+                        <div class="position-absolute ab-right radius1">
+                            <span class="medium theme-cl2 theme-bg-light px-2 py-1 rounded">{{ $relatedJob->jobType->name }}</span>
+                        </div>
+                        <div class="job_card_thumb mb-3 pt-5">
+                            <img src="{{ asset('uploads/companies/' . $relatedJob->company->logo) }}" class="img-fluid4" width="70" alt="Logo" />
+                        </div>
+                        <div class="job_card_caption mb-3">
+                            <h6 class="mb-1 lh-1 ft-medium medium text-muted">{{ $relatedJob->company->name }}</h6>
+                            <h4 class="mb-1 ft-medium medium fs-md text-dark">{{ $relatedJob->title }}</h4>
+                            <div class="jbl_location"><i class="lni lni-map-marker mr-1"></i>{{ $relatedJob->location->name }}</div>
+                        </div>
+                        <div class="job_card_footer d-flex flex-column align-items-center gap-1">
+                            <div class="text-muted1"><i class="lni lni-wallet mr-1"></i>{{ $relatedJob->salaryRange->name }}</div>
+                            <div class="text-muted1"><i class="lni lni-timer mr-1"></i>{{ $relatedJob->created_at->diffForHumans() }}</div>
+                        </div>
+                    </a>
                 </div>
-            </div>
             @endforeach
         </div>
+
         <!-- row -->
 
     </div>

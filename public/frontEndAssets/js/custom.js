@@ -1,7 +1,7 @@
 $(function() {
     "use strict";
 
-	//Loader	
+	//Loader
 	$(function preloaderLoad() {
         if($('.preloader').length){
             $('.preloader').delay(200).fadeOut(300);
@@ -10,7 +10,7 @@ $(function() {
             $("#preloader").hide();
         });
     });
-	
+
 	// Dashbaord Nav Scrolling
 	$(window).on('load resize', function() {
 		var wrapperHeight = window.innerHeight;
@@ -23,7 +23,7 @@ $(function() {
 			$(".dashboard-inner").css('max-height', '');
 		}
 	});
-	
+
 	// Script Navigation
 	! function(n, e, i, a) {
 		n.navigation = function(t, s) {
@@ -169,26 +169,26 @@ $(function() {
 	(jQuery, window, document), $(document).ready(function() {
 		$("#navigation").navigation()
 	});
-	
+
 	// Product Preview
 	$('.sp-wrap').smoothproducts();
-	
+
 	// Tooltip
-	$('[data-toggle="tooltip"]').tooltip(); 
-	
+	$('[data-toggle="tooltip"]').tooltip();
+
 	// Snackbar for wishlist Product
-	$('.snackbar-wishlist').click(function() { 
+	$('.snackbar-wishlist').click(function() {
 		Snackbar.show({
-			text: 'Your Job was added to wishlist successfully!',
+			text: 'Bạn đã thêm tin tuyển dụng vào Danh Sách Ước !',
 			pos: 'top-right',
 			showAction: false,
 			actionText: "Dismiss",
 			duration: 3000,
 			textColor: '#fff',
 			backgroundColor: '#151515'
-		}); 
+		});
 	});
-	
+
 	// Bottom To Top Scroll Script
 	$(window).on('scroll', function() {
 		var height = $(window).scrollTop();
@@ -198,10 +198,10 @@ $(function() {
 			$('#back2Top').fadeOut();
 		}
 	});
-	
-	
+
+
 	// Script For Fix Header on Scroll
-	$(window).on('scroll', function() {    
+	$(window).on('scroll', function() {
 		var scroll = $(window).scrollTop();
 
 		if (scroll >= 50) {
@@ -238,7 +238,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// item Slide
 	$('.review-slide').slick({
 	  slidesToShow:3,
@@ -268,7 +268,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// Home Slider
 	$('.imployer-explore').slick({
 	  centerMode:false,
@@ -297,7 +297,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// item Slide
 	$('.slide_items').slick({
 	  slidesToShow:4,
@@ -329,5 +329,5 @@ $(function() {
 	});
 
 
-	
+
 });

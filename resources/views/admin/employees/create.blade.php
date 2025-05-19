@@ -152,6 +152,13 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="isverified">Duyệt Email</label>
+                <select name="isverified" id="isverified" class="form-control" required>
+                    <option value="0" selected>Chưa duyệt</option>
+                    <option value="1">Đã duyệt</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Lưu</button>
             <a href="{{ route('admin.employees.index') }}" class="btn btn-secondary">Hủy</a>
         </form>

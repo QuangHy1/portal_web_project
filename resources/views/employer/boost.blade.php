@@ -27,15 +27,44 @@
                 {{-- <div class="d-flex align-items-center p-3 alert alert-danger">
                     Your listings will be automatically removed after 30 days.
                 </div> --}}
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-light">
+                            <strong>Số tin đã boost:</strong> {{ $usedBoosts }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-light">
+                            <strong>Số lượt boost còn lại:</strong> {{ $remainingBoosts }}
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <a href="{{ route('employer.boost.purchase') }}" class="btn btn-success mt-2">
+                            <i class="fa fa-plus-circle"></i> Mua gói boost
+                        </a>
+                    </div>
+                </div>
+
+                {{-- Thêm đoạn hiển thị ngày hết hạn --}}
+                @if ($activeBoostOrder)
+                    <div class="alert alert-info1">
+                        <strong>Gói hiện tại: {{ $activeBoostOrder->package->name }}</strong>
+                    </div>
+                    <div class="alert alert-info1">
+                        <strong>Ngày hết hạn gói boost hiện tại:</strong>
+                        {{ \Carbon\Carbon::parse($activeBoostOrder->date_expired)->format('d - m - Y') }}
+                    </div>
+                @endif
                 <div class="mb-4 tbl-lg rounded overflow-hidden">
                     <div class="table-responsive bg-white">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                   <th scope="col">Tiêu Đề</th>
+                                    <th scope="col">Trạng thái</th>
                                   <th scope="col">Trạng Thái Boost</th>{{-- Filled --}}
-                                  <th scope="col">Ngày Đăng</th>
-                                  <th scope="col">Thời Hạn</th>
+                                  <th scope="col">Ngày Boost</th>
+                                  <th scope="col">Hạn Boost</th>
                                   <th scope="col">Số Người Apply</th>
                                   <th scope="col">Thao Tác</th>
                                 </tr>
@@ -50,48 +79,87 @@
 {{--                                    $userID = Auth::user()->id;--}}
 
 {{--                                @endphp--}}
-                                <tr>
-                                    <td>
-                                        <div class="dash-title">
-                                            <h4 class="mb-0 ft-medium fs-sm">
-                                                {{ $item->title }}
-                                                <span class="medium theme-cl rounded @if($item->status == 'active') text-success bg-light-success @elseif($item->status == 'Draft') text-info bg-light-info @else text-danger bg-light-danger @endif ml-1 py-1 px-2">{{ $item->status }}</span>
-                                            </h4>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="dash-filled">
-                                            @if($item->isBoosted == 'yes')
-                                            <span class="p-2 bg-info text-white d-inline-flex align-items-center justify-content-center">
-                                                Boost được áp dụng
-                                            </span>
-                                            @else
-                                            <span class="p-2 bg-warning text-white d-inline-flex align-items-center justify-content-center">
-                                                Sắn sàng để Boost !
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>{{ date('d - m - Y', strtotime($item->created_at)) }}</td>
-                                    <td>{{ date('d - m - Y', strtotime($item->deadline)) }}</td>
-                                    <td>
-                                        <a href="{{ route('employer.hiring.applicants', $item->id) }}" class="gray rounded px-3 py-2 ft-medium">
+                                    <tr>
+                                        <td>
+                                            <div class="dash-title">
+                                                <h4 class="mb-0 ft-medium fs-sm">
+                                                    {{ $item->title }}
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-title">
+                                                <span class="medium theme-cl rounded @if($item->status == 'active') text-success bg-light-success @elseif($item->status == 'Draft') text-info bg-light-info @else text-danger bg-light-danger @endif ml-1 py-1 px-2">
+                                                    @if($item->status == 'active') Hoạt động @elseif($item->status == 'Draft') Bản nháp @else Không hoạt động @endif
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-filled">
+                                                @if($item->status == 'inactive')
+                                                    <span class="p-2 bg-secondary text-white d-inline-flex align-items-center justify-content-center">
+                                                        Tin đã quá hạn
+                                                    </span>
+                                                @elseif($item->isBoosted == 'yes')
+                                                    <span class="p-2 bg-info text-white d-inline-flex align-items-center justify-content-center">
+                                                            Boost được áp dụng
+                                                        </span>
+                                                @else
+                                                    <span class="p-2 bg-warning text-white d-inline-flex align-items-center justify-content-center">
+                                                        Sẵn sàng để Boost!
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
                                             @php
-                                                $applications = App\Models\EmployeeApplication::where('hiring_id', $item->id)->count();
-                                                echo $applications;
+                                                $boosted = \App\Models\BoostedJob::where('hiring_id', $item->id)->latest()->first();
                                             @endphp
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <div class="dash-action">
-                                            @if($item->isBoosted == 'yes')
-                                           <a href="{{ route('employer.employee.boost.submit', $item->id) }}" class="btn btn-primary">Gia Hạn Thêm</a>
-                                           @else
-                                           <a href="{{ route('employer.employee.boost.submit', $item->id) }}" class="btn btn-primary">Boost Tin</a>
-                                           @endif
-                                        </div>
-                                    </td>
-                                </tr>
+                                            @if ($item->isBoosted === 'yes' && $boosted && $boosted->boosted_at)
+                                                {{ \Carbon\Carbon::parse($boosted->boosted_at)->format('d - m - Y') }}
+                                            @else
+                                                —
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item->isBoosted === 'yes' && $boosted && $boosted->expires_at)
+                                                {{ \Carbon\Carbon::parse($boosted->expires_at)->format('d - m - Y') }}
+                                            @else
+                                                —
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('employer.hiring.applicants', $item->id) }}" class="gray rounded px-3 py-2 ft-medium">
+                                                @php
+                                                    $applications = App\Models\EmployeeApplication::where('hiring_id', $item->id)->count();
+                                                    echo $applications;
+                                                @endphp
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="dash-action">
+                                                @if($item->status == 'inactive')
+                                                    <span class="btn btn-danger">Không Boost Được</span>
+                                                @elseif($item->isBoosted == 'yes')
+                                                    <form method="POST" action="{{ route('employer.hiring.boost.revert', $item->id) }}" style="display:inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-dark" onclick="return confirm('Bạn có chắc muốn hoàn tác boost không?');">
+                                                            Hoàn tác
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    @if($remainingBoosts > 0)
+                                                        <form method="POST" action="{{ route('employer.employee.boost.now', $item->id) }}">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-primary">Boost ngay</button>
+                                                        </form>
+                                                    @else
+                                                        <a href="{{ route('employer.employee.boost.submit', $item->id) }}" class="btn btn-warning">Mua thêm slot Boost</a>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
                                  @php
                                     $JOBid = $item->id;
                                      //$JOBid;

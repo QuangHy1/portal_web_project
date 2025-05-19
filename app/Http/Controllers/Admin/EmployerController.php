@@ -138,4 +138,24 @@ class EmployerController extends Controller
         $employer->delete();
         return redirect()->route('admin.employers.index')->with('success', 'Xóa thành công 1 nhà tuyển dụng !');
     }
+    public function showVerificationList()
+    {
+        $employersToVerify = Employer::with('user')
+            ->where('isverified', 0)
+            ->get();
+
+        return view('admin.employers.verify_list', compact('employersToVerify'));
+    }
+
+    public function verifyEmail(Employer $employer)
+    {
+        $employer->isverified = 1;
+        $employer->save();
+
+        // Đồng bộ trạng thái tài khoản user
+        $employer->user->status = 'active';
+        $employer->user->save();
+
+        return back()->with('success', 'Đã duyệt email nhà tuyển dụng.');
+    }
 }

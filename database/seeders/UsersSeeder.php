@@ -50,6 +50,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('huy123'), // Mật khẩu là "huy123"
                 'role_id' => 3,
                 'remember_token' => Str::random(10),
+                'status' => 'inactive',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

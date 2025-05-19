@@ -17,7 +17,7 @@
         <div class="dashboard-tlbar d-block mb-5">
             <div class="row">
                 <div class="colxl-12 col-lg-12 col-md-12">
-                    <h1 class="ft-medium">Hoàn Thành Boost</h1>
+                    <h1 class="ft-medium">Giao Dịch Boost</h1>
                     {{-- <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>
@@ -31,7 +31,12 @@
         <div class="dashboard-widg-bar d-block">
 
                 <div class="bg-white rounded px-3 py-4 mb-4">
-                    <p>Bạn đang được boost:</p>
+                    @if(isset($hiring))
+                        <p>Bạn đang boost cho tin tuyển dụng: <strong>{{ $hiring->title }}</strong></p>
+                        {{-- Hiển thị chi tiết ứng viên nếu cần --}}
+                    @else
+                        <p>Bạn đang mua gói boost để sử dụng cho các tin tuyển dụng sau.</p>
+                    @endif
                     <div class="jbd-01 d-flex align-items-center justify-content-between">
 
                         <div class="jbd-flex d-flex align-items-center justify-content-start">

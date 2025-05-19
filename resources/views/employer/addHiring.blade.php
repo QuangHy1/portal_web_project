@@ -10,8 +10,8 @@
                     <h1 class="ft-medium">Thêm mới Tin Tuyển Dụng</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item text-muted"><a href="#">Dashboard</a></li>
+                            <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item text-muted"><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="#" class="theme-cl">Đăng Tin</a></li>
                         </ol>
                     </nav>
@@ -128,14 +128,29 @@
 
                                         <div class="col-xl-6 col-lg-6 col-md-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Yêu Cầu*</label>
+                                                <label class="text-dark ft-medium">Giới Tính Yêu Cầu*</label>
                                                 <select name="gender" class="form-control rounded">
-                                                    <option value="male">Nam</option>
-                                                    <option value="female">Nữ</option>
-                                                    <option value="other">Không yêu cầu (All gender)</option>
+                                                    <option value="Nam">Nam</option>
+                                                    <option value="Nữ">Nữ</option>
+                                                    <option value="Không yêu cầu (All gender)">Không yêu cầu (All gender)</option>
                                                 </select>
                                             </div>
                                         </div>
+
+                                            <div class="col-xl-6 col-lg-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="text-dark ft-medium">Số Lượng Cần Tuyển*</label>
+                                                    <select name="vacancy_id" class="form-control rounded" required>
+                                                        <option value="">-- Chọn số lượng --</option>
+                                                        @foreach($vacancies as $vacancy)
+                                                            <option value="{{ $vacancy->id }}"
+                                                                {{ old('vacancy_id', isset($hiring) ? $hiring->vacancy_id : '') == $vacancy->id ? 'selected' : '' }}>
+                                                                {{ $vacancy->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
 
                                         <div class="col-xl-12 col-lg-12 col-md-12">
                                             <div class="form-group">
@@ -155,7 +170,7 @@
                                         <div class="col-xl-6 col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="text-dark ft-medium">Trạng Thái Tin*</label>
-                                                <select name="status" class="form-control rounded">
+                                                <select name="status" class="form-control rounded" disabled>
                                                     <option value="active">Đang tuyển</option>
                                                     <option value="inactive">Hết tuyển</option>
                                                 </select>

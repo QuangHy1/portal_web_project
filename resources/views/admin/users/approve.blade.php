@@ -25,7 +25,8 @@
                     <th>Email</th>
                     <th>Vai trò</th>
                     <th>Trạng thái</th>
-                    <th>Hành động</th>
+                    <th>Duyệt email</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,8 +40,19 @@
                             <td>
                                 @if($user->status === 'inactive')
                                     <span class="badge bg-warning">Chưa duyệt</span>
+                                @elseif($user->status === 'active')
+                                    <span class="badge bg-success">Hoạt động</span>
+                                @elseif($user->status === 'banned')
+                                    <span class="badge bg-danger">Đã bị chặn</span>
                                 @else
-                                    {{ $user->status }}
+                                    <span class="badge bg-secondary">{{ $user->status }}</span> {{-- fallback nếu có trạng thái khác --}}
+                                @endif
+                            </td>
+                            <td>
+                                @if($user->employer && $user->employer->isverified == 0)
+                                    <span class="badge bg-danger">Chưa duyệt email</span>
+                                @else
+                                    <span class="badge bg-success">Đã duyệt email</span>
                                 @endif
                             </td>
                             <td>

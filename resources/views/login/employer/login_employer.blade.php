@@ -5,8 +5,29 @@
     <link rel="stylesheet" href="{{ asset('login/css/login_employer.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi đăng nhập',
+            text: '{{ session('error') }}',
+            confirmButtonColor: '#d33'
+        });
+    </script>
+@endif
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6'
+        });
+    </script>
+@endif
 <!-- LOGIN FORM CREATION -->
 <div class="background"></div>
 <div class="container">
@@ -31,11 +52,11 @@
     </div>
     <div class="login-section">
         <div class="form-box login">
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
+{{--            @if (session('error'))--}}
+{{--                <div class="alert alert-danger">--}}
+{{--                    {{ session('error') }}--}}
+{{--                </div>--}}
+{{--            @endif--}}
                 <form action="{{ route('employer.signin.submit') }}" method="POST" class="login-form">
                     @csrf
                 <h2 class="login-label">Đăng nhập</h2>
@@ -55,7 +76,7 @@
                 </div>
 
                 <!-- ✅ reCAPTCHA -->
-                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+                <div class="g-recaptcha" data-sitekey="6LcozD8rAAAAAL1lqZUpdiYBjbzLXcLf0SQl5VWe"></div>
 
                 <button type="submit" class="btn">Đăng nhập</button>
 
