@@ -1538,10 +1538,10 @@ ul {
 }
 
 .nav-brand {
-    padding:8px 15px;
+    padding: 5px 5px;
     font-size: 24px;
-	padding-left: 0;
-    text-decoration: none !important
+    padding-left: 0;
+    text-decoration: none !important;
 }
 
 .deatils ul li a,
@@ -2167,7 +2167,7 @@ nav a {
 }
 
 .header {
-    background:#a8ff64;
+    background: #68eeb9;
 	z-index:6;
 }
 
@@ -2414,9 +2414,9 @@ nav a {
     color:#333d46 !important;
 }
 .nav-brand img {
-    max-width:140px;
+    max-width:202px;
 	position: relative;
-    top:0px;
+    top:0;
 }
 .nav-menu>li>a.crs_yuo12, .mobile_nav .crs_yuo12 {
     width: 42px;
@@ -2569,7 +2569,7 @@ span.expiration {
 .header.header-fixed{
     box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
     -webkit-box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
-    background: rgb(168, 255, 100);
+    background: #68eeb9;
     position: fixed !important;
     z-index: 999;
     width: 100%;
@@ -2720,10 +2720,10 @@ li._my_prt_list a span {
 .nav-brand img {
     max-width:110px;
     position: relative;
-    top:0px;
+    top:0;
 }
 .nav-brand {
-    padding:0px 15px;
+    padding:0 15px;
 	padding-right: 0;
 }
 .nav-header {
@@ -5153,7 +5153,7 @@ img.img-footer {
 }
 img.img-footer.small {
     margin: 0;
-    max-width:150px;
+    max-width:185px;
     position: relative;
     top: 2px;
 }

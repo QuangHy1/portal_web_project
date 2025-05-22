@@ -79,7 +79,7 @@ class EmployeeController extends Controller
 
         Employee::create($data);
 
-        return redirect()->route('admin.employees.index')->with('success', 'Employee created successfully.');
+        return redirect()->route('admin.employees.index')->with('success', 'Tạo thành công 1 employee!');
     }
 
 
@@ -137,7 +137,7 @@ class EmployeeController extends Controller
 
         $employee->update($data);
 
-        return redirect()->route('admin.employees.index')->with('success', 'Employee updated successfully.');
+        return redirect()->route('admin.employees.index')->with('success', 'Cập nhật thành công 1 employee');
     }
 
 
@@ -146,6 +146,6 @@ class EmployeeController extends Controller
         $employee->isDeleted = 1; // Đánh dấu là đã xóa thay vì xóa hẳn
         $employee->save();
 
-        return redirect()->route('admin.employees.index')->with('success', 'Employee deleted successfully.');
+        return redirect()->route('admin.employees.index')->with('success', 'Xóa thành công 1 employee');
     }
 }

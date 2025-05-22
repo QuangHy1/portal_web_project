@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -13,22 +12,34 @@ class WebsiteMailController extends Mailable
 
     public $subject;
     public $body;
-    public $company_name;
+    public $user_name;
     public $template;
+    public $otp; // nếu dùng OTP
 
-    public function __construct($subject, $body, $company_name, $template = 'admin.email.emailTemplate')
+    /**
+     * Tạo Mailable có thể dùng được cho nhiều loại user
+     */
+    public function __construct($subject, $body, $user_name, $template = 'admin.email.emailTemplate', $otp = null)
     {
         $this->subject = $subject;
         $this->body = $body;
-        $this->company_name = $company_name;
+        $this->user_name = $user_name;
         $this->template = $template;
+        $this->otp = $otp;
     }
 
+    /**
+     * Xây dựng email
+     */
     public function build()
     {
         return $this->view($this->template)
-        ->with('subject', $this->subject)
-        ->with('body', $this->body)
-        ->with('employer_name', $this->company_name);
+            ->subject($this->subject)
+            ->with([
+                'subject' => $this->subject,
+                'body' => $this->body,
+                'user_name' => $this->user_name,
+                'otp' => $this->otp,
+            ]);
     }
 }

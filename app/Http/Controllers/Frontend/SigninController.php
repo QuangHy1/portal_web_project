@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,8 @@ class SigninController extends Controller
     // ====== Views ======
     public function index()
     {
-        return view('login.employer.login_employer');
+        $companies = Company::all();
+        return view('login.employer.login_employer', compact('companies'));
     }
 
     public function employee()
@@ -34,9 +36,9 @@ class SigninController extends Controller
         $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . env('GOOGLE_RECAPTCHA_SECRET_KEY') . '&response=' . $request->input('g-recaptcha-response'));
         $responseKeys = json_decode($response, true);
 
-        if (!$responseKeys["success"]) {
-            return back()->with('error', 'Vui lòng xác minh bạn không phải là robot.');
-        }
+//        if (!$responseKeys["success"]) {
+//            return back()->with('error', 'Vui lòng xác minh bạn không phải là người máy.');
+//        }
 
         $user = User::where(function ($query) use ($request) {
             $query->where('username', $request->username)
@@ -47,6 +49,10 @@ class SigninController extends Controller
 
         if (!$user) {
             return redirect()->route('employer.signin')->with('error', 'Không tìm thấy tài khoản của bạn.');
+        }
+        // ✅ Kiểm tra trạng thái tài khoản
+        if ($user->status !== 'active') {
+            return redirect()->route('employer.signin')->with('error', 'Tài khoản chưa được kích hoạt.');
         }
 
         if (!Hash::check($request->password, $user->password)) {
@@ -77,13 +83,11 @@ class SigninController extends Controller
 
         ]);
 
+        // Kiểm tra dữ liệu reCAPTCHA gửi về
+        //dd($request->input('g-recaptcha-response'));
         // Xác thực reCAPTCHA
         $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . env('GOOGLE_RECAPTCHA_SECRET_KEY') . '&response=' . $request->input('g-recaptcha-response'));
         $responseKeys = json_decode($response, true);
-
-        if (!$responseKeys["success"]) {
-            return back()->with('error', 'Vui lòng xác minh bạn không phải là robot.');
-        }
 
         $user = User::where(function ($query) use ($request) {
             $query->where('username', $request->username)
@@ -94,6 +98,10 @@ class SigninController extends Controller
 
         if (!$user) {
             return redirect()->route('employee.signin')->with('error', 'Không tìm thấy tài khoản của bạn.');
+        }
+
+        if ($user->status !== 'active') {
+            return redirect()->route('employee.signin')->with('error', 'Tài khoản chưa được kích hoạt.');
         }
 
         if (!Hash::check($request->password, $user->password)) {

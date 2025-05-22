@@ -307,7 +307,7 @@
             <nav id="navigation" class="navigation navigation-landscape">
                 <div class="nav-header">
                     <a class="nav-brand" href="{{ route('home') }}">
-                        <img src="{{ asset('frontEndAssets/img/jobscout.png') }}" class="logo" alt="JobScout Logo" />
+                        <img src="{{ asset('frontEndAssets/img/logo1.png') }}" class="logo" alt="JobScout Logo" />
                     </a>
                     <div class="nav-toggle"></div>
                     <div class="mobile_nav">

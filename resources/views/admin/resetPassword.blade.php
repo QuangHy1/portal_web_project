@@ -1,5 +1,5 @@
 @extends('Frontend.layouts.master')
-@section('page_title')Reset Employee Password @endsection
+@section('page_title')Recover ADMIN Password @endsection
 @section('body_content')
 <div class="gray py-3">
     <div class="container">
@@ -8,7 +8,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('employee.signin') }}">Đăng Nhập</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.login') }}">Đăng Nhập</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Khôi Phục Mật Khẩu</li>
                     </ol>
                 </nav>
@@ -28,7 +28,7 @@
                     <h2 class="ft-bold">Đặt lại mật khẩu</h2>
                 </div>
 
-                <form class="border p-3 rounded" method="POST" action="{{ route('employee.reset.password.submit') }}">
+                <form class="border p-3 rounded" method="POST" action="{{ route('admin.reset.password.submit') }}">
                     @csrf
 
                     {{-- Thông báo lỗi --}}
@@ -41,7 +41,7 @@
                         </div>
                     @endif
 
-                    {{-- Truyền lại email từ session --}}
+                    {{--Truyền lại email từ session--}}
                     <input type="hidden" name="email" value="{{ $email ?? session('recovery_email') }}">
 
                     <div class="form-group has-validation position-relative">
@@ -76,7 +76,7 @@
                 </form>
 
                 <div class="mt-3 text-center">
-                    <p>Bạn đã nhớ mật khẩu? <a href="{{ route('employee.signin') }}">Đăng Nhập Ngay</a></p>
+                    <p>Bạn đã nhớ mật khẩu? <a href="{{ route('admin.login') }}">Đăng Nhập Ngay</a></p>
                 </div>
             </div>
         </div>

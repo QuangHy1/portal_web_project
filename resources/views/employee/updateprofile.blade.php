@@ -37,18 +37,14 @@
                                 <div class="custom-file avater_uploads text-center">
                                     <label for="file-input" class="btn btn-primary mb-2">Chọn ảnh</label>
                                     <input type="file" name="photo" id="file-input" onchange="previewImage();" style="display: none;">
-
                                     @php
-                                        $rawPhoto = Auth::guard('employee')->user()->employee->photo ?? null;
-                                        $photo = $rawPhoto
-                                            ? (Str::contains($rawPhoto, 'uploads/employees/') ? asset($rawPhoto) : asset('uploads/employees/' . $rawPhoto))
-                                            : 'https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg';
+                                        $photo = Auth::guard('employee')->user()->employee->photo ?? null;
                                     @endphp
 
                                     <img
                                         id="image-preview"
                                         style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;"
-                                        src="{{ $photo }}"
+                                        src="{{ $photo ? asset($photo) : 'https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg' }}"
                                         alt="employee photo"
                                     />
                                 </div>

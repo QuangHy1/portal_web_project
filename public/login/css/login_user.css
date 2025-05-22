@@ -138,8 +138,9 @@ body{
 }
 
 .input-box input{
-    width: 100%;
-    height: 100%;
+    width: 93.5%;
+    height: 80%;
+    margin-top: 9px;
     background: transparent;
     border: none;
     outline: none;
@@ -300,4 +301,12 @@ h2.register-label {
 
 .home-icon:hover {
     color: lightgray; /* Đổi màu khi hover (tùy chọn) */
+}
+.toggle-password {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
 }

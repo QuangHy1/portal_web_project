@@ -189,11 +189,11 @@
                         Đánh giá người dùng
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link nav-link">
-                        <span>Thư phản hồi</span>
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="#" class="sidebar-link nav-link">--}}
+{{--                        <span>Thư phản hồi</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </li>
     </ul>

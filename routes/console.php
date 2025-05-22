@@ -10,4 +10,6 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command('hiring:update-status')->daily();
+Schedule::command('cleanup:inactive-users')->daily();
 //php artisan hiring:update-status
+//php artisan cleanup:inactive-users

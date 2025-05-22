@@ -187,7 +187,7 @@
                 {{-- Thông tin chung --}}
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                     <div class="footer_widget">
-                        <img src="{{ asset('frontEndAssets/img/jobscout.png') }}" class="img-footer small mb-2" alt="JobScout" />
+                        <img src="{{ asset('frontEndAssets/img/logo1.png') }}" class="img-footer small mb-2" alt="JobScout" />
 
                         <div class="address mt-2">
                             {!! optional($footerDetails)->address !!}

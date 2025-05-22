@@ -37,19 +37,19 @@ use App\Http\Controllers\Frontend\JobController;
 use App\Http\Controllers\Frontend\JobSearchController;
 use App\Http\Controllers\Frontend\PostController as FrontendPostController;
 use App\Http\Controllers\Frontend\JobCategoryController as FrontendJobCategoryController;
+use App\Http\Controllers\Frontend\RecoverController;
 use App\Http\Controllers\Frontend\SigninController;
+use App\Http\Controllers\Frontend\SignupController;
 use App\Http\Controllers\Frontend\TermsController;
 use App\Http\Controllers\Employer\EmployerController as EmployerEmployerController;
 use App\Http\Controllers\Employee\EmployeeController as EmployeeEmployeeController;
-use App\Http\Livewire\Chat\CreateChat;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\AdminMiddleware;
+
+
 
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 Route::get('/categories', [FrontendJobCategoryController::class, 'categories'])->name('category');
@@ -59,11 +59,25 @@ Route::get('/jobs', [JobSearchController::class, 'index'])->name('job.search');
 Route::get('/employer/details/{id}', [EmployerDetailsController::class, 'employerDetails'])->name('employer.details');
 Route::get('/employer/browse', [EmployerDetailsController::class, 'browseEmployer'])->name('employer.browse');
 
+
+
 // Route cho Admin
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AuthController::class, 'login'])->name('admin.login.submit');
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
+// Giao diện nhập email
+    Route::get('/admin/password/recover', [AuthController::class, 'recoverAdmin'])->name('admin.recover');
+// Gửi OTP qua email
+    Route::post('/admin/password/recover/submit', [AuthController::class, 'recoverAdminSubmit'])->name('admin.recover.submit');
+// Giao diện nhập OTP
+    Route::get('/admin/password/otp', [AuthController::class, 'otpAdminView'])->name('admin.otp');
+// Xác thực OTP
+    Route::post('/admin/password/verify-otp', [AuthController::class, 'verifyOtpAdmin'])->name('admin.otp.verify');
+// Giao diện đặt lại mật khẩu mới
+    Route::get('/admin/password/reset', [AuthController::class, 'resetPasswordAdminView'])->name('admin.reset.password.view');
+// Gửi mật khẩu mới
+    Route::post('/admin/password/reset', [AuthController::class, 'resetPasswordAdminSubmit'])->name('admin.reset.password.submit');
 
     Route::middleware(['auth', 'admin', 'shareAdminData'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -111,15 +125,29 @@ Route::prefix('admin')->group(function () {
 });
 
 // Route cho Employer
-//Route::get('/employer/verify-email/{token}/{email}', [SignupController::class, 'verifyEmail'])->name('verify.email');
-//Route::get('/employer/recover', [RecoverController::class, 'recoverEmployer'])->name('employer.recover');
-//Route::get('/employer/recover/{token}/{email}', [RecoverController::class, 'resetPassword'])->name('employer.recover.password');
-//Route::post('/employer/recoverSubmit', [RecoverController::class, 'recoverEmployerSubmit'])->name('employer.recover.submit');
-//Route::post('/employer/recoverPasswordSubmit', [RecoverController::class, 'resetPasswordSubmit'])->name('employer.recover.password.submit');
 
+// Đăng nhập Employer
 Route::get('/employer/signin', [SigninController::class, 'index'])->name('employer.signin');
 Route::post('/employer/signin-submit', [SigninController::class, 'signinSubmit'])->name('employer.signin.submit');
 Route::get('/employer/logout', [SigninController::class, 'employerLogout'])->name('employer.logout');
+// Đăng kí Employer
+Route::get('/register/employer', [SignupController::class, 'showEmployerForm'])->name('employer.register');
+Route::post('/register/employer', [SignupController::class, 'registerEmployer'])->name('employer.register.submit');
+// Xác minh email (dùng chung cho cả Employee và Employer)
+Route::get('/verify-email', [SignupController::class, 'verifyEmail'])->name('verify.email');
+
+// Giao diện nhập email
+Route::get('/employer/password/recover', [RecoverController::class, 'recoverEmployer'])->name('employer.recover');
+// Gửi OTP qua email
+Route::post('/employer/password/recover/submit', [RecoverController::class, 'recoverEmployerSubmit'])->name('employer.recover.submit');
+// Giao diện nhập OTP
+Route::get('/employer/password/otp', [RecoverController::class, 'otpEmployerView'])->name('employer.otp');
+// Xác thực OTP
+Route::post('/employer/password/verify-otp', [RecoverController::class, 'verifyOtpEmployer'])->name('employer.otp.verify');
+// Giao diện đặt lại mật khẩu mới
+Route::get('/employer/password/reset', [RecoverController::class, 'resetPasswordEmployerView'])->name('employer.reset.password.view');
+// Gửi mật khẩu mới
+Route::post('/employer/password/reset', [RecoverController::class, 'resetPasswordEmployerSubmit'])->name('employer.reset.password.submit');
 
 Route::prefix('employer')->middleware(['employer'])->group(function () {
     Route::get('/dashboard', [EmployerEmployerController::class, 'index'])->name('employer.dashboard');
@@ -162,9 +190,29 @@ Route::prefix('employer')->middleware(['employer'])->group(function () {
 
 
 // Route cho Employee
+
+// Đăng nhập Employee
 Route::get('/employee/signin', [SigninController::class, 'employee'])->name('employee.signin');
 Route::post('/employee/signin-submit', [SigninController::class, 'signinSubmitEmployee'])->name('employee.signin.submit');
 Route::get('/employee/logout', [SigninController::class, 'employeeLogout'])->name('employee.logout');
+// Đăng kí Employee
+Route::get('/register/employee', [SignupController::class, 'showEmployeeForm'])->name('employee.register');
+Route::post('/register/employee', [SignupController::class, 'registerEmployee'])->name('employee.register.submit');
+
+
+// Giao diện nhập email
+Route::get('/employee/password/recover', [RecoverController::class, 'recoverEmployee'])->name('employee.recover');
+// Gửi OTP qua email
+Route::post('/employee/password/recover/submit', [RecoverController::class, 'recoverEmployeeSubmit'])->name('employee.recover.submit');
+// Giao diện nhập OTP
+Route::get('/employee/password/otp', [RecoverController::class, 'otpEmployeeView'])->name('employee.otp');
+// Xác thực OTP
+Route::post('/employee/password/verify-otp', [RecoverController::class, 'verifyOtpEmployee'])->name('employee.otp.verify');
+// Giao diện đặt lại mật khẩu mới
+Route::get('/employee/password/reset', [RecoverController::class, 'resetPasswordEmployeeView'])->name('employee.reset.password.view');
+// Gửi mật khẩu mới
+Route::post('/employee/password/reset', [RecoverController::class, 'resetPasswordEmployeeSubmit'])->name('employee.reset.password.submit');
+
 
 Route::prefix('employee')->middleware(['employee'])->group(function () {
     Route::get('/dashboard', [EmployeeEmployeeController::class, 'index'])->name('employee.dashboard');

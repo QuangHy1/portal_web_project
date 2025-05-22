@@ -239,7 +239,7 @@ class EmployeeController extends Controller
             $finalName = $hash.'_userphoto.'.$ext;
 
             $request->file('photo')->move(public_path('uploads/employees/'), $finalName);
-            $employee->photo = $finalName;
+            $employee->photo = 'uploads/employees/' . $finalName;
         }
 
         $employee->firstname = $request->firstname;

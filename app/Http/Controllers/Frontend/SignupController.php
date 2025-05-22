@@ -3,117 +3,217 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
-use App\Models\Employer;
-use App\Models\Employee;
-use App\Mail\WebsiteMailController; // The WebMail class for sending emails
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Employee;
+use App\Models\Employer;
+use App\Mail\VerifyEmail;
 
 class SignupController extends Controller
 {
-    public function index()
+    // Hiển thị form đăng ký Employee
+    public function showEmployeeForm()
     {
-        return view('employer.signup');
-    }
-    public function employee()
-    {
-        return view('employee.signup');
+        return view('login.employee.login_employee');
     }
 
-    public function signupSubmit(Request $request)
+    // Hiển thị form đăng ký Employer
+    public function showEmployerForm()
+    {
+        $companies = Company::all();
+        return view('login.employer.login_employer', compact('companies'));
+    }
+
+    // Xử lý đăng ký Employee
+    public function registerEmployee(Request $request)
     {
         $request->validate([
-            'employer_name' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|email|unique:employers',
-            'username' => 'required|unique:employers',
-            'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password',
+            'username' => 'required',
+            'email'    => 'required|email',
+            'password' => 'required|confirmed|min:6',
         ]);
 
-        $token = hash('huy123', time());
+        // Xóa user cũ nếu chưa xác thực và bị trùng email/username
+        $existingUser = User::where(function ($query) use ($request) {
+            $query->where('username', $request->username)
+                ->orWhere('email', $request->email);
+        })
+            ->where('status', 'inactive')
+            ->first();
 
-        $employer = new Employer();
-        $employer->employer_name = $request->employer_name;
-        $employer->firstname = $request->firstname;
-        $employer->lastname = $request->lastname;
-        $employer->email = $request->email;
-        $employer->username = $request->username;
-        $employer->token = $token;
-        $employer->isverified = 0;
-        $employer->password = Hash::make($request->password);
-        $employer->save();
-
-        $verifyLink = url('employer/verify-email/'.$token.'/'.$request->email);
-        $subject = 'Verify Your Email';
-        $message = $verifyLink;
-
-        $fullname = $request->firstname.' '.$request->lastname;
-
-        \Mail::to($request->email)->send(new WebsiteMailController($subject, $message, 'admin.email.verifyEmail', ['employer_name' => $fullname]));
-        return redirect()->route('email.verifyemployer')->with('success', 'Verification has been sent to '.$request->email);
-
-    }
-
-    public function verifyEmail($token, $email)
-    {
-        $employer = Employer::where('token', $token)->where('email', $email)->first();
-        if($employer) {
-            $employer->isverified = 1;
-            $employer->token = '';
-            $employer->update();
-            return redirect()->route('email.verifiedemployer')->with('success', 'Your email has been verified');
-        } else {
-            return redirect()->route('employer.signin')->with('error', 'Invalid verification link');
+        if ($existingUser) {
+            // Xóa employee nếu có
+            Employee::where('user_id', $existingUser->id)->delete();
+            $existingUser->delete();
         }
+
+        // Tạo user
+        $user = User::create([
+            'username'   => $request->username,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->password),
+            'role_id'    => 4, // Employee
+            'status'     => 'inactive',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Sinh token
+        $token = Str::random(64);
+
+        $employee = Employee::create([
+            'user_id'   => $user->id,
+            'firstname' => fake()->firstName,
+            'lastname'  => fake()->lastName,
+            'isverified'=> 0,
+            'token'     => $token,
+        ]);
+
+        $user_name = $employee->firstname . ' ' . $employee->lastname;
+
+        $body = "
+        <p>Chào bạn <strong>{$user_name}</strong>,</p>
+        <p>Cảm ơn bạn đã đăng ký tài khoản Employee trên hệ thống của chúng tôi.</p>
+        <p>Vui lòng nhấn vào link bên dưới để xác thực địa chỉ email và kích hoạt tài khoản của bạn.</p>
+        <p>Nếu bạn không đăng ký, vui lòng bỏ qua email này.</p>
+    ";
+
+        Mail::to($user->email)->send(new VerifyEmail(
+            $user->email,
+            $token,
+            $user_name,
+            $body
+        ));
+
+        return view('frontend.verify');
     }
 
-    public function signupSubmitEmployee(Request $request)
+
+    // Xử lý đăng ký Employer
+    public function registerEmployer(Request $request)
     {
         $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|email|unique:employers',
-            'username' => 'required|unique:employers',
-            'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password',
+            'username'   => 'required',
+            'email'      => 'required|email',
+            'password'   => 'required|confirmed|min:6',
+            'company_id' => 'required|exists:companies,id',
         ]);
 
-        $token = hash('huy123', time());
+        $existingUser = User::where(function ($query) use ($request) {
+            $query->where('username', $request->username)
+                ->orWhere('email', $request->email);
+        })
+            ->where('status', 'inactive')
+            ->first();
 
-        $employer = new Employee();
-        $employer->firstname = $request->firstname;
-        $employer->lastname = $request->lastname;
-        $employer->email = $request->email;
-        $employer->username = $request->username;
-        $employer->token = $token;
-        $employer->isverified = 0;
-        $employer->password = Hash::make($request->password);
-        $employer->save();
+        if ($existingUser) {
+            Employer::where('user_id', $existingUser->id)->delete();
+            $existingUser->delete();
+        }
 
-        $verifyLink = url('verify-email/'.$token.'/'.$request->email);
-        $subject = 'Verify Your Email';
-        $message = $verifyLink;
+        $user = User::create([
+            'username'   => $request->username,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->password),
+            'role_id'    => 3, // Employer
+            'status'     => 'inactive',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-        $fullname = $request->firstname.' '.$request->lastname;
+        $token = Str::random(64);
 
-        \Mail::to($request->email)->send(new WebsiteMailController($subject, $message, 'admin.email.verifyEmail', ['employer_name' => $fullname]));
+        $employer = Employer::create([
+            'user_id'    => $user->id,
+            'company_id' => $request->company_id,
+            'firstname'  => fake()->firstName,
+            'lastname'   => fake()->lastName,
+            'isverified' => 0,
+            'token'      => $token,
+        ]);
 
-        return redirect()->route('email.verify')->with('success', 'Verification has been sent to '.$request->email);
+        $user_name = $employer->firstname . ' ' . $employer->lastname;
+        $body = '
+        <p>Vui lòng nhấn vào nút bên dưới để xác thực email của bạn.</p>
+        <p>Sau khi xác minh, tài khoản của bạn sẽ được chuyển đến quản trị viên để phê duyệt.</p>
+        <p>Nếu bạn không yêu cầu đăng ký, vui lòng bỏ qua email này.</p>
+    ';
+
+        Mail::to($user->email)->send(new VerifyEmail(
+            $user->email,
+            $token,
+            $user_name,
+            $body
+        ));
+
+        return view('frontend.verifyemployer');
     }
 
-    public function verifyEmailEmployee($token, $email)
+
+
+
+    // Xác minh email
+    public function verifyEmail(Request $request)
     {
-        $employer = Employee::where('token', $token)->where('email', $email)->first();
-        if($employer) {
-            $employer->isverified = 1;
-            $employer->token = '';
-            $employer->update();
-            return redirect()->route('email.verified')->with('success', 'Your email has been verified');
-        } else {
-            return redirect()->route('employee.signin')->with('error', 'Invalid verification link');
+        $email = $request->query('email');
+        $token = $request->query('token');
+
+        if (empty($email) || empty($token)) {
+            return redirect('/')->with('error', 'Thông tin xác minh không đầy đủ!');
         }
+
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return redirect('/')->with('error', 'Email không tồn tại!');
+        }
+
+        if ($user->role_id == 4) {
+            // Employee
+            if ($user->status === 'active') {
+                return redirect('/login')->with('message', 'Tài khoản đã được kích hoạt. Vui lòng đăng nhập.');
+            }
+
+            $employee = Employee::where('user_id', $user->id)->where('token', $token)->first();
+
+            if (!$employee) {
+                return redirect('/')->with('error', 'Token không hợp lệ hoặc đã sử dụng!');
+            }
+
+            $employee->isverified = 1;
+            $employee->token = null;
+            $employee->save();
+
+            $user->status = 'active';
+            $user->email_verified_at = now();
+            $user->save();
+
+            return view('frontend.verified');
+        } elseif ($user->role_id == 3) {
+            // Employer
+            $employer = Employer::where('user_id', $user->id)->where('token', $token)->first();
+
+            if (!$employer) {
+                return redirect('/')->with('error', 'Token không hợp lệ hoặc đã sử dụng!');
+            }
+
+            $employer->isverified = 1;
+            $employer->token = null;
+            $employer->save();
+
+            // Cập nhật ngày xác minh email
+            $user->email_verified_at = now();
+            $user->save();
+
+            // Không kích hoạt user ngay, đợi admin duyệt
+            return view('frontend.verifiedemployer');
+        }
+
+        return redirect('/')->with('error', 'Vai trò không hợp lệ!');
     }
 }
