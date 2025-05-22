@@ -14,7 +14,8 @@ class EmployeeResumeController extends Controller
     // Hiển thị danh sách CV đã upload
     public function create()
     {
-        $employeeId = Auth::guard('employee')->id();
+
+        $employeeId = Auth::guard('employee')->user()->employee->id;
         $resumes = Resume::where('employee_id', $employeeId)->latest()->get();
 
         return view('employee.createresume', compact('resumes'));
@@ -28,6 +29,9 @@ class EmployeeResumeController extends Controller
             'title' => 'nullable|string|max:255',
         ]);
 
+        $userId = Auth::guard('employee')->id();
+        $employee = Employee::where('user_id', $userId)->firstOrFail();
+
         $file = $request->file('cv_file');
         $originalName = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
@@ -35,7 +39,7 @@ class EmployeeResumeController extends Controller
         $filePath = $file->storeAs('uploads/resumes', $fileName, 'public');
 
         Resume::create([
-            'employee_id' => Auth::guard('employee')->id(),
+            'employee_id' => Auth::guard('employee')->user()->employee->id,
             'file_path' => $filePath,
             'file_name' => $originalName,
             'file_type' => $extension,
@@ -48,7 +52,9 @@ class EmployeeResumeController extends Controller
     // Xoá một CV
     public function destroy($id)
     {
-        $resume = Resume::where('employee_id', Auth::guard('employee')->id())->findOrFail($id);
+        $employeeId = Auth::guard('employee')->user()->employee->id;
+
+        $resume = Resume::where('employee_id', $employeeId)->findOrFail($id);
 
         if (Storage::disk('public')->exists($resume->file_path)) {
             Storage::disk('public')->delete($resume->file_path);
@@ -59,10 +65,11 @@ class EmployeeResumeController extends Controller
         return redirect()->back()->with('success', 'CV đã được xoá.');
     }
 
-    // Tải xuống CV
     public function download($id)
     {
-        $resume = Resume::where('employee_id', Auth::guard('employee')->id())->findOrFail($id);
+        $employeeId = Auth::guard('employee')->user()->employee->id;
+
+        $resume = Resume::where('employee_id', $employeeId)->findOrFail($id);
 
         if (Storage::disk('public')->exists($resume->file_path)) {
             return Storage::disk('public')->download($resume->file_path, $resume->file_name);
@@ -70,4 +77,5 @@ class EmployeeResumeController extends Controller
 
         return redirect()->back()->with('error', 'Không tìm thấy file CV.');
     }
+
 }

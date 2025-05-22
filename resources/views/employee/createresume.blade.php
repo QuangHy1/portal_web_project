@@ -31,13 +31,6 @@
                         </div>
 
                         <div class="_dashboard_content_body py-3 px-3">
-                            @if(session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-                            @if(session('error'))
-                                <div class="alert alert-danger">{{ session('error') }}</div>
-                            @endif
-
                                 <form action="{{ route('employee.resumes.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
@@ -46,7 +39,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="cvFile" class="text-dark ft-medium">Chọn file CV</label>
-                                        <input type="file" name="resume_file" class="form-control" required accept=".pdf,.doc,.docx">
+                                        <input type="file" name="cv_file" class="form-control" required accept=".pdf,.doc,.docx">
                                         <small class="text-muted">Chấp nhận định dạng PDF, DOC, DOCX.</small>
                                     </div>
                                     <button type="submit" class="btn btn-md ft-medium text-light rounded theme-bg">Tải lên</button>
@@ -58,7 +51,12 @@
                         <div class="_dashboard_content_header br-bottom py-3 px-3">
                             <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-folder-open mr-1 theme-cl fs-sm"></i>Danh sách CV đã tải lên</h4>
                         </div>
-
+                        @if(session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
                         <div class="_dashboard_content_body py-3 px-3">
                             @if(count($resumes) > 0)
                                 <div class="table-responsive">
@@ -82,9 +80,10 @@
                                                 <td>{{ strtoupper($resume->file_type) }}</td>
                                                 <td>{{ $resume->created_at->format('d/m/Y') }}</td>
                                                 <td>
-                                                    <a href="{{ asset('uploads/resumes/' . $resume->file_path) }}" class="btn btn-sm btn-info" target="_blank">Xem</a>
-                                                    <a href="{{ route('employee.resume.download', $resume->id) }}" class="btn btn-sm btn-success">Tải</a>
-                                                    <form action="{{ route('employee.resume.delete', $resume->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Bạn có chắc muốn xoá CV này không?')">
+                                                    <a href="{{ asset('storage/' . $resume->file_path) }}" class="btn btn-sm btn-info" target="_blank">Xem</a>
+
+                                                    <a href="{{ route('employee.resumes.download', $resume->id) }}" class="btn btn-sm btn-success">Tải</a>
+                                                    <form action="{{ route('employee.resumes.destroy', $resume->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Bạn có chắc muốn xoá CV này không?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger">Xoá</button>

@@ -26,7 +26,6 @@ class AuthController extends Controller
             'login' => 'required|string',
             'password' => 'required|string',
             'g-recaptcha-response' => 'required',
-
         ]);
 
         // Xác thực reCAPTCHA
@@ -37,25 +36,26 @@ class AuthController extends Controller
 //            return back()->with('error', 'Vui lòng xác minh bạn không phải là robot.');
 //        }
 
-        $credentials = [
-            $loginField => $request->input('login'),
-            'password' => $request->input('password'),
-        ];
+        // Tìm user theo login field
+        $user = \App\Models\User::where($loginField, $request->input('login'))->first();
 
-        if (Auth::attempt($credentials)) {
-            // Xác thực thành công, bây giờ kiểm tra vai trò admin
-            if (Auth::user()->isAdmin()) {
-                $request->session()->regenerate();
-                return redirect()->intended(route('admin.dashboard'));
+        if ($user) {
+            if (Hash::check($request->input('password'), $user->password)) {
+                if ($user->isAdmin()) {
+                    Auth::login($user);
+                    $request->session()->regenerate();
+                    return redirect()->intended(route('admin.dashboard'))->with('success', 'Đăng nhập thành công!');
+                } else {
+                    return back()->with('error', 'Tài khoản này không có quyền truy cập trang admin.');
+                }
             } else {
-                // Không phải admin, đăng xuất và báo lỗi
-                Auth::logout();
-                return back()->withErrors(['login' => 'Tài khoản này không có quyền truy cập trang admin.']);
+                return back()->with('error', 'Mật khẩu không đúng.');
             }
+        } else {
+            return back()->with('error', 'Tài khoản không tồn tại.');
         }
-
-        return back()->withErrors(['login' => 'Sai thông tin đăng nhập.']);
     }
+
 
     public function logout()
     {
