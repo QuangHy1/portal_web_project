@@ -77,7 +77,8 @@ class EmployeeController extends Controller
         // Lấy danh sách các CVs đã upload
         $resumes = Resume::where('employee_id', $employee->id)->get();
 
-        return view('Frontend.application', compact('id', 'jobDetails', 'employee', 'employeeUser', 'resumes'));
+        return view('Frontend.application', compact('id', 'jobDetails', 'employee', 'employeeUser', 'resumes', 'applicationCheck'));
+
     }
 
 

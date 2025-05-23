@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\ApproveEmployerAccountMail;
+use App\Mail\RejectEmployerAccountMail;
 
 class UserController extends Controller
 {
@@ -60,11 +63,24 @@ class UserController extends Controller
             $user->save();
             $user->employer->save();
 
+            $username = $user->username;
+            $email = $user->email;
+            $loginUrl = route('employer.signin');
+
+            $body = "
+            <p>Xin chào, cảm ơn bạn đã đăng kí tài khoản với Username: <strong>$username</strong> và Email: <strong>$email</strong>.</p>
+            <p>Chúc mừng! Tài khoản của bạn đã được admin phê duyệt.</p>
+            <p>Hãy <a href='$loginUrl'>đăng nhập ngay</a> để bắt đầu sử dụng dịch vụ.</p>
+        ";
+
+            Mail::to($email)->send(new ApproveEmployerAccountMail($username, $email, $body));
+
             return back()->with('success', 'Đã duyệt tài khoản nhà tuyển dụng.');
         }
 
         return back()->with('error', 'Không tìm thấy nhà tuyển dụng phù hợp.');
     }
+
 
     public function reject(User $user)
     {
@@ -75,11 +91,25 @@ class UserController extends Controller
             $user->save();
             $user->employer->save();
 
+            // Thêm logic gửi mail
+            $username = $user->username;
+            $email = $user->email;
+            $loginUrl = route('employer.signin');
+
+            $body = "
+            <p>Xin chào, cảm ơn bạn đã đăng kí tài khoản với Username: <strong>$username</strong> và Email: <strong>$email</strong>.</p>
+            <p>Rất tiếc, tài khoản của bạn không được admin phê duyệt.</p>
+            <p>Nếu có thắc mắc, vui lòng <a href='$loginUrl'>đăng nhập</a> để liên hệ bộ phận CSKH của chúng tôi.</p>
+        ";
+
+            Mail::to($email)->send(new RejectEmployerAccountMail($username, $email, $body));
+
             return back()->with('success', 'Đã từ chối tài khoản.');
         }
 
         return back()->with('error', 'Không tìm thấy nhà tuyển dụng phù hợp.');
     }
+
     public function updating(Employer $employer)
     {
         $employer->user->status = $employer->isverified ? 'active' : 'inactive';

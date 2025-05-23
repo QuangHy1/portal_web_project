@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApproveApplicationMail;
 use App\Models\BoostedJob;
 use App\Models\BoostOrder;
 use App\Models\Employer;
@@ -389,7 +390,30 @@ class EmployerHiringController extends Controller
         $hiringsApplications->status = "approved";
         $hiringsApplications->update();
 
-        return redirect()->back()->with('success', 'Đã duyệt đơn thành công');
+        $employee = $hiringsApplications->employee;             // Model Employee
+        $user = $employee->user;                                // Model User (lấy email)
+        $hiring = $hiringsApplications->hiring;                 // Model Hiring
+        $company = $hiring->company;                            // Model Company
+
+        $employeeName = $employee->firstname . ' ' . $employee->lastname;
+        $jobTitle = $hiring->title;
+        $companyName = $company->name;
+        $loginUrl = route('employee.signin');
+        $email = $user->email;
+
+        $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Chúc mừng! Đơn ứng tuyển của bạn đã được <span style='color: green; font-weight: bold;'>phê duyệt</span>.</p>
+            <p>Bên tuyển dụng tại <strong>$companyName</strong> chúng tôi sẽ sắp xếp một buổi phỏng vấn sớm nhất. Trân trọng</p>
+            <p>Hãy <a href='$loginUrl' style='color: #2ab463;'>đăng nhập</a> để xem thêm chi tiết.</p>
+        ";
+
+        Mail::to($email)->send(
+            new ApproveApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl, $body)
+        );
+
+        return redirect()->back()->with('success', 'Đã duyệt đơn thành công!');
     }
 
     public function RejectJob($id)
@@ -404,22 +428,27 @@ class EmployerHiringController extends Controller
         $hiringsApplications->status = "rejected";
         $hiringsApplications->update();
 
-        // Lấy thông tin công việc (hiring)
-        $hiring = $hiringsApplications->hiring;
+        $employee = $hiringsApplications->employee;             // Model Employee
+        $user = $employee->user;                                // Model User (lấy email)
+        $hiring = $hiringsApplications->hiring;                 // Model Hiring
+        $company = $hiring->company;                            // Model Company
 
-        // Lấy thông tin nhà tuyển dụng
-        $employer = $hiring->employer;
+        $employeeName = $employee->firstname . ' ' . $employee->lastname;
+        $jobTitle = $hiring->title;
+        $companyName = $company->name;
+        $loginUrl = route('employee.signin');
+        $email = $user->email;
 
-        // Lấy thông tin công ty thông qua relationship 'company' của model Employer
-        $companyName = $employer->company->name ?? "Nhà tuyển dụng"; // Lấy tên công ty hoặc giá trị mặc định
+        $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Rất tiếc! Đơn ứng tuyển của bạn đã <span style='color: red; font-weight: bold;'>không được phê duyệt</span>.</p>
+            <p>Chúc bạn may mắn trong các cơ hội sắp tới.</p>
+        ";
 
-        // Lấy thông tin email của ứng viên
-        $useremail = $hiringsApplications->employee->user->email;
-
-        // Gửi email thông báo từ chối
-        $subject = 'Job Application Rejected';
-        $message = "Xin lỗi, đơn ứng tuyển của bạn đã bị từ chối. Bạn có thể tìm công việc khác tại: " . route('job.search');
-        Mail::to($useremail)->send(new WebsiteMailController($subject, $message, $companyName, 'admin.email.rejectedTemplate'));
+        Mail::to($email)->send(
+            new ApproveApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl, $body)
+        );
 
         return redirect()->back()->with('success', 'Đã từ chối đơn thành công!');
     }

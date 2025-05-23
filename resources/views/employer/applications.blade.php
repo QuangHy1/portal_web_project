@@ -133,20 +133,30 @@
                                 <ul>
                                     <li>
                                         <span>
-                                            <i class="lni lni-calendar mr-1"></i>
+                                            <i class='bx bx-calendar-plus' ></i>
                                             {{ date('d-m-Y', strtotime($application->created_at)) }}
                                         </span>
                                     </li>
                                     <li>
                                         <span>
-                                            <i class="lni lni-add-files mr-1"></i>
                                             @if ($application->status === 'approved')
+                                                <i class='bx bx-comment-check'></i>
                                                 Đã Duyệt
                                             @elseif ($application->status === 'rejected')
+                                                <i class='bx bx-comment-x' ></i>
                                                 Từ Chối
+                                            @elseif ($application->status === 'pending')
+                                                <i class='bx bx-question-mark' ></i>
+                                                Đang xem xét
                                             @else
                                                 {{ $application->status }}
                                             @endif
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                            <i class='bx bx-calendar-check' ></i>
+                                            {{ date('d-m-Y', strtotime($application->updated_at)) }}
                                         </span>
                                     </li>
                                 </ul>

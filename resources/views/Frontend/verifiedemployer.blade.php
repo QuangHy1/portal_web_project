@@ -13,7 +13,8 @@
                         <h2 class="ft-bold">Email Của Bạn Đã Được Xác Minh</h2>
                         <h6 class="text-muted mt-3 mb-0">
                             Chúc mừng! Email của bạn đã được xác minh thành công. <br>
-                            Bây giờ bạn có thể đăng nhập và bắt đầu đăng tuyển công việc phù hợp ngay hôm nay.
+                            Chỉ còn một bước nữa là chờ admin phê duyệt tài khoản cho bạn. <br>
+                            Chúng tôi sẽ gửi thông báo đến email của bạn trong thời gian sớm nhất nhé!
                         </h6>
                     </div>
                     <div class="form-group">

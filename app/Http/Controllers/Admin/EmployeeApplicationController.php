@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApproveApplicationMail;
+use App\Mail\RejectApplicationMail;
 use App\Models\EmployeeApplication;
 use App\Models\Employee;
 use App\Models\Hiring; // Thay Job bằng Hiring
 use App\Models\Resume;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeApplicationController extends Controller
@@ -46,7 +49,7 @@ class EmployeeApplicationController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required|exists:employees,id',
-            'hiring_id' => 'required|exists:hirings,id', // Thay job_id bằng hiring_id
+            'hiring_id' => 'required|exists:hirings,id',
             'resume_id' => 'nullable|exists:resumes,id',
             'cover_letter' => 'required|string',
             'status' => 'required|string|max:255',
@@ -57,9 +60,40 @@ class EmployeeApplicationController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        EmployeeApplication::create($validator->validated());
+        $data = $validator->validated();
 
-        return redirect()->route('admin.employee_applications.index')->with('success', 'Tạo mới 1 đơn ứng tuyển thành công !');
+        $employeeApplication = EmployeeApplication::create($data);
+
+        // Lấy thông tin liên quan
+        $employee = $employeeApplication->employee()->with('user')->first();
+        $hiring = $employeeApplication->hiring()->with('company')->first();
+
+        $email = $employee->user->email;
+        $employeeName = $employee->firstname . ' ' . $employee->lastname;
+        $jobTitle = $hiring->title;
+        $companyName = $hiring->company->name ?? 'Công ty';
+        $loginUrl = route('employee.signin'); // hoặc URL bạn muốn
+
+        // Gửi mail tùy trạng thái
+        if ($data['status'] === 'approved') {
+            $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Chúc mừng! Đơn ứng tuyển của bạn đã được <span style='color: green; font-weight: bold;'>phê duyệt</span>.</p>
+            <p>Hãy <a href='$loginUrl' style='color: #2ab463;'>đăng nhập</a> để xem thêm chi tiết.</p>
+        ";
+            Mail::to($email)->send(new ApproveApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl, $body ));
+        } elseif ($data['status'] === 'rejected') {
+            $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Rất tiếc! Đơn ứng tuyển của bạn đã <span style='color: red; font-weight: bold;'>không được phê duyệt</span>.</p>
+            <p>Chúc bạn may mắn trong các cơ hội sắp tới.</p>
+        ";
+            Mail::to($email)->send(new RejectApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl,$body ));
+        }
+
+        return redirect()->route('admin.employee_applications.index')->with('success', 'Tạo mới 1 đơn ứng tuyển thành công!');
     }
 
     public function show(EmployeeApplication $employeeApplication)
@@ -81,7 +115,7 @@ class EmployeeApplicationController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required|exists:employees,id',
-            'hiring_id' => 'required|exists:hirings,id', // Thay job_id bằng hiring_id
+            'hiring_id' => 'required|exists:hirings,id',
             'resume_id' => 'nullable|exists:resumes,id',
             'cover_letter' => 'required|string',
             'status' => 'required|string|max:255',
@@ -92,10 +126,46 @@ class EmployeeApplicationController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $employeeApplication->update($validator->validated());
+        $data = $validator->validated();
 
-        return redirect()->route('admin.employee_applications.index')->with('success', 'Cập nhật 1 đơn ứng tuyển thành công !');
+        // Lấy trạng thái cũ trước khi cập nhật để kiểm tra có thay đổi trạng thái không
+        $oldStatus = $employeeApplication->status;
+
+        $employeeApplication->update($data);
+
+        // Nếu trạng thái thay đổi sang approved hoặc rejected thì gửi mail
+        if ($oldStatus !== $data['status'] && in_array($data['status'], ['approved', 'rejected'])) {
+            $employee = $employeeApplication->employee()->with('user')->first();
+            $hiring = $employeeApplication->hiring()->with('company')->first();
+
+            $email = $employee->user->email;
+            $employeeName = $employee->firstname . ' ' . $employee->lastname;
+            $jobTitle = $hiring->title;
+            $companyName = $hiring->company->name ?? 'Công ty';
+            $loginUrl = route('employee.signin');
+
+            if ($data['status'] === 'approved') {
+                $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Chúc mừng! Đơn ứng tuyển của bạn đã được <span style='color: green; font-weight: bold;'>phê duyệt</span>.</p>
+            <p>Hãy <a href='$loginUrl' style='color: #2ab463;'>đăng nhập</a> để xem thêm chi tiết.</p>
+        ";
+                Mail::to($email)->send(new ApproveApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl, $body ));
+            } elseif ($data['status'] === 'rejected') {
+                $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Rất tiếc! Đơn ứng tuyển của bạn đã <span style='color: red; font-weight: bold;'>không được phê duyệt</span>.</p>
+            <p>Chúc bạn may mắn trong các cơ hội sắp tới.</p>
+        ";
+                Mail::to($email)->send(new RejectApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl,$body ));
+            }
+        }
+
+        return redirect()->route('admin.employee_applications.index')->with('success', 'Cập nhật 1 đơn ứng tuyển thành công!');
     }
+
 
     public function destroy(EmployeeApplication $employeeApplication)
     {
@@ -114,7 +184,30 @@ class EmployeeApplicationController extends Controller
         $employeeApplication->status = 'approved';
         $employeeApplication->save();
 
-        return redirect()->route('admin.employee_applications.review')->with('success', 'Đơn ứng tuyển đã được duyệt.');
+        $employee = $employeeApplication->employee;             // Model Employee
+        $user = $employee->user;                                // Model User (lấy email)
+        $hiring = $employeeApplication->hiring;                 // Model Hiring
+        $company = $hiring->company;                            // Model Company
+
+        $employeeName = $employee->firstname . ' ' . $employee->lastname;
+        $jobTitle = $hiring->title;
+        $companyName = $company->name;
+        $loginUrl = route('employee.signin');
+        $email = $user->email;
+
+        $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Chúc mừng! Đơn ứng tuyển của bạn đã được <span style='color: green; font-weight: bold;'>phê duyệt</span>.</p>
+            <p>Hãy <a href='$loginUrl' style='color: #2ab463;'>đăng nhập</a> để xem thêm chi tiết.</p>
+        ";
+
+        Mail::to($email)->send(
+            new ApproveApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl, $body)
+        );
+
+        return redirect()->route('admin.employee_applications.review')
+            ->with('success', 'Đơn ứng tuyển đã được duyệt.');
     }
 
     public function reject(EmployeeApplication $employeeApplication)
@@ -122,7 +215,30 @@ class EmployeeApplicationController extends Controller
         $employeeApplication->status = 'rejected';
         $employeeApplication->save();
 
-        return redirect()->route('admin.employee_applications.review')->with('success', 'Đơn ứng tuyển đã bị từ chối.');
+        $employee = $employeeApplication->employee;             // Model Employee
+        $user = $employee->user;                                // Model User (lấy email)
+        $hiring = $employeeApplication->hiring;                 // Model Hiring
+        $company = $hiring->company;                            // Model Company
+
+        $employeeName = $employee->firstname . ' ' . $employee->lastname;
+        $jobTitle = $hiring->title;
+        $companyName = $company->name;
+        $loginUrl = route('employee.signin');
+        $email = $user->email;
+
+        $body = "
+            <p>Xin chào <strong>$employeeName</strong>,</p>
+            <p>Bạn đã ứng tuyển vào vị trí <strong>$jobTitle</strong> tại công ty <strong>$companyName</strong>.</p>
+            <p>Rất tiếc! Đơn ứng tuyển của bạn đã <span style='color: red; font-weight: bold;'>không được phê duyệt</span>.</p>
+            <p>Chúc bạn may mắn trong các cơ hội sắp tới.</p>
+        ";
+
+        Mail::to($email)->send(
+            new ApproveApplicationMail($employeeName, $jobTitle, $companyName, $loginUrl, $body)
+        );
+
+        return redirect()->route('admin.employee_applications.review')
+            ->with('success', 'Đơn ứng tuyển đã bị từ chối.');
     }
 
 }

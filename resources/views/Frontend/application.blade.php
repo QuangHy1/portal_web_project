@@ -92,7 +92,7 @@
                             <select name="resume_id" class="form-control" required>
                                 <option value="">-- Chọn CV --</option>
                                 @foreach($resumes as $resume)
-                                    <option value="{{ $resume->id }}">{{ $resume->file_name }}</option>
+                                    <option value="{{ $resume->id }}">{{ $resume->title }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,13 +101,13 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="form-group">
                             <label class="small text-dark ft-medium">Lời nhắn*</label>
-                            <textarea name="coverletter" class="form-control ht-80"></textarea>
+                            <textarea name="cover_letter" class="form-control ht-80"></textarea>
                         </div>
                     </div>
 
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="form-group">
-                            @if($applicationcheck > 0)
+                            @if($applicationCheck > 0)
                             <span tabindex="0" data-toggle="tooltip" title="Your job application has been already received. Please await confirmation from the company.">
                             <button type="submit" disabled class="btn btn-dark">Apply</button>
                             </span>

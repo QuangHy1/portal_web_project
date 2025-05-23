@@ -3570,6 +3570,8 @@ textarea.form-control{
     opacity:1;
 }
 .custom-select.simple{
+    background-color: #b1ffe0;
+    color: #442f2f;
 	height: calc(1em + 1.2rem + 2px);
     padding:.575rem 1.5rem .575rem 0.5rem;
 	line-height: 1;
@@ -4262,6 +4264,7 @@ a.close-list-item {
     width: auto;
     position: relative;
     display: block;
+    margin-right: 20px;
 }
 .ico-content ul {
     display: block;
@@ -4270,7 +4273,7 @@ a.close-list-item {
 }
 .ico-content ul li {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 40px;
     list-style: none;
 }
 .ico-content ul li:last-child{
