@@ -172,6 +172,31 @@
             </div>
         </div>
     </div>
-
+    @if(session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '{{ session('success') }}',
+                    confirmButtonText: 'Đóng',
+                    timer: 4000,
+                    timerProgressBar: true
+                });
+            });
+        </script>
+@endif
+    @if(session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: '{{ session('error') }}',
+                    confirmButtonText: 'Đóng'
+                });
+            });
+        </script>
+@endif
 
 @endsection

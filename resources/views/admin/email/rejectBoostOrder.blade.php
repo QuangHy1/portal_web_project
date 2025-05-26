@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Duyệt đơn Employee</title>
+    <title>Từ chối duyệt giao dịch Employer</title>
 </head>
 <body>
 
@@ -60,7 +60,6 @@
                 </tr>
                 </tbody>
             </table>
-
 
             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapperFooter" style="max-width:600px">
                 <tbody>

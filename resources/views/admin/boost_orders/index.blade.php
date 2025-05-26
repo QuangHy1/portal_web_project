@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Đơn hàng nổi bật')
+@section('title', 'Đơn hàng giao dịch boost')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/boost_orders/index.css') }}">
@@ -20,9 +20,14 @@
                 </form>
             </div>
 
-            <a href="{{ route('admin.boost_orders.create') }}" class="btn btn-success">
-                + THÊM
-            </a>
+            <div>
+                <a href="{{ route('admin.boost_orders.create') }}" class="btn btn-success me-2">
+                    + THÊM
+                </a>
+                <a href="{{ route('admin.boost_order.approve.list') }}" class="btn btn-primary">
+                    DUYỆT
+                </a>
+            </div>
         </div>
 
         @if (session('success'))

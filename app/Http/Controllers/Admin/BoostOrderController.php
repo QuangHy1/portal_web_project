@@ -106,4 +106,35 @@ class BoostOrderController extends Controller
         $boostOrder->delete();
         return redirect()->route('admin.boost_orders.index')->with('success', 'Đơn hàng đã được xóa.');
     }
+
+    public function showApprovalList()
+    {
+        $today = now()->toDateString();
+
+        $pendingOrders = BoostOrder::with(['employer', 'package'])
+            ->where('isActive', 0)
+            ->whereDate('date_expired', '>=', $today) // Chỉ lấy các gói còn hạn
+            ->whereDate('date_purchased', '<=', $today)
+            ->get();
+
+        return view('admin.boost_orders.approve', compact('pendingOrders'));
+    }
+
+    public function approve($id)
+    {
+        $order = BoostOrder::findOrFail($id);
+        $order->isActive = 1;
+        $order->save();
+
+        return redirect()->route('admin.boost_order.approve.list')->with('success', 'Đơn boost đã được duyệt.');
+    }
+
+    public function reject($id)
+    {
+        $order = BoostOrder::findOrFail($id);
+        $order->delete();
+
+        return redirect()->route('admin.boost_order.approve.list')->with('success', 'Đơn boost đã bị từ chối và xóa.');
+    }
+
 }

@@ -68,8 +68,8 @@
                                 </form>
                             </td>
                         </tr>
-                    @empty
-                        <tr><td colspan="9" class="text-center">Không có tài khoản nào cần duyệt.</td></tr>
+                        @empty
+                            <tr><td colspan="9" class="text-center">Không có tài khoản nào cần duyệt.</td></tr>
                     @endforelse
                 </tbody>
             </table>

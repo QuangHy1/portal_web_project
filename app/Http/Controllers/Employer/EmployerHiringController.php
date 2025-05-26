@@ -225,17 +225,19 @@ class EmployerHiringController extends Controller
             'activeBoostOrder' => $activeBoostOrder,
         ]);
     }
-
-    public function boostPurchase()
-    {
-        return view('employer.boostpurchase');
-    }
     public function boostData($id)
     {
+        $packages = Package::all(); // nếu không có cột status
         $hiring = Hiring::with('employer.company', 'company')->where('id', $id)->first();
         $applications = EmployeeApplication::all();
-        return view('employer.boostpayment', compact('hiring', 'applications'));
+        return view('employer.boostpurchase', compact('packages','hiring', 'applications'));
     }
+    public function boostPurchase()
+    {
+        $packages = Package::all(); // nếu không có cột status
+        return view('employer.boostpurchase', compact('packages'));
+    }
+
     public function boostNow($id)
     {
         $hiring = Hiring::findOrFail($id);

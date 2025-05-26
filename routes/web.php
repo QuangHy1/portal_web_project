@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\VacancyController;
 use App\Http\Controllers\Employee\EmployeeResumeController;
 use App\Http\Controllers\Employer\EmployerHiringController;
 use App\Http\Controllers\Employer\EmployerProfileController;
+use App\Http\Controllers\Employer\PaymentController;
 use App\Http\Controllers\Frontend\EmployerDetailsController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JobController;
@@ -90,12 +91,19 @@ Route::prefix('admin')->group(function () {
         Route::get('/admins', [AdminController::class, 'index'])->name('admin.admins.index');
         Route::post('/admins/update', [AdminController::class, 'update'])->name('admin.admins.update');
 
-        // Các route tùy chỉnh cho duyệt và từ chối người dùng
+        // Các route tùy chỉnh cho duyệt và từ chối
         Route::get('/users/approve', [UserController::class, 'showApprovalList'])->name('admin.users.approve.list');
         Route::patch('/users/{user}/approve', [UserController::class, 'approve'])->name('admin.users.approve');
         Route::delete('/users/{user}/reject', [UserController::class, 'reject'])->name('admin.users.reject');
+
         Route::get('/admin/employers/verify-list', [AdminEmployerController::class, 'showVerificationList'])->name('admin.employers.verify_list');
         Route::patch('/admin/employers/{employer}/verify', [AdminEmployerController::class, 'verifyEmail'])->name('admin.employers.verify');
+
+        Route::get('/boost_orders/approve', [BoostOrderController::class, 'showApprovalList'])->name('admin.boost_order.approve.list');
+        Route::patch('/boost_orders/{boost_orders}/approve', [BoostOrderController::class, 'approve'])->name('admin.boost_orders.approve');
+        Route::delete('/boost_orders/{boost_orders}/reject', [BoostOrderController::class, 'reject'])->name('admin.boost_orders.reject');
+
+
         // Route resource cho users (định nghĩa SAU các route tùy chỉnh)
         Route::resource('users', UserController::class, ['names' => 'admin.users']);
         Route::resource('roles', RoleController::class, ['names' => 'admin.roles']);
@@ -121,6 +129,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('employees', AdminEmployeeController::class, ['names' => 'admin.employees']);
         Route::resource('packages', PackageController::class, ['names' => 'admin.packages']);
         Route::resource('boost_orders', BoostOrderController::class, ['names' => 'admin.boost_orders']);
+
     });
 });
 
@@ -180,9 +189,14 @@ Route::prefix('employer')->middleware(['employer'])->group(function () {
 
     Route::get('/employer/boost', [EmployerHiringController::class, 'viewDatas'])->name('employer.employee.boost');
     Route::get('/employer/boost/purchase', [EmployerHiringController::class, 'boostPurchase'])->name('employer.boost.purchase');
-    Route::get('/employer/boost/{id}', [EmployerHiringController::class, 'boostData'])->name('employer.employee.boost.submit');
     Route::post('/employer/boost-now/{id}', [EmployerHiringController::class, 'boostNow'])->name('employer.employee.boost.now');
     Route::post('employer/hiring/boost/revert/{id}', [EmployerHiringController::class, 'revertBoost'])->name('employer.hiring.boost.revert');
+
+
+    Route::get('/employer/boost/vietqr', [PaymentController::class, 'generateVietQR'])->name('employer.vietqr');
+    Route::post('/employer/boost/order', [PaymentController::class, 'storeBoostOrder'])->name('employer.boost.order');
+    Route::get('/employer/boost/{id}', [EmployerHiringController::class, 'boostData'])->name('employer.employee.boost.submit');
+    Route::post('/employer/boost/confirm-payment', [PaymentController::class, 'confirmPayment'])->name('employer.boost.confirmPayment');
 
     Route::get('/employer/password/change', [SigninController::class, 'changePasswordEmployer'])->name('employer.password.change');
     Route::post('/employer/password/change/confirm', [SigninController::class, 'changePasswordEmployerConfirm'])->name('employer.password.change.confirm');
