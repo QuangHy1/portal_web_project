@@ -7,20 +7,53 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav ms-auto">
-            <!-- Icon thông báo -->
-            <li class="nav-item position-relative">
-                <a href="#" class="nav-link">
-                    <i class='bx bxs-bell-ring'></i>
+            <!-- Icon dropdown thông báo tài khoản mới cần duyệt -->
+            <li class="nav-item dropdown position-relative">
+                <a href="#" class="nav-link bellring" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bxs-bell-ring fs-4'></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        3+
+            {{ $pendingAccountCount }}
+        </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-2 shadow-sm" aria-labelledby="accountDropdown" style="min-width: 250px;">
+                    @if ($pendingAccountCount > 0)
+                        <li>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center text-primary fw-bold"
+                               href="{{ route('admin.account.approve.list') }}">
+                                {{ $pendingAccountCount }} tài khoản đang chờ duyệt
+                                <i class="bx bx-chevron-right"></i>
+                            </a>
+                        </li>
+                    @else
+                        <li class="dropdown-item text-muted">
+                            Không có tài khoản nào đang chờ duyệt.
+                        </li>
+                    @endif
+                </ul>
+            </li>
+            <!-- Icon dropdown thông báo giao dịch boost -->
+            <li class="nav-item dropdown position-relative">
+                <a href="#" class="nav-link money fs-4" id="boostDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bx-money-withdraw'></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ $pendingBoostCount }}
                     </span>
                 </a>
-            </li>
-            <!-- Icon thư -->
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class='bx bx-envelope'></i>
-                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-2 shadow-sm" aria-labelledby="boostDropdown" style="min-width: 250px;">
+                    @if ($pendingBoostCount > 0)
+                        <li>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center text-primary fw-bold"
+                               href="{{ route('admin.boost_order.approve.list') }}">
+                                {{ $pendingBoostCount }} giao dịch boost cần duyệt
+                                <i class="bx bx-chevron-right"></i>
+                            </a>
+                        </li>
+                    @else
+                        <li class="dropdown-item text-muted">
+                            Không có giao dịch boost nào đang chờ duyệt.
+                        </li>
+                    @endif
+                </ul>
             </li>
             <!-- Avatar -->
             <li class="nav-item dropdown">

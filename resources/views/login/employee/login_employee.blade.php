@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('login/css/login_user.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/x-icon" href="{{ asset('frontEndAssets/img/favicon-32x32.png') }}">
 </head>
 <body>
 @if (session('error'))

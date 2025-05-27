@@ -183,7 +183,7 @@ a.sidebar-link:hover{
     margin-right: 20px;
     display: flex;
     justify-content: space-between;
-    gap: 23px;
+    gap: 40px;
     align-items: center;
 }
 .avatar{
@@ -298,4 +298,10 @@ a.text-body-secondary:hover{
 }
 .navbar-brand:hover {
     background: #6bcfb2;
+}
+.money:hover{
+    color: #ffffff !important;
+}
+.bellring:hover{
+    color: #ffffff !important;
 }
