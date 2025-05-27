@@ -7,62 +7,148 @@
 @endsection
 
 @section('content')
-    <h3 class="fw-bold fs-4 mb-3">Thống kê</h3>
+    <h3 class="fw-bold fs-4 mb-4">Tổng quan hệ thống</h3>
 
-    <div class="row">
-        <div class="col-12 col-md-4">
-            <div class="card border-0">
-                <div class="card-body py-4">
-                    <h5 class="mb-2 fw-bold">Member Process</h5>
-                    <p class="mb-2 fw-bold">$72,540</p>
-                    <span class="badge text-success1 me-2">+9.0%</span>
-                    <span class="fw-bold">Since last month</span>
+    <div class="row g-4 mb-4">
+        <!-- Tổng tài khoản Employee -->
+        <div class="col-md-4">
+            <div class="card  border-0">
+                <div class="card-body text-center">
+                    <h6 class="fw-bold text-muted">Tài khoản Ứng viên</h6>
+                    <h3 class="fw-bold text-primary">{{ $employeeCount }}</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <!-- Tổng tài khoản Employer -->
+        <div class="col-md-4">
             <div class="card border-0">
-                <div class="card-body py-4">
-                    <h5 class="mb-2 fw-bold">Member Process 2</h5>
-                    <p class="mb-2 fw-bold">$72,540</p>
-                    <span class="badge text-success1 me-2">+9.0%</span>
-                    <span class="fw-bold">Since last month</span>
+                <div class="card-body text-center">
+                    <h6 class="fw-bold text-muted">Tài khoản Nhà tuyển dụng</h6>
+                    <h3 class="fw-bold text-success">{{ $employerCount }}</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <!-- Tổng tin tuyển dụng trong tuần -->
+        <div class="col-md-4">
             <div class="card border-0">
-                <div class="card-body py-4">
-                    <h5 class="mb-2 fw-bold">Member Process 3</h5>
-                    <p class="mb-2 fw-bold">$72,540</p>
-                    <span class="badge text-success1 me-2">+9.0%</span>
-                    <span class="fw-bold">Since last month</span>
+                <div class="card-body text-center">
+                    <h6 class="fw-bold text-muted">Tin tuyển dụng trong tuần</h6>
+                    <h3 class="fw-bold text-info">{{ $hiringCount }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Giao dịch Boost tuần này -->
+        <div class="col-md-6">
+            <div class="card border-0">
+                <div class="card-body text-center">
+                    <h6 class="fw-bold text-muted">Giao dịch Boost trong tuần</h6>
+                    <h3 class="fw-bold text-warning">{{ $boostCount }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doanh thu -->
+        <div class="col-md-6">
+            <div class="card border-0">
+                <div class="card-body text-center">
+                    <h6 class="fw-bold text-muted">Doanh thu tuần này</h6>
+                    <h3 class="fw-bold text-danger">{{ number_format($thisWeekRevenue) }} ₫</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <h3 class="fw-bold fs-4 my-3">Avg. agent</h3>
+    <!-- Hiệu suất doanh thu -->
+    <h3 class="fw-bold fs-4 mb-3">Hiệu suất doanh thu</h3>
 
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-striped">
-                <thead>
-                <tr class="highlight">
-                    <th scope="col">Cột 1</th>
-                    <th scope="col">Cột 2</th>
-                    <th scope="col">Cột 3</th>
-                    <th scope="col">Cột 4</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr><th scope="row">1</th><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
-                <tr><th scope="row">2</th><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
-                <tr><th scope="row">3</th><td colspan="2">Larry the Bird</td><td>@twitter</td></tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+            <tr>
+                <th>Tuần trước</th>
+                <th>Tuần này</th>
+                <th>Chênh lệch</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ number_format($lastWeekRevenue) }} ₫</td>
+                <td>{{ number_format($thisWeekRevenue) }} ₫</td>
+                <td>
+                    @if ($revenueChange > 0)
+                        <span class="text-success fw-bold">+{{ $revenueChange }}%</span>
+                    @elseif ($revenueChange < 0)
+                        <span class="text-danger fw-bold">{{ $revenueChange }}%</span>
+                    @else
+                        <span class="text-muted">Không thay đổi</span>
+                    @endif
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+    <!-- Biểu đồ doanh thu -->
+    <h3 class="fw-bold fs-4 mb-3 mt-5">Biểu đồ doanh thu</h3>
+    <div class="w-100">
+        <div id="revenueChart"></div>
+    </div>
+@endsection
+@section('custom_js')
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        const options = {
+            chart: {
+                type: 'line', // nếu bạn đã chuyển sang biểu đồ đường
+                height: 350,
+                width: '100%' // <-- đảm bảo biểu đồ chiếm 100% chiều rộng container
+            },
+            series: [{
+                name: 'Doanh thu (VNĐ)',
+                data: [{{ $lastWeekRevenue }}, {{ $thisWeekRevenue }}]
+            }],
+            xaxis: {
+                categories: ['Tuần trước', 'Tuần này'],
+                labels: {
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            colors: ['#0d6efd'],
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return val.toLocaleString() + ' ₫';
+                },
+                style: {
+                    fontWeight: 'bold'
+                }
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 3
+            },
+            markers: {
+                size: 5,
+                colors: ['#0d6efd'],
+                strokeWidth: 2,
+                hover: {
+                    sizeOffset: 3
+                }
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val.toLocaleString() + ' ₫';
+                    }
+                }
+            }
+        };
+
+        const chart = new ApexCharts(document.querySelector("#revenueChart"), options);
+        chart.render();
+    </script>
 @endsection

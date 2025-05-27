@@ -18,7 +18,7 @@ class RejectEmployerAccountMail extends Mailable
     {
         $this->username = $username;
         $this->email = $email;
-        $this->body = $body;
+        $this->body     = $body;
     }
 
     public function build()

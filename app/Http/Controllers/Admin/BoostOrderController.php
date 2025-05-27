@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApproveBoostOrder;
+use App\Mail\RejectBoostOrder;
 use App\Models\BoostOrder;
 use App\Models\Employer;
 use App\Models\Package;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BoostOrderController extends Controller
 {
@@ -125,6 +128,18 @@ class BoostOrderController extends Controller
         $order = BoostOrder::findOrFail($id);
         $order->isActive = 1;
         $order->save();
+        $user = $order->employer->user;
+        $username = $user->username;
+        $email = $user->email;
+
+        $body = "
+        <p>Xin chào <strong>$username</strong>,</p>
+        <p>Giao dịch boost của bạn với mã <strong>{$order->tnxID}</strong> đã được admin xác nhận thành công.</p>
+        <p>Gói boost <strong>{$order->package->name}</strong> hiện đã được kích hoạt, hiệu lực từ <strong>{$order->date_purchased}</strong> đến <strong>{$order->date_expired}</strong>.</p>
+        <p>Chúc bạn tuyển dụng hiệu quả!</p>
+    ";
+
+        Mail::to($email)->send(new ApproveBoostOrder($username, $email, $body));
 
         return redirect()->route('admin.boost_order.approve.list')->with('success', 'Đơn boost đã được duyệt.');
     }
@@ -132,8 +147,20 @@ class BoostOrderController extends Controller
     public function reject($id)
     {
         $order = BoostOrder::findOrFail($id);
-        $order->delete();
 
+        $user = $order->employer->user;
+        $username = $user->username;
+        $email = $user->email;
+
+        $order->delete(); // Hoặc bạn muốn update status khác
+
+        $body = "
+        <p>Xin chào <strong>$username</strong>,</p>
+        <p>Rất tiếc, giao dịch boost với mã <strong>{$order->tnxID}</strong> của bạn đã bị từ chối.</p>
+        <p>Nếu có thắc mắc, vui lòng liên hệ bộ phận CSKH để được hỗ trợ thêm.</p>
+    ";
+
+        Mail::to($email)->send(new RejectBoostOrder($username, $email, $body));
         return redirect()->route('admin.boost_order.approve.list')->with('success', 'Đơn boost đã bị từ chối và xóa.');
     }
 

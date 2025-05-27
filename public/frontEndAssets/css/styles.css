@@ -4077,7 +4077,7 @@ button:focus {
     font-size: 16px;
     margin: 0;
     padding:20px 30px;
-    background-color: #fff;
+    background-color: #ffaeae;
     display: block;
     border-bottom: 1px solid #eaeaea;
     border-radius: 4px 4px 0 0;
@@ -4086,12 +4086,12 @@ button:focus {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #fff;
+    background-color: #ffaeae;
     border-radius: 0 0 4px 4px;
 }
 .dashboard-gravity-list ul li {
     padding: 23px 30px;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid #ee5711!important;
     transition: .3s;
     position: relative;
 }
@@ -4117,18 +4117,18 @@ button:focus {
 .dashboard-gravity-list.invoices ul ul li {
     padding: 0;
 }
-.dashboard-gravity-list.invoices ul ul li:after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 11px;
-    background-color: #e0e0e0;
-    position: relative;
-    margin: 0 10px;
-}
-.dashboard-gravity-list.invoices ul ul li:last-child:after{
-	display:none;
-}
+/*.dashboard-gravity-list.invoices ul ul li:after {*/
+/*    content: "";*/
+/*    display: inline-block;*/
+/*    width: 1px;*/
+/*    height: 11px;*/
+/*    background-color: #e0e0e0;*/
+/*    position: relative;*/
+/*    margin: 0 10px;*/
+/*}*/
+/*.dashboard-gravity-list.invoices ul ul li:last-child:after{*/
+/*	display:none;*/
+/*}*/
 .dashboard-gravity-list.with-icons ul li {
     padding-left: 87px;
     font-size: 14px;

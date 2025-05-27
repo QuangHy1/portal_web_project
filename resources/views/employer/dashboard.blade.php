@@ -100,7 +100,7 @@
                             <h4 class="mb-0 ft-medium">Lịch Sử Giao Dịch</h4>
                             <ul class="payment-list">
                                 @foreach($payments as $payment)
-                                    <li class="payment-item d-flex mb-4 p-3 shadow-sm rounded border">
+                                    <li class="payment-item d-flex p-3 shadow-sm rounded border">
 
                                         <!-- Nội dung -->
                                         <div class="payment-content">
