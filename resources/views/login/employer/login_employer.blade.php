@@ -43,11 +43,11 @@
                 </span></h2>
             <p>Cùng nhau mang đến cơ hội việc làm cho mọi người.</p>
             <div class="social-icon">
-                <a href="#"><i class='bx bxl-facebook'></i></a>
-                <a href="#"><i class='bx bxl-twitter'></i></a>
-                <a href="#"><i class='bx bxl-youtube'></i></a>
-                <a href="#"><i class='bx bxl-instagram'></i></a>
-                <a href="#"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://www.facebook.com/alo.quanghuy/"><i class='bx bxl-facebook'></i></a>
+                <a href="https://x.com/"><i class='bx bxl-twitter'></i></a>
+                <a href="https://www.youtube.com/channel/UClyA28-01x4z60eWQ2kiNbA"><i class='bx bxl-youtube'></i></a>
+                <a href="https://www.instagram.com/alo.quanghuy/"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.linkedin.com/"><i class='bx bxl-linkedin'></i></a>
             </div>
         </div>
     </div>
