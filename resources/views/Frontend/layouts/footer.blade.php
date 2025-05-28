@@ -211,7 +211,7 @@
                 {{-- Employer --}}
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <div class="footer_widget">
-                        <h4 class="widget_title">Dành cho Nhà Tuyển Dụng</h4>
+                        <h4 class="widget_title">Cho Nhà Tuyển Dụng</h4>
                         <ul class="footer-menu">
                             <li><a href="#">Đăng Tin</a></li>
                             <li><a href="#">Dashboard</a></li>
@@ -219,10 +219,10 @@
                     </div>
                 </div>
 
-                {{-- Candidate --}}
+                {{-- Employee --}}
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <div class="footer_widget">
-                        <h4 class="widget_title">Dành cho Ứng Viên</h4>
+                        <h4 class="widget_title">Cho Ứng Viên</h4>
                         <ul class="footer-menu">
                             <li><a href="#">Khám phá tất cả công việc</a></li>
                             <li><a href="#">Danh mục việc làm</a></li>
@@ -246,7 +246,7 @@
                 {{-- Topics --}}
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <div class="footer_widget">
-                        <h4 class="widget_title">Helpful Topics</h4>
+                        <h4 class="widget_title">Chăm sóc khách hàng</h4>
                         <ul class="footer-menu">
                             {{-- Bổ sung nội dung nếu cần --}}
                         </ul>
