@@ -254,7 +254,7 @@
 
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 hide-ipad">
                         <div class="top_first">
-                            <a href="callto:{{ $topbarData->topbar_contact }}" class="medium text-light">
+                            <a href="callto:{{ $topbarData->topbar_contact }}" class="medium text-light" style="font-weight: bold">
                                 {{ $topbarData->topbar_contact }}
                             </a>
                         </div>
@@ -262,7 +262,7 @@
 
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 hide-ipad">
                         <div class="top_second text-center">
-                            <p class="medium text-light m-0 p-0">{{ $topbarData->topbar_center_text }}</p>
+                            <p class="medium text-light m-0 p-0" style="font-weight: bold">{{ $topbarData->topbar_center_text }}</p>
                         </div>
                     </div>
 
@@ -274,28 +274,28 @@
 
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
                             @if (Auth::guard('employee')->check())
-                                <a href="{{ route('employee.logout') }}" class="text-light medium">Đăng Xuất</a>
+                                <a href="{{ route('employee.logout') }}" class="text-danger medium" style="font-weight: bold">Đăng Xuất</a>
                             @elseif(Auth::guard('employer')->check())
-                                <a href="{{ route('employer.logout') }}" class="text-light medium">Đăng Xuất</a>
+                                <a href="{{ route('employer.logout') }}" class="text-danger medium" style="font-weight: bold">Đăng Xuất</a>
                             @else
                             @endif
                         </div>
                         @auth('employee')
                             <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                                <a href="{{ route('employee.job.bookmarks') }}" class="text-light medium">Danh Sách Ước</a>
+                                <a href="{{ route('employee.job.bookmarks') }}" class="text-light medium" style="font-weight: bold">Tin đã lưu</a>
                             </div>
                         @endauth
                         <div class="currency-selector dropdown float-right mr-3">
                             @auth('employee')
-                                <a href="{{ route('employee.dashboard') }}" class="text-light medium">
+                                <a href="{{ route('employee.profile') }}" class="text-light medium" style="font-weight: bold">
                                     {{ auth('employee')->user()->employee->firstname . ' ' . auth('employee')->user()->employee->lastname }}
                                 </a>
                             @elseauth('employer')
-                                <a href="{{ route('employer.profile') }}" class="text-light medium">
+                                <a href="{{ route('employer.profile') }}" class="text-light medium" style="font-weight: bold">
                                     {{ auth('employer')->user()->username }}
                                 </a>
                             @else
-                                <a href="{{ route('employee.signin') }}" class="text-light medium">Tài khoản</a>
+                                <a href="{{ route('employee.signin') }}" class="text-light medium" style="font-weight: bold">Tài khoản</a>
                             @endauth
                         </div>
                     </div>

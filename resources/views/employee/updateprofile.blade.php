@@ -53,25 +53,25 @@
                             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
                                 <div class="row">
                                     {{-- Basic Info --}}
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Họ*</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Họ*</label>
                                         <input type="text" class="form-control rounded" name="firstname" value="{{ $employee->firstname }}" required>
                                     </div>
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Tên*</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Tên*</label>
                                         <input type="text" class="form-control rounded" name="lastname" value="{{ $employee->lastname }}" required>
                                     </div>
 
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Số điện thoại</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Số điện thoại</label>
                                         <input type="text" class="form-control rounded" name="phone" value="{{ $employee->phone }}">
                                     </div>
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Email</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Email</label>
                                         <input type="text" class="form-control rounded" name="email" value="{{ $employee->user->email }}" readonly>
                                     </div>
 
                                     {{-- Địa chỉ & giới tính --}}
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Địa chỉ</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Địa chỉ</label>
                                         <input type="text" class="form-control rounded" name="address" value="{{ $employee->address }}">
                                     </div>
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Giới tính</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Giới tính</label>
                                         <select name="gender" class="custom-select rounded">
                                             <option value="">Chọn giới tính</option>
                                             <option value="male" {{ $employee->gender == 'male' ? 'selected' : '' }}>Nam</option>
@@ -81,15 +81,15 @@
                                     </div>
 
                                     {{-- Ngày sinh --}}
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Ngày sinh</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Ngày sinh</label>
                                         <input type="date" class="form-control rounded" name="date_of_birth" value="{{ $employee->date_of_birth }}">
                                     </div>
 
                                     {{-- Chức danh & Địa điểm (nếu dùng location_id) --}}
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Chức danh (Designation)</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Chức danh (Designation)</label>
                                         <input type="text" class="form-control rounded" name="designation" value="{{ $employee->designation }}">
                                     </div>
-                                    <div class="col-xl-6"><label class="text-dark ft-medium">Địa điểm (Location)</label>
+                                    <div class="col-xl-6"><label class="text-dark ft-medium" style="margin-top: 10px">Địa điểm (Location)</label>
                                         <select name="location_id" class="custom-select rounded">
                                             <option value="">Chọn địa điểm</option>
                                             @foreach($locations as $location)
@@ -102,7 +102,7 @@
 
                                     {{-- Giới thiệu bản thân --}}
                                     <div class="col-xl-12">
-                                        <label class="text-dark ft-medium">Giới thiệu bản thân</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 10px">Giới thiệu bản thân</label>
                                         <textarea name="bio" class="form-control with-light">{{ old('bio', $employee->bio) }}</textarea>
                                     </div>
 
@@ -133,28 +133,28 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label class="text-dark ft-medium">Website</label>
+                                    <label class="text-dark ft-medium" style="margin-top: 10px">Website</label>
                                     <input type="url" name="website" class="form-control rounded" placeholder="https://www.yoursite.com" value="{{ old('website', $employee->website) }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label class="text-dark ft-medium">Facebook</label>
+                                    <label class="text-dark ft-medium" style="margin-top: 10px">Facebook</label>
                                     <input type="url" name="facebook" class="form-control rounded" placeholder="https://www.facebook.com/" value="{{ old('facebook', $employee->facebook) }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label class="text-dark ft-medium">Instagram</label>
+                                    <label class="text-dark ft-medium" style="margin-top: 10px">Instagram</label>
                                     <input type="url" name="instagram" class="form-control rounded" placeholder="https://www.instagram.com/" value="{{ old('instagram', $employee->instagram) }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label class="text-dark ft-medium">GitHub</label>
+                                    <label class="text-dark ft-medium" style="margin-top: 10px">GitHub</label>
                                     <input type="url" name="github" class="form-control rounded" placeholder="https://www.github.com/" value="{{ old('github', $employee->github) }}">
                                 </div>
                             </div>

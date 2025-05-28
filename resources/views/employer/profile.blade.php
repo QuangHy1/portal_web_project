@@ -50,13 +50,13 @@
                                         {{-- Họ và tên --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Họ*</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Họ*</label>
                                                 <input type="text" name="firstname" class="form-control rounded @error('firstname') is-invalid @enderror" value="{{ old('firstname', Auth::guard('employer')->user()->employer->firstname) }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Tên*</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Tên*</label>
                                                 <input type="text" name="lastname" class="form-control rounded @error('lastname') is-invalid @enderror" value="{{ old('lastname', Auth::guard('employer')->user()->employer->lastname) }}">
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
                                         {{-- Giới tính --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Giới Tính</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Giới Tính</label>
                                                 <select name="gender" class="custom-select rounded @error('gender') is-invalid @enderror">
                                                     <option value="Nam" {{ optional(Auth::guard('employer')->user()->employer)->gender == 'Nam' ? 'selected' : '' }}>Nam</option>
                                                     <option value="Nữ" {{ optional(Auth::guard('employer')->user()->employer)->gender == 'Nữ' ? 'selected' : '' }}>Nữ</option>
@@ -76,7 +76,7 @@
                                         {{-- Ngày sinh --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Ngày Sinh</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Ngày Sinh</label>
                                                 <input type="date" name="date_of_birth" class="form-control rounded @error('date_of_birth') is-invalid @enderror" value="{{ old('date_of_birth', Auth::guard('employer')->user()->employer->date_of_birth) }}">
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                                         {{-- Tên công ty --}}
                                         <div class="col-xl-12 col-lg-12">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Tên Doanh Nghiệp/Công Ty*</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Tên Doanh Nghiệp/Công Ty*</label>
                                                 <input type="text" name="company_name" class="form-control rounded @error('company_name') is-invalid @enderror" value="{{ old('company_name', optional(Auth::guard('employer')->user()->employer->company)->name) }}">
                                             </div>
                                         </div>
@@ -92,13 +92,13 @@
                                         {{-- Username và Email (readonly) --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Tên Tài Khoản(Username)*</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Tên Tài Khoản(Username)*</label>
                                                 <input type="text" disabled class="form-control rounded" value="{{ Auth::guard('employer')->user()->username }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Email*</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Email*</label>
                                                 <input type="email" disabled class="form-control rounded" value="{{ Auth::guard('employer')->user()->email }}">
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                         {{-- Số điện thoại --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Số điện thoại</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Số điện thoại</label>
                                                 <input type="number" name="phone" class="form-control rounded @error('phone') is-invalid @enderror" value="{{ old('phone', Auth::guard('employer')->user()->employer->phone) }}">
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                                         {{-- Địa chỉ chi tiết --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Địa chỉ</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Địa chỉ</label>
                                                 <input type="text" name="address" class="form-control rounded @error('address') is-invalid @enderror" value="{{ old('address', Auth::guard('employer')->user()->employer->address) }}">
                                             </div>
                                         </div>
@@ -122,7 +122,7 @@
                                         {{-- Khu vực --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Trụ Sở Công Ty</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Trụ Sở Công Ty</label>
                                                 <input type="text" name="company_location"
                                                        class="form-control rounded @error('company_location') is-invalid @enderror"
                                                        value="{{ optional(Auth::guard('employer')->user()->employer->company)->location }}"
@@ -136,7 +136,7 @@
                                         {{-- Ngành nghề --}}
                                         <div class="col-xl-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Lĩnh Vực</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Lĩnh Vực</label>
                                                 <select name="industry_id" class="custom-select rounded @error('industry_id') is-invalid @enderror" data-live-search="true">
                                                     <option value="">Select Company Industry</option>
                                                     @foreach($industries as $ind)
@@ -149,7 +149,7 @@
                                         {{-- Giới thiệu --}}
                                         <div class="col-xl-12 col-lg-12">
                                             <div class="form-group">
-                                                <label class="text-dark ft-medium">Thông Tin Về Tôi</label>
+                                                <label class="text-dark ft-medium" style="margin-top: 15px">Thông Tin Về Tôi</label>
                                                 <textarea name="about" class="form-control with-light @error('about') is-invalid @enderror">{{ old('about', Auth::guard('employer')->user()->employer->about) }}</textarea>
                                             </div>
                                         </div>
@@ -183,43 +183,43 @@
                                 @csrf
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Thứ 2</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Thứ 2</label>
                                         <input type="text" name="monday" class="form-control rounded" placeholder="10 AM - 6 PM" value="{{ Auth::guard('employer')->user()->employer->hours_monday }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Thứ 3</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Thứ 3</label>
                                         <input type="text" name="tuesday" class="form-control rounded" placeholder="10 AM - 6 PM" value="{{ Auth::guard('employer')->user()->employer->hours_tuesday }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Thứ 4</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Thứ 4</label>
                                         <input type="text" name="wednesday" class="form-control rounded" placeholder="10 AM - 6 PM" value="{{ Auth::guard('employer')->user()->employer->hours_wednesday }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Thứ 5</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Thứ 5</label>
                                         <input type="text" name="thursday" class="form-control rounded" placeholder="10 AM - 6 PM" value="{{ Auth::guard('employer')->user()->employer->hours_thursday }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Thứ 6</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Thứ 6</label>
                                         <input type="text" name="friday" class="form-control rounded" placeholder="10 AM - 6 PM" value="{{ Auth::guard('employer')->user()->employer->hours_friday }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Thứ 7</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Thứ 7</label>
                                         <input type="text" name="saturday" class="form-control rounded" placeholder="Closed" value="{{ Auth::guard('employer')->user()->employer->hours_saturday }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Chủ Nhật</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Chủ Nhật</label>
                                         <input type="text" name="sunday" class="form-control rounded" placeholder="10 AM - 6 PM" value="{{ Auth::guard('employer')->user()->employer->hours_sunday }}">
                                     </div>
                                 </div>
@@ -247,19 +247,19 @@
                                 @csrf
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Facebook</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Facebook</label>
                                         <input type="text" name="facebook" class="form-control rounded" placeholder="https://www.facebook.com/" value="{{ Auth::guard('employer')->user()->employer->facebook }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Instagram</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Instagram</label>
                                         <input type="text" name="instagram" class="form-control rounded" placeholder="https://www.instagram.com/" value="{{ Auth::guard('employer')->user()->employer->instagram }}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Github</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Github</label>
                                         <input type="text" name="github" class="form-control rounded" placeholder="https://www.github.com/" value="{{ Auth::guard('employer')->user()->employer->github }}">
                                     </div>
                                 </div>
@@ -290,7 +290,7 @@
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Số Điện Thoại*</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Số Điện Thoại*</label>
                                         <input type="text" name="phone" class="form-control rounded @error('phone') is-invalid @enderror"
                                                value="{{ Auth::guard('employer')->user()->employer->phone }}" >
                                         @error('phone')
@@ -301,7 +301,7 @@
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Vị Trí*</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Vị Trí*</label>
                                         <select name="location_id" class="custom-select rounded @error('location_id') is-invalid @enderror" >
                                             <option value="">Chọn</option>
                                             @foreach($locations as $location)
@@ -319,7 +319,7 @@
 
                                 <div class="col-xl-12 col-lg-12">
                                     <div class="form-group">
-                                        <label class="text-dark ft-medium">Địa Chỉ*</label>
+                                        <label class="text-dark ft-medium" style="margin-top: 15px">Địa Chỉ*</label>
                                         <input type="text" name="address" class="form-control rounded @error('address') is-invalid @enderror"
                                                value="{{ Auth::guard('employer')->user()->employer->address }}" >
                                         @error('address')
