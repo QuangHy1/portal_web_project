@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Danh sách Danh mục Nghề nghiệp</h2>
+        <h2>Danh sách danh mục Ngành Nghề</h2>
 
         <div class="d-flex justify-content-between align-items-center my-3">
             <div class="col-md-6 mx-auto">

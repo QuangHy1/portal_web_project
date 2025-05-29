@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Thêm mới Vị trí Tuyển dụng')
+@section('title', 'Thêm mới Vị trí Trống')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/vacancies/create.css') }}">
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Thêm mới Vị trí Tuyển dụng</h2>
+        <h2>Thêm mới Vị trí Trống</h2>
 
         <form action="{{ route('admin.vacancies.store') }}" method="POST">
             @csrf

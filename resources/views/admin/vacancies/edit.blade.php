@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Chỉnh sửa Vị trí Tuyển dụng')
+@section('title', 'Chỉnh sửa Vị trí Trống')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/vacancies/edit.css') }}">
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Chỉnh sửa Vị trí Tuyển dụng</h2>
+        <h2>Chỉnh sửa Vị trí Trống</h2>
 
         <form action="{{ route('admin.vacancies.update', $vacancy->id) }}" method="POST">
             @csrf

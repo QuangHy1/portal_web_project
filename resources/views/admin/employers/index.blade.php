@@ -21,7 +21,7 @@
                     </button>
                 </form>
             </div>
-            <a href="{{ route('admin.employers.create') }}" class="btn btn-success">
+            <a href="{{ route('admin.employers.create') }}" class="btn btn-success" style="margin-right: 10px">
                 + THÊM
             </a>
             <a href="{{ route('admin.employers.verify_list') }}" class="btn btn-warning">Duyệt</a>

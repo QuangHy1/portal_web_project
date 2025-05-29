@@ -88,15 +88,7 @@
 
                 <button type="submit" class="btn">Đăng nhập</button>
 
-                <!-- Hoặc đăng nhập bằng -->
-                <div class="social-login">
-                    <p> -- Hoặc đăng nhập bằng --</p>
-                    <div class="social-buttons">
-                        <a href="#" class="social-btn google"><i class='bx bxl-google'></i> Google</a>
-                        <a href="#" class="social-btn facebook"><i class='bx bxl-facebook'></i> Facebook</a>
-                        <a href="#" class="social-btn linkedin"><i class='bx bxl-linkedin'></i> LinkedIn</a>
-                    </div>
-                </div>
+
 
                 <div class="create-account">
                     <p>Bạn chưa có tài khoản? <a href="#" class="register-link">Đăng kí ngay</a></p>

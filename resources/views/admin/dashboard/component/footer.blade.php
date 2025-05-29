@@ -11,16 +11,16 @@
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
                         <a href="#" class="text-body-secondary">
-                            Liên hệ
+                            Liên hệ: 0359109658
                         </a>
                     </li>
+{{--                    <li class="list-inline-item">--}}
+{{--                        <a href="#" class="text-body-secondary">--}}
+{{--                            Về chúng tôi--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="list-inline-item">
-                        <a href="#" class="text-body-secondary">
-                            Về chúng tôi
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="text-body-secondary">
+                        <a href="{{ route('terms') }}" class="text-body-secondary">
                             Chính sách và điều khoản
                         </a>
                     </li>

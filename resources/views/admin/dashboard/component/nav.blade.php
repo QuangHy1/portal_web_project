@@ -19,7 +19,7 @@
                     @if ($pendingAccountCount > 0)
                         <li>
                             <a class="dropdown-item d-flex justify-content-between align-items-center text-primary fw-bold"
-                               href="{{ route('admin.account.approve.list') }}">
+                               href="{{ route('admin.users.approve.list') }}">
                                 {{ $pendingAccountCount }} tài khoản đang chờ duyệt
                                 <i class="bx bx-chevron-right"></i>
                             </a>

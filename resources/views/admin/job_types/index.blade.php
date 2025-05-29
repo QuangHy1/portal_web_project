@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Quản lý Loại hình Công việc')
+@section('title', 'Quản lý Hình thức làm việc')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/job_types/index.css') }}">
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Danh sách Loại hình Công việc</h2>
+        <h2>Danh sách Hình thức làm việc</h2>
 
         <div class="d-flex justify-content-between align-items-center my-3">
             <div class="col-md-6 mx-auto">
