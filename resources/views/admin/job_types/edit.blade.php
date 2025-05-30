@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Chỉnh sửa Loại hình Công việc')
+@section('title', 'Chỉnh sửa Hình thức làm việc')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/job_types/edit.css') }}">
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Chỉnh sửa Loại hình Công việc</h2>
+        <h2>Chỉnh sửa Hình thức làm việc</h2>
 
         <form action="{{ route('admin.job_types.update', $jobType->id) }}" method="POST">
             @csrf

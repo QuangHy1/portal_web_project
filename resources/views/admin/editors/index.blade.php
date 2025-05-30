@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container py-4">
-        <h2 class="my-4 text-center">Danh sách Editor</h2>
+        <h2 class="text-center">Danh sách Editor</h2>
 
         <div class="d-flex justify-content-center mb-4">
             <form action="{{ route('admin.editors.index') }}" method="GET" class="input-group input-group-navbar input-search-acc w-75">

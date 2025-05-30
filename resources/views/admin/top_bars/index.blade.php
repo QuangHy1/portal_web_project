@@ -32,40 +32,41 @@
             </div>
         @endif
 
-        <table class="table table-bordered">
-            <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Topbar Contact</th>
-                <th>Topbar Center Text</th>
-                <th>Ẩn</th>
-                <th>Ngày tạo</th>
-                <th>Ngày cập nhật</th>
-                <th>Thao tác</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($topBars as $topBar)
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark">
                 <tr>
-                    <td>{{ $topBar->id }}</td>
-                    <td>{{ $topBar->topbar_contact }}</td>
-                    <td>{{ $topBar->topbar_center_text }}</td>
-                    <td>{{ $topBar->isHidden ? 'Có' : 'Không' }}</td>
-                    <td>{{ $topBar->created_at->format('d/m/Y H:i:s') }}</td>
-                    <td>{{ $topBar->updated_at->format('d/m/Y H:i:s') }}</td>
-                    <td>
-                        <a href="{{ route('admin.top_bars.edit', $topBar->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                        <form action="{{ route('admin.top_bars.destroy', $topBar->id) }}" method="POST" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Topbar Contact</th>
+                    <th>Topbar Center Text</th>
+                    <th>Ẩn</th>
+                    <th>Ngày tạo</th>
+                    <th>Ngày cập nhật</th>
+                    <th>Thao tác</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                @foreach ($topBars as $topBar)
+                    <tr>
+                        <td>{{ $topBar->id }}</td>
+                        <td>{{ $topBar->topbar_contact }}</td>
+                        <td>{{ $topBar->topbar_center_text }}</td>
+                        <td>{{ $topBar->isHidden ? 'Có' : 'Không' }}</td>
+                        <td>{{ $topBar->created_at->format('d/m/Y H:i:s') }}</td>
+                        <td>{{ $topBar->updated_at->format('d/m/Y H:i:s') }}</td>
+                        <td>
+                            <a href="{{ route('admin.top_bars.edit', $topBar->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                            <form action="{{ route('admin.top_bars.destroy', $topBar->id) }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center">
             {{ $topBars->appends(['keyword' => $keyword ?? ''])->links('pagination::bootstrap-5') }}
         </div>

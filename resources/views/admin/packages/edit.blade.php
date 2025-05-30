@@ -28,7 +28,7 @@
                 <input type="number" class="form-control" id="price" name="price" value="{{ $package->price }}" required min="0">
             </div>
             <div class="form-group">
-                <label for="duration">Thời hạn</label>
+                <label for="duration">Số đơn vị</label>
                 <input type="number" class="form-control" id="duration" name="duration" value="{{ $package->duration }}" required min="1">
             </div>
             <div class="form-group">

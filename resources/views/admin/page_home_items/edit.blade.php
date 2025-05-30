@@ -16,7 +16,7 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label for="heading" class="form-label">Heading</label>
+                <label for="heading" class="form-label">Tiêu đề</label>
                 <input type="text" class="form-control" id="heading" name="heading"
                        value="{{ old('heading', $pageHomeItem->heading) }}" required>
                 @error('heading')
@@ -25,7 +25,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label">Mô tả</label>
                 <textarea class="form-control" id="description" name="description"
                           rows="3">{{ old('description', $pageHomeItem->description) }}</textarea>
                 @error('description')
@@ -34,7 +34,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
+                <label for="image" class="form-label">Ảnh</label>
                 <input type="file" class="form-control" id="image" name="image">
                 @error('image')
                 <div class="text-danger">{{ $message }}</div>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="job_placeholder" class="form-label">Job Placeholder</label>
+                <label for="job_placeholder" class="form-label">Công việc Placeholder</label>
                 <input type="text" class="form-control" id="job_placeholder" name="job_placeholder"
                        value="{{ old('job_placeholder', $pageHomeItem->job_placeholder) }}" required>
                 @error('job_placeholder')
@@ -55,7 +55,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="job_button" class="form-label">Job Button</label>
+                <label for="job_button" class="form-label">Nút</label>
                 <input type="text" class="form-control" id="job_button" name="job_button"
                        value="{{ old('job_button', $pageHomeItem->job_button) }}" required>
                 @error('job_button')
@@ -64,7 +64,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="location_placeholder" class="form-label">Location Placeholder</label>
+                <label for="location_placeholder" class="form-label">Địa điểm Placeholder</label>
                 <input type="text" class="form-control" id="location_placeholder" name="location_placeholder"
                        value="{{ old('location_placeholder', $pageHomeItem->location_placeholder) }}" required>
                 @error('location_placeholder')
@@ -73,7 +73,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="category_placeholder" class="form-label">Category Placeholder</label>
+                <label for="category_placeholder" class="form-label">Danh mục Placeholder</label>
                 <input type="text" class="form-control" id="category_placeholder" name="category_placeholder"
                        value="{{ old('category_placeholder', $pageHomeItem->category_placeholder) }}" required>
                 @error('category_placeholder')
@@ -82,7 +82,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="job_category_heading" class="form-label">Job Category Heading</label>
+                <label for="job_category_heading" class="form-label">Tiêu đề danh mục</label>
                 <input type="text" class="form-control" id="job_category_heading" name="job_category_heading"
                        value="{{ old('job_category_heading', $pageHomeItem->job_category_heading) }}" required>
                 @error('job_category_heading')
@@ -91,7 +91,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="job_category_description" class="form-label">Job Category Description</label>
+                <label for="job_category_description" class="form-label">Mô tả danh mục</label>
                 <textarea class="form-control" id="job_category_description" name="job_category_description"
                           rows="3">{{ old('job_category_description', $pageHomeItem->job_category_description) }}</textarea>
                 @error('job_category_description')
@@ -100,7 +100,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="job_category_status" class="form-label">Job Category Status</label>
+                <label for="job_category_status" class="form-label">Trạng thái danh mục</label>
                 <input type="text" class="form-control" id="job_category_status" name="job_category_status"
                        value="{{ old('job_category_status', $pageHomeItem->job_category_status) }}" required>
                 @error('job_category_status')

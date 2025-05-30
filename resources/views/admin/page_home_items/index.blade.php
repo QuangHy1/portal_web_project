@@ -35,16 +35,16 @@
                 <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Heading</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Job Placeholder</th>
-                    <th>Job Button</th>
-                    <th>Location Placeholder</th>
-                    <th>Category Placeholder</th>
-                    <th>Job Category Heading</th>
-                    <th>Job Category Description</th>
-                    <th>Job Category Status</th>
+                    <th>Tiêu đề</th>
+                    <th>Mô tả</th>
+                    <th>Ảnh</th>
+                    <th>Tên công việc Placeholder</th>
+                    <th>Nút</th>
+                    <th>Địa điểm Placeholder</th>
+                    <th>Danh mục Placeholder</th>
+                    <th>Tiêu đề danh mục</th>
+                    <th>Mô tả danh mục</th>
+                    <th>Trạng thái danh mục</th>
                     <th>Ngày tạo</th>
                     <th>Ngày cập nhật</th>
                     <th>Thao tác</th>

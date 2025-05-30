@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Thêm mới Loại hình Công việc')
+@section('title', 'Thêm mới Hình thức làm việc')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/job_types/create.css') }}">
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Thêm mới Loại hình Công việc</h2>
+        <h2>Thêm mới Hình thức làm việc</h2>
 
         <form action="{{ route('admin.job_types.store') }}" method="POST">
             @csrf

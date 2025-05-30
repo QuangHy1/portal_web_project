@@ -34,48 +34,50 @@
             </div>
         @endif
 
-        <table class="table table-bordered">
-            <thead class="table-dark">
-            <tr>
-                <th>Địa chỉ</th>
-                <th>Điện thoại</th>
-                <th>Email</th>
-                <th>Facebook</th>
-                <th>Twitter</th>
-                <th>Instagram</th>
-                <th>LinkedIn</th>
-                <th>YouTube</th>
-                <th>Bản quyền</th>
-                <th>Thao tác</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($footerContents as $footerContent)
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead class="table-dark">
                 <tr>
-                    <td>{{ $footerContent->address }}</td>
-                    <td>{{ $footerContent->phone }}</td>
-                    <td>{{ $footerContent->email }}</td>
-                    <td>{{ $footerContent->facebook }}</td>
-                    <td>{{ $footerContent->twitter }}</td>
-                    <td>{{ $footerContent->instagram }}</td>
-                    <td>{{ $footerContent->linkedin }}</td>
-                    <td>{{ $footerContent->youtube }}</td>
-                    <td>{{ $footerContent->copyright_text }}</td>
-                    <td>
-                        <a href="{{ route('admin.footer_contents.edit', $footerContent->id) }}"
-                           class="btn btn-sm btn-warning">Sửa</a>
-                        <form action="{{ route('admin.footer_contents.destroy', $footerContent->id) }}" method="POST" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
-                                Xóa
-                            </button>
-                        </form>
-                    </td>
+                    <th>Địa chỉ</th>
+                    <th>Điện thoại</th>
+                    <th>Email</th>
+                    <th>Facebook</th>
+                    <th>Twitter</th>
+                    <th>Instagram</th>
+                    <th>LinkedIn</th>
+                    <th>YouTube</th>
+                    <th>Bản quyền</th>
+                    <th>Thao tác</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach ($footerContents as $footerContent)
+                    <tr>
+                        <td>{{ $footerContent->address }}</td>
+                        <td>{{ $footerContent->phone }}</td>
+                        <td>{{ $footerContent->email }}</td>
+                        <td>{{ $footerContent->facebook }}</td>
+                        <td>{{ $footerContent->twitter }}</td>
+                        <td>{{ $footerContent->instagram }}</td>
+                        <td>{{ $footerContent->linkedin }}</td>
+                        <td>{{ $footerContent->youtube }}</td>
+                        <td>{{ $footerContent->copyright_text }}</td>
+                        <td>
+                            <a href="{{ route('admin.footer_contents.edit', $footerContent->id) }}"
+                               class="btn btn-sm btn-warning">Sửa</a>
+                            <form action="{{ route('admin.footer_contents.destroy', $footerContent->id) }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
+                                    Xóa
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center">
             {{ $footerContents->appends(['keyword' => $keyword ?? ''])->links('pagination::bootstrap-5') }}
         </div>

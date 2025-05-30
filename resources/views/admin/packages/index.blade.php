@@ -41,7 +41,7 @@
                 <th>STT</th>
                 <th>Tên</th>
                 <th>Giá</th>
-                <th>Thời hạn</th>
+                <th>Số đơn vị</th>
                 <th>Đơn vị thời gian</th>
                 <th>Số lượng tin</th>
                 <th>Số lượng tin nổi bật</th>

@@ -83,7 +83,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="bi bi-geo-alt"></i> Location</th>
+                        <th><i class="bi bi-geo-alt"></i> Địa điểm</th>
                         <td>
                             <select name="location_id" class="form-select">
                                 <option value="">--Chọn Location--</option>

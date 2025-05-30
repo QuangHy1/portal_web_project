@@ -38,7 +38,7 @@
         <div class="row">
             @foreach ($hirings as $hiring)
                 <div class="col-md-6 col-lg-4">
-                    <div class="hiring-card">
+                    <div class="hiring-card ">
                         <div class="hiring-title">
                             {{ \Illuminate\Support\Str::limit($hiring->title, 60, '...') }}
                         </div>

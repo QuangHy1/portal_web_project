@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layout')
 
-@section('title', 'Thêm mới Vị trí Tuyển dụng')
+@section('title', 'Thêm mới Tin tuyển dụng')
 
 @section('custom_css')
     <link rel="stylesheet" href="{{ asset('admin/css/hirings/create.css') }}">
@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Thêm mới Vị trí Tuyển dụng</h2>
+        <h2>Thêm mới Tin tuyển dụng</h2>
 
         <form action="{{ route('admin.hirings.store') }}" method="POST">
             @csrf
