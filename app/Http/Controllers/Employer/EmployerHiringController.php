@@ -263,7 +263,11 @@ class EmployerHiringController extends Controller
 
         $hiring->isBoosted = 'yes';
         $hiring->save();
+        $exists = BoostedJob::where('hiring_id', $hiring->id)->exists();
 
+        if ($exists) {
+            return redirect()->back()->with('error', 'Tin này đã được boost.');
+        }
         BoostedJob::create([
             'hiring_id' => $hiring->id,
             'employer_id' => $employer->id,
