@@ -40,7 +40,7 @@
 
                             <p class="border bg-light p-3 mb-4 no-select"><strong>TÔI ĐỒNG Ý XÓA TÀI KHOẢN.</strong></p>
 
-                            <form action="{{ route('admin.employee.delete', auth()->user()->employee->id) }}" method="POST">
+                            <form action="{{ route('admin.employee.delete', Auth::guard('employee')->user()->id) }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="confirm-text">Nhập:</label>

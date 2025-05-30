@@ -7,12 +7,12 @@
         <div class="dashboard-tlbar d-block mb-5">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12">
-                    <h1 class="ft-medium">Post A New Job</h1>
+                    <h1 class="ft-medium">Chỉnh sửa Tin</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}">Home</a></li>
                             <li class="breadcrumb-item text-muted"><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="#" class="theme-cl">Đăng Tin</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="theme-cl">Chỉnh sửa Tin</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="_dashboard_content bg-white rounded mb-4">
                         <div class="_dashboard_content_header br-bottom py-3 px-3">
                             <div class="_dashboard__header_flex">
-                                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file mr-1 theme-cl fs-sm"></i>Đăng Tin Tuyển Dụng</h4>
+                                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file mr-1 theme-cl fs-sm"></i>Chỉnh sư Tin Tuyển Dụng</h4>
                             </div>
                         </div>
 
@@ -220,5 +220,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 @endsection
