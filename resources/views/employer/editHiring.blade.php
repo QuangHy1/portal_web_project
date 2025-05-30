@@ -143,7 +143,7 @@
                                         <div class="col-xl-6 col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="text-dark ft-medium">Trình Độ*</label>
-                                                <p>Giá trị hiện tại: {{ old('education', $hiring->education) }}</p>
+                                                <p>Trình độ hiện tại: {{ old('education', $hiring->education) }}</p>
                                                 <select name="education" class="form-control rounded @error('education') is-invalid @enderror">
                                                     <option value="">Chọn</option>
                                                     @foreach(['Đại học', 'Thạc sĩ, Đại học', 'Trung Cấp', 'Tốt nghiệp THPT', 'Cao Đẳng', 'Không'] as $option)

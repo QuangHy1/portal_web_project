@@ -8,7 +8,7 @@
         <div class="dashboard-tlbar d-block mb-5">
             <div class="row">
                 <div class="colxl-12 col-lg-12 col-md-12">
-                    <h1 class="ft-medium">Change Password</h1>
+                    <h1 class="ft-medium">Đổi Mật Khẩu</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}">Home</a></li>
