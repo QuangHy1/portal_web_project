@@ -8,12 +8,12 @@
         <div class="dashboard-tlbar d-block mb-5">
             <div class="row">
                 <div class="colxl-12 col-lg-12 col-md-12">
-                    <h1 class="ft-medium">Tin Đã Apply</h1>
+                    <h1 class="ft-medium">Tin Đã Ứng Tuyển</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item text-muted"><a href="{{ route('home') }}">Home</a></li>
                             <li class="breadcrumb-item text-muted"><a href="{{ route('employee.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="#" class="theme-cl">Apply</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="theme-cl">Tin Đã Ứng Tuyển</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -71,7 +71,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                       <th scope="col">Tiêu Đề</th>
-                                      <th scope="col">Status</th>
+                                      <th scope="col">Trạng thái</th>
                                       <th scope="col">Ngày Apply</th>
                                       <th scope="col">Thao Tác</th>
                                     </tr>

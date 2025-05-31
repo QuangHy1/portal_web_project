@@ -61,7 +61,7 @@
                             <thead class="thead-dark">
                                 <tr>
                                   <th scope="col">Tiêu Đề</th>
-                                  <th scope="col">Status</th>
+                                  <th scope="col">Trạng thái</th>
                                     <th scope="col">Hạn Apply</th>
                                   <th scope="col">Thao Tác</th>
                                 </tr>
