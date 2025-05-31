@@ -56,80 +56,57 @@
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
-		@php
-		$data = App\Models\EmployeeApplication::with('hiring', 'employee')->whereHas('hiring', function($query){ $query->where('company_id', auth()->id());})->get();
-		$count = 1;
-		@endphp
-		@foreach($data as $datas)
-		<div class="modal fade" id="details{{ $datas->id }}" tabindex="-1" role="dialog" aria-labelledby="messagemodal" aria-hidden="true">
-			<div class="modal-dialog modal-xl login-pop-form" role="document">
-				<div class="modal-content" id="messagemodal">
-					<div class="modal-headers">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						  <span class="ti-close"></span>
-						</button>
-					  </div>
+                    @php
+                        $applications = App\Models\EmployeeApplication::with('hiring', 'employee')->whereHas('hiring', function($query){
+                            $query->where('company_id', auth()->id());
+                        })->get();
+                    @endphp
 
-					<div class="modal-body p-5">
+                    @foreach($applications as $application)
+                        <!-- Modal Chi Tiết -->
+                        <div class="modal fade" id="details{{ $application->id }}" tabindex="-1" role="dialog" aria-labelledby="detailsLabel{{ $application->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-xl login-pop-form" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header"> <!-- Sửa tên class từ 'modal-headers' -> 'modal-header' -->
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span class="ti-close"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body p-5">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr><th>Họ và tên</th><td>{{ $application->employee->firstname }} {{ $application->employee->lastname }}</td></tr>
+                                            <tr><th>Email</th><td>{{ $application->employee->user->email }}</td></tr>
+                                            <tr><th>Vị trí chỉ định</th><td>{{ $application->employee->designation }}</td></tr>
+                                            <tr><th>Số điện thoại</th><td>{{ $application->employee->phone }}</td></tr>
+                                            <tr><th>Ngày sinh</th><td>{{ $application->employee->date_of_birth }}</td></tr>
+                                            <tr><th>Mô tả</th><td>{{ $application->employee->bio }}</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						<table class="table">
-							<tbody>
-							  <tr>
-								<th>Họ và tên</th>
-								<td>{{ $datas->employee->firstname }} {{ $datas->employee->lastname }}</td>
+                        <!-- Modal Lời Nhắn -->
+                        <div class="modal fade" id="cover{{ $application->id }}" tabindex="-1" role="dialog" aria-labelledby="coverLabel{{ $application->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-xl login-pop-form" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span class="ti-close"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body p-5">
+                                        {{ $application->cover_letter }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
 
-							  </tr>
-							  <tr>
-								<th>Email</th>
-								<td>{{ $datas->employee->user->email }}</td>
 
-							  </tr>
-							  <tr>
-								<th>Vị trí chỉ định</th>
-								<td>{{ $datas->employee->designation }}</td>
-
-							  </tr>
-							  <tr>
-								<th>Số điện thoại</th>
-								<td>{{ $datas->employee->phone }}</td>
-
-							  </tr>
-							  <tr>
-								<th>Ngày sinh</th>
-								<td>{{ $datas->employee->date_of_birth }}</td>
-
-							  </tr>
-							  <tr>
-								<th>Mô tả</th>
-								<td>{{ $datas->employee->bio }}</td>
-
-							  </tr>
-							</tbody>
-						  </table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="cover{{ $datas->id }}" tabindex="-1" role="dialog" aria-labelledby="informationmodal" aria-hidden="true">
-			<div class="modal-dialog modal-xl login-pop-form" role="document">
-				<div class="modal-content" id="messagemodal">
-					<div class="modal-headers">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						  <span class="ti-close"></span>
-						</button>
-					  </div>
-
-					<div class="modal-body p-5">
-						{{ $datas->cover_letter }}
-					</div>
-				</div>
-			</div>
-		</div>
-		@php
-		$count++;
-		@endphp
-		@endforeach
-		<script>
+         <script>
 			// Get the current hour of the day
 			const currentTime = new Date().getHours();
 

@@ -102,7 +102,7 @@
                                                     </span>
                                                 @elseif($item->isBoosted == 'yes')
                                                     <span class="p-2 bg-info text-white d-inline-flex align-items-center justify-content-center">
-                                                            Boost được áp dụng
+                                                            Đang được Boost
                                                         </span>
                                                 @else
                                                     <span class="p-2 bg-warning text-white d-inline-flex align-items-center justify-content-center">

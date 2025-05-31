@@ -15,11 +15,12 @@ class JobController extends Controller
     }
     public function jobDetails($id)
     {
-        $jobPost =  Hiring::where('id', $id)->where('status', 'active')->first();
+        $jobPost = Hiring::where('id', $id)->where('status', 'active')->firstOrFail();
 
-        // $jobPost->view_count = $blogPost->view_count + 1;
-        // $jobPost->update();
-        $relatedJobs = Hiring::where('job_category_id', $jobPost->job_category_id)->where('id', '!=', $jobPost->id)->get()->take(3);
+        $relatedJobs = Hiring::where('job_category_id', $jobPost->job_category_id)
+            ->where('id', '!=', $jobPost->id)
+            ->take(3)
+            ->get();
 
         return view('frontend.singlehiring', compact('jobPost', 'relatedJobs'));
     }

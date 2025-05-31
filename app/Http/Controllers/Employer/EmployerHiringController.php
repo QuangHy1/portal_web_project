@@ -97,21 +97,32 @@ class EmployerHiringController extends Controller
 
     public function viewData(Request $request)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::guard('employer')->user();  // Đối tượng user, không phải employer
+        $user = Auth::guard('employer')->user();
+        $employer = $user->employer;
 
-        /** @var \App\Models\Employer $employer */
-        $employer = $user->employer; // Truy xuất thông tin employer từ quan hệ
-
-        // Kiểm tra có thông tin employer không
         if (!$employer) {
             return redirect()->back()->with('error', 'Không tìm thấy thông tin Employer.');
         }
 
-        // Lấy danh sách tin đăng của employer này
-        $hiring = Hiring::where('employer_id', $employer->id)->get();
+        // Khởi tạo query
+        $query = Hiring::where('employer_id', $employer->id);
 
-        // Lấy tất cả đơn ứng tuyển (bạn có thể lọc theo nhu cầu)
+        // Tìm kiếm theo tiêu đề
+        if ($request->has('search') && $request->search != '') {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // Lọc theo trạng thái boost
+        if ($request->has('boost') && in_array($request->boost, ['yes', 'no'])) {
+            $query->where('isBoosted', $request->boost);
+        }
+
+        // Phân trang (5 dòng mỗi trang)
+        $hiring = $query->orderBy('created_at', 'desc')->paginate(5);
+
+        // Giữ lại tham số khi chuyển trang
+        $hiring->appends($request->all());
+
         $applications = EmployeeApplication::all();
 
         return view('employer.listHiring', [
@@ -191,6 +202,8 @@ class EmployerHiringController extends Controller
             $boost->expires_at = null;
             $boost->save();
         }
+
+        
 
         // Dữ liệu như cũ
         $hirings = Hiring::where('employer_id', $employer->id)->get();

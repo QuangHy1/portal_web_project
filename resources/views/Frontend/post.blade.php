@@ -4,7 +4,16 @@
     {{ $blogPost->title }}
 @endsection
 @section('body_content')
-    <section class="page-title gray">
+    <style>
+        .article_body_wrap p {
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: unset !important;
+            display: block !important;
+        }
+    </style>
+
+    <section class="page-title gray" style="padding: 40px 0 40px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -24,8 +33,8 @@
             </div>
         </div>
     </section>
-    <section>
-        <div class="container">
+    <section style="padding: 15px 0 15px">
+        <div class="container" >
             <div class="row">
 
                 <!-- Blog Detail -->

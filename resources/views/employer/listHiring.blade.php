@@ -26,6 +26,19 @@
                 <div class="d-flex align-items-center p-3 alert alert-danger">
                     Tin Tuyển Dụng của bạn sẽ tự động bị xóa sau 30 ngày.
                 </div>
+
+                <div class="mb-3">
+                    <form action="{{ route('employer.hiring.list') }}" method="GET" class="mb-3 d-flex gap-2">
+                        <input type="text" name="search" class="form-control" placeholder="Tìm theo tiêu đề..." value="{{ request('search') }}">
+                        <select name="boost" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="yes" {{ request('boost') == 'yes' ? 'selected' : '' }}>Boost</option>
+                            <option value="no" {{ request('boost') == 'no' ? 'selected' : '' }}>Chưa Boost</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Tìm</button>
+                    </form>
+                </div>
+
                 <div class="mb-4 tbl-lg rounded overflow-hidden">
                     <div class="table-responsive bg-white">
                         <table class="table">
@@ -116,6 +129,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center" style="margin-bottom: 15px">
+                            {{ $hiring->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>

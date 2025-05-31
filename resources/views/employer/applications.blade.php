@@ -3,6 +3,19 @@
 @section('header_shadow')head-shadow @endsection
 @section('body_content')
     @include('Frontend.layouts.employerDashboardNav')
+    <style>
+
+        .modal-backdrop.show {
+            z-index: -1 !important;
+        }
+        .modal.show {
+            z-index: 1050 !important;
+            display: block;
+        }
+        .modal-content{
+            top: 85px;
+        }
+    </style>
 <div class="dashboard-content">
     <div class="dashboard-tlbar d-block mb-5">
         <div class="row">
@@ -120,6 +133,47 @@
                                     <a href="{{ route('employer.hiring.applicant.reject', $application->id) }}" class="btn gray ft-medium apply-btn fs-sm rounded"><i class="lni lni-trash-can mr-1"></i>Từ Chối</a>
                                 </div>
                             </div>
+                            <!-- Modal Chi Tiết -->
+                            <div class="modal fade" id="details{{ $application->id }}" tabindex="-1" role="dialog" aria-labelledby="detailsLabel{{ $application->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-xl login-pop-form" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header"> <!-- Sửa tên class từ 'modal-headers' -> 'modal-header' -->
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span class="ti-close"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body p-5">
+                                            <table class="table">
+                                                <tbody>
+                                                <tr><th>Họ và tên</th><td>{{ $application->employee->firstname }} {{ $application->employee->lastname }}</td></tr>
+                                                <tr><th>Email</th><td>{{ $application->employee->user->email }}</td></tr>
+                                                <tr><th>Vị trí chỉ định</th><td>{{ $application->employee->designation }}</td></tr>
+                                                <tr><th>Số điện thoại</th><td>{{ $application->employee->phone }}</td></tr>
+                                                <tr><th>Ngày sinh</th><td>{{ $application->employee->date_of_birth }}</td></tr>
+                                                <tr><th>Mô tả</th><td>{{ $application->employee->bio }}</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Lời Nhắn -->
+                            <div class="modal fade" id="cover{{ $application->id }}" tabindex="-1" role="dialog" aria-labelledby="coverLabel{{ $application->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-xl login-pop-form" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span class="ti-close"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body p-5">
+                                            {{ $application->cover_letter }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="dashed-list-footer p-3 br-top">
                             <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
