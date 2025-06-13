@@ -19,7 +19,6 @@ use App\Models\Experience;
 use App\Models\Vacancy;
 use App\Models\EmployeeApplication;
 use Illuminate\Support\Facades\Auth;
-use App\Mail\WebsiteMailController; // The WebMail class for sending emails
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -185,7 +184,7 @@ class EmployerHiringController extends Controller
             return redirect()->back()->with('error', 'Không tìm thấy thông tin nhà tuyển dụng.');
         }
 
-        // ✅ RESET BOOST NẾU HẾT HẠN
+        // RESET BOOST NẾU HẾT HẠN
         $expiredBoosts = BoostedJob::where('employer_id', $employer->id)
             ->where('expires_at', '<', now())
             ->get();
@@ -197,13 +196,13 @@ class EmployerHiringController extends Controller
                 $hiring->save();
             }
 
-            // ✅ Xoá ngày boost để view không hiển thị nữa
+            // Xoá ngày boost để view không hiển thị nữa
             $boost->boosted_at = null;
             $boost->expires_at = null;
             $boost->save();
         }
 
-        
+
 
         // Dữ liệu như cũ
         $hirings = Hiring::where('employer_id', $employer->id)->get();

@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12">
                 <div class="d-flex align-items-center p-3 alert alert-danger">
-                    Tin Tuyển Dụng của bạn sẽ tự động bị xóa sau 30 ngày.
+                    Tin Tuyển Dụng của bạn sẽ tự động bị xóa vào thời hạn quy định.
                 </div>
 
                 <div class="mb-3">
